@@ -145,17 +145,48 @@ def import_flow(name):
 
 
 # ------------------------------------------------------------------ voice
+# Kokoro TTS (Apache-2.0: fine for monetized videos). (voice, speed) per language.
+VOICE_KOKORO = {"en": ("af_heart", 1.08), "ja": ("jf_alpha", 1.0)}
+# Fallbacks only when .tts-venv is missing. Don't publish monetized videos with these (licence unclear / Apple: not allowed).
 VOICE_SAY = {"en": ("Samantha", "190"), "ja": ("Kyoko", "200")}
 VOICE_EDGE = {"en": "en-US-AnaNeural", "ja": "ja-JP-NanamiNeural"}
+TTS_PY = ROOT / ".tts-venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+_kokoro = None
+
+
+def _kokoro_say(text, lang, out):
+    """Ask the long-running Kokoro helper (tools/tts_kokoro.py serve) for one line. False if it failed."""
+    global _kokoro
+    if _kokoro is None:
+        _kokoro = subprocess.Popen([str(TTS_PY), str(ROOT / "tools" / "tts_kokoro.py"), "serve"],
+                                   stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, encoding="utf-8")
+    voice, speed = VOICE_KOKORO[lang]
+    _kokoro.stdin.write(json.dumps({"text": text, "lang": lang, "voice": voice, "speed": speed,
+                                    "out": str(out)}) + "\n")
+    _kokoro.stdin.flush()
+    ans = _kokoro.stdout.readline().strip()
+    if ans != "ok":
+        print(f"  !! Kokoro failed on '{text}': {ans}")
+    return ans == "ok"
+
+
+def voice_engine():
+    return "kokoro" if TTS_PY.exists() else ("say" if shutil.which("say") else "edge")
 
 
 def voice_clip(text, lang="en"):
-    key = hashlib.md5(f"{lang}|{text}".encode("utf-8")).hexdigest()[:14]
+    eng = voice_engine()
+    tag = f"kokoro|{'|'.join(map(str, VOICE_KOKORO[lang]))}|" if eng == "kokoro" else ""
+    key = hashlib.md5(f"{tag}{lang}|{text}".encode("utf-8")).hexdigest()[:14]
     wav = VOICES / f"{lang}_{key}.wav"
     if not wav.exists():
         VOICES.mkdir(exist_ok=True)
         tmp = VOICES / f"tmp_{key}"
-        if shutil.which("say"):                              # macOS built-in voices
+        if eng == "kokoro":
+            tmp = tmp.with_suffix(".wav")
+            if not _kokoro_say(text, lang, tmp):
+                sys.exit("Kokoro voice failed (see above). Fix .tts-venv, or delete it to use the fallback voice.")
+        elif shutil.which("say"):                            # macOS built-in voices
             v, rate = VOICE_SAY[lang]
             tmp = tmp.with_suffix(".aiff")
             subprocess.run(["say", "-v", v, "-r", rate, "-o", str(tmp), text], check=True)
@@ -173,6 +204,9 @@ def voice_clip(text, lang="en"):
 # ------------------------------------------------------------------ soundtrack
 def build_audio(tl, name):
     from synth import Synth
+    if voice_engine() != "kokoro":
+        print("  !! WARNING: Kokoro voice not installed (run tools/setup_voice.bat). Using the fallback voice -"
+              " don't upload this soundtrack to a monetized channel.")
     syn = Synth(tl, voice_clip)
     out = AUDIO / f"{name}.m4a"
     AUDIO.mkdir(exist_ok=True)

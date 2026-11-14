@@ -8,3 +8,7 @@ __pycache__/
 voice_cache/tmp_*
 .tts-venv/
 footage/flow_inbox/
+voice_cache/*.wav
+music/**/*.mp3
+music/**/*.wav
+.music_cache/
