@@ -5,6 +5,7 @@
   python make_video.py japan --preview 20 300 600     # quick still images to check the look
   python make_video.py school --workers 6              # use more CPU cores (default: half your cores)
   python make_video.py school --new-audio              # rebuild the soundtrack (after editing a timeline)
+  python make_video.py school --sample 36 96           # 1-minute test clip (seconds 36 to 96)
 
 Output: output/<name>.mp4 (720p, about 100-200 MB for 15 minutes).
 """
@@ -21,6 +22,7 @@ def main():
     ap.add_argument("--preview", nargs="*", type=float, help="only render stills at these seconds")
     ap.add_argument("--new-audio", action="store_true", help="rebuild audio/<name>.m4a")
     ap.add_argument("--audio-only", action="store_true", help="only build the soundtrack")
+    ap.add_argument("--sample", nargs=2, type=float, metavar=("FROM", "TO"), help="render only this part, in seconds")
     a = ap.parse_args()
 
     tl = warmup.load_timeline(a.name)
@@ -41,7 +43,10 @@ def main():
     print("3) preparing footage frames...")
     warmup.extract_frames(tl)
     print("4) rendering video...")
-    warmup.render_video(a.name, a.workers)
+    if a.sample:
+        warmup.render_video(a.name, a.workers, a.sample[0], a.sample[1])
+    else:
+        warmup.render_video(a.name, a.workers)
 
 
 if __name__ == "__main__":

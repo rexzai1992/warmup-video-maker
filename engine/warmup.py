@@ -198,25 +198,28 @@ def _render_part(job):
     return str(out)
 
 
-def render_video(name, workers=None):
+def render_video(name, workers=None, t0=0.0, t1=None):
     tl = load_timeline(name)
     total = tl["total"]
-    n = int(total * FPS)
+    t1 = min(total, t1 or total)
+    sample = t0 > 0 or t1 < total
+    F0, n = int(t0 * FPS), int((t1 - t0) * FPS)
     workers = workers or max(2, (os.cpu_count() or 4) // 2)
     (PARTS / name).mkdir(parents=True, exist_ok=True)
     chunk = (n + workers - 1) // workers
-    jobs = [(name, k, k * chunk, min(n, (k + 1) * chunk)) for k in range(workers)]
-    print(f"  rendering {n} frames ({total / 60:.1f} min) with {workers} workers...")
+    jobs = [(name, k, F0 + k * chunk, F0 + min(n, (k + 1) * chunk)) for k in range(workers)]
+    print(f"  rendering {n} frames ({n / FPS / 60:.1f} min) with {workers} workers...")
     with ProcessPoolExecutor(workers) as ex:
         parts = list(ex.map(_render_part, jobs))
     lst = PARTS / name / "list.txt"
     lst.write_text("".join(f"file '{pathlib.Path(p).as_posix()}'\n" for p in parts))
     OUT.mkdir(exist_ok=True)
-    out = OUT / f"{tl.get('output', name)}.mp4"
+    out = OUT / (f"SAMPLE_{name}_{int(t0)}s-{int(t1)}s.mp4" if sample else f"{tl.get('output', name)}.mp4")
     audio = AUDIO / f"{name}.m4a"
     cmd = [ffmpeg(), "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(lst)]
     if audio.exists():
-        cmd += ["-i", str(audio), "-map", "0:v", "-map", "1:a", "-c:a", "copy", "-shortest"]
+        cmd += ["-ss", str(t0), "-t", str(t1 - t0), "-i", str(audio), "-map", "0:v", "-map", "1:a",
+                "-c:a", "aac", "-b:a", "128k", "-af", "afade=in:d=0.3", "-shortest"]
     cmd += ["-c:v", "copy", "-movflags", "+faststart", str(out)]
     subprocess.run(cmd, check=True)
     shutil.rmtree(PARTS / name, ignore_errors=True)
