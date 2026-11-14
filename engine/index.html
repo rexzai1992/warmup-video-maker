@@ -1126,16 +1126,28 @@ const GAME_HITS = {
   hop:       { cyc: 1, at: [[0.0, 'fB']], kind: 'stomp' },
   jump:      { cyc: 2, at: [[1.0, 'hB'], [1.6, 'land']], kind: 'pop' },
   tuckjump:  { cyc: 2, at: [[1.0, 'hB'], [1.6, 'land']], kind: 'pop' },
-  starjump:  { cyc: 1, at: [[0.5, 'hB']], kind: 'pop' },
+  starjump:  { cyc: 1, at: [[0.5, 'hL'], [0.5, 'hR']], kind: 'pop' },
   frog:      { cyc: 4, at: [[2.5, 'hB'], [3.2, 'land']], kind: 'pop' },
   climb:     { cyc: 1, at: [[0.25, 'hL'], [0.75, 'hR']], kind: 'grab' },
   squat:     { cyc: 2, at: [[1.0, 'hL'], [1.0, 'hR']], kind: 'press' },
   skater:    { cyc: 2, at: [[0.0, 'fB'], [1.0, 'fB']], kind: 'coin' },
 };
-const GAME_SKIN = { whack: '🐭', pop: '🎈', stomp: '🐞', kick: '⚽', grab: '⭐', coin: '🪙', press: '' };
-const GAME_WORD = { whack: ['BONK!', 'WHACK!', 'BOP!'], pop: ['POP!', 'POP!', 'BANG!'], stomp: ['SPLAT!', 'SQUISH!', 'STOMP!'],
-                    kick: ['KICK!', 'WHOOSH!', 'GOAL!'], grab: ['GOT IT!', '+1', 'YES!'], coin: ['+1', '+1', 'CHING!'],
-                    press: ['BEEP!', 'BOOP!', 'CLICK!'] };
+// reaction kinds: skin (emoji) or a drawn object, words shown on impact, effect after the impact
+const KINDS = {
+  whack:  { skin: '🐭', fx: 'squash',  words: ['BONK!', 'WHACK!', 'BOP!'] },
+  pop:    { skin: '🎈', fx: 'burst',   words: ['POP!', 'POP!', 'BANG!'], front: true },
+  stomp:  { skin: '🐞', fx: 'splat',   words: ['SPLAT!', 'SQUISH!', 'STOMP!'] },
+  kick:   { skin: '⚽', fx: 'fly',     words: ['KICK!', 'WHOOSH!', 'GOAL!'] },
+  grab:   { skin: '⭐', fx: 'collect', words: ['GOT IT!', '+1', 'YES!'] },
+  coin:   { skin: '🪙', fx: 'collect', words: ['+1', '+1', 'CHING!'], flip: true },
+  press:  { draw: 'button',            words: ['BEEP!', 'BOOP!', 'CLICK!'] },
+  switch: { draw: 'switch',            words: ['CLICK!', 'LIGHTS ON!', 'ZAP!'] },
+  spin:   { draw: 'spinner',           words: ['SPIN!', 'WHIRR!', 'FASTER!'] },
+  slap:   { skin: '✋', fx: 'bounce',  words: ['HIGH FIVE!', 'SLAP!', 'YEAH!'] },
+  smash:  { skin: '📦', fx: 'shatter', words: ['SMASH!', 'CRASH!', 'BAM!'] },
+  bell:   { skin: '🔔', fx: 'swing',   words: ['DING!', 'DONG!', 'RING!'] },
+  drum:   { skin: '🥁', fx: 'bounce',  words: ['DON!', 'DON!', 'KA-DON!'] },
+};
 const GAME_PRAISE = ['AWESOME!', 'SUPER!', 'WOW!', 'AMAZING!', 'ON FIRE!', 'UNSTOPPABLE!'];
 const EMOJI_FONT = '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
 const hash = n => frac(Math.sin(n * 127.1 + 311.7) * 43758.5453);
@@ -1147,7 +1159,8 @@ function gameOf(seg) {
   // how long a target shows before its hit / how long the hit effect lasts: shorter for fast moves so they never pile up
   const per = {}; for (const [, limb] of g.at) per[limb] = (per[limb] || 0) + 1;
   const every = Math.min(...Object.values(per).map(n => g.cyc / n));
-  return { ...g, kind: seg.game || g.kind, skin: seg.skin || (TL.skins || {})[seg.game || g.kind] || GAME_SKIN[seg.game || g.kind],
+  const kind = KINDS[seg.game] ? seg.game : g.kind, K = KINDS[kind];
+  return { ...g, kind, K, skin: seg.skin || (TL.skins || {})[kind] || K.skin || '',
            lead: clamp(0.85 * every, 0.6, 1.6), fx: clamp(0.8 * every, 0.6, 1.2) };
 }
 // impact list for a segment: [{b, limb, i}] - active from beat 4 until 1 s before the end
@@ -1230,11 +1243,74 @@ function drawButton(x, y, press, glow) {
   ctx.restore();
 }
 
+function drawSwitch(x, y, on, glow) {
+  ctx.save(); ctx.translate(x, y);
+  if (glow > 0) { ctx.shadowColor = '#FFE14D'; ctx.shadowBlur = 80 * glow; }
+  ctx.fillStyle = '#F4F4F8'; roundRect(-62, -95, 124, 190, 26); ctx.fill();
+  ctx.shadowBlur = 0; ctx.strokeStyle = '#1B1B3A'; ctx.lineWidth = 7; roundRect(-62, -95, 124, 190, 26); ctx.stroke();
+  ctx.fillStyle = '#C9CBD6'; roundRect(-30, -60, 60, 120, 14); ctx.fill();
+  const ty = on ? -34 : 34;
+  ctx.fillStyle = on ? '#2EC4B6' : '#E63946'; roundRect(-26, ty - 30, 52, 60, 12); ctx.fill();
+  ctx.strokeStyle = '#1B1B3A'; ctx.lineWidth = 5; roundRect(-26, ty - 30, 52, 60, 12); ctx.stroke();
+  ctx.restore();
+}
+function drawSpinner(x, y, ang) {
+  const cols = ['#FF5A5A', '#FFD23F', '#2EC4B6', '#3D7BFF'];
+  ctx.save(); ctx.translate(x, y);
+  ctx.strokeStyle = '#1B1B3A'; ctx.lineWidth = 10; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, 150); ctx.stroke();
+  ctx.rotate(ang);
+  for (let i = 0; i < 4; i++) {
+    ctx.save(); ctx.rotate(i * Math.PI / 2); ctx.fillStyle = cols[i]; ctx.strokeStyle = '#1B1B3A'; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -95); ctx.quadraticCurveTo(70, -80, 0, 0); ctx.fill(); ctx.stroke(); ctx.restore();
+  }
+  ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(0, 0, 14, 0, 7); ctx.fill(); ctx.stroke();
+  ctx.restore();
+}
+function shards(x, y, k, seed) {
+  for (let i = 0; i < 6; i++) {
+    const a = -Math.PI / 2 + (i - 2.5) * 0.55 + (hash(seed + i) - 0.5) * 0.4, v = 380 + 260 * hash(seed + i * 7);
+    const px = x + Math.cos(a) * v * k, py = y + Math.sin(a) * v * k + 900 * k * k;
+    ctx.save(); ctx.translate(px, py); ctx.rotate(k * 9 * (i % 2 ? 1 : -1)); ctx.globalAlpha = 1 - k;
+    ctx.fillStyle = i % 2 ? '#C98B4A' : '#A86B32'; ctx.strokeStyle = '#5A3A18'; ctx.lineWidth = 4;
+    ctx.fillRect(-26, -18, 52, 36); ctx.strokeRect(-26, -18, 52, 36); ctx.restore();
+  }
+  ctx.globalAlpha = 1;
+}
+// persistent objects (switch, spinner) stand at each limb's spot for the whole part
+function anchors(seg, hits) {
+  if (seg._anchors) return seg._anchors;
+  const a = {};
+  for (const h of hits) if (h.limb !== 'land' && !a[h.limb]) a[h.limb] = h.pos || (h.pos = hitPos(seg, h));
+  return (seg._anchors = a);
+}
+
 function games(seg, st, b, front) {
   const g = gameOf(seg);
   if (!g) return;
-  const hits = gameHits(seg);
+  const hits = gameHits(seg), K = g.K;
   const col = CH_COL[seg.ch][0];
+  const real = hits.filter(h => h.limb !== 'land');
+  const done = real.filter(h => h.b <= b);
+  // ----- drawn objects that stay for the whole part
+  if (K.draw === 'switch' || K.draw === 'spinner') {
+    const an = anchors(seg, hits), pin = ease(clamp((b - 1.5) / 1, 0, 1)) * ease(clamp((seg.dur / BEAT - b) / 1.5, 0, 1));
+    if (!front && pin > 0) for (const limb in an) {
+      const [x, y] = an[limb], mine = done.filter(h => h.limb === limb);
+      const last = mine.length ? b - mine[mine.length - 1].b : 9;
+      ctx.save(); ctx.translate(x, y); ctx.scale(pin, pin); ctx.translate(-x, -y);
+      if (K.draw === 'switch') drawSwitch(x, y, mine.length % 2 === 1, Math.max(0, 1 - last / 0.8));
+      else {
+        let ang = b * 0.4;
+        for (const h of mine) ang += 7 * (1 - Math.exp(-(b - h.b) * 1.3));   // each hit adds a decaying spin
+        drawSpinner(x, y - 40, ang);
+      }
+      ctx.restore();
+    }
+    if (front && K.draw === 'switch' && done.length) {                       // lights flash
+      const a = b - done[done.length - 1].b;
+      if (a < 0.6) { ctx.fillStyle = `rgba(255,250,210,${0.32 * (1 - a / 0.6)})`; ctx.fillRect(0, 0, W, H); }
+    }
+  }
   for (const h of hits) {
     const lead = h.b - b;                         // >0: still coming
     if (lead > g.lead || lead < -g.fx) continue;
@@ -1242,66 +1318,103 @@ function games(seg, st, b, front) {
     const [x, y] = h.pos;
     if (h.limb === 'land') continue;              // landings only shake the screen
     const k = clamp(-lead / g.fx, 0, 1);          // effect progress after the impact
-    if (front !== (g.kind === 'pop' && lead >= 0)) {   // targets behind the character (balloons in front)
-      if (lead >= 0) {
+    const behind = !(K.front && lead >= 0);
+    if (front !== behind && !K.draw) {
+      if (lead >= 0) {                            // target waiting for the hit
         const pin = ease(clamp((g.lead - lead) / 0.3, 0, 1));
         const wob = Math.sin(b * Math.PI * 4 + h.i) * 0.12;
-        if (g.kind === 'press') drawButton(x, y + 40, 0, 0);
-        else if (g.kind === 'whack') {             // pops out of a hole
+        if (g.kind === 'whack') {                 // pops out of a hole
           ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.beginPath(); ctx.ellipse(x, y + 52, 90 * pin, 26 * pin, 0, 0, 7); ctx.fill();
           emoji(g.skin, x, y + 52 - 80 * pin, 160, wob, 1, pin);
         } else if (g.kind === 'stomp') emoji(g.skin, x + 30 * Math.sin(b * 3 + h.i) * clamp(lead - 0.3, 0, 1), y - 10, 130 * pin, 0);
-        else if (g.kind === 'pop') emoji(g.skin, x, y - 20 * (1 - pin) + 10 * Math.sin(b * Math.PI + h.i), 170 * pin, wob);
-        else emoji(g.skin, x, y, 140 * pin, g.kind === 'coin' ? 0 : wob, g.kind === 'coin' ? Math.cos(b * 5 + h.i) : 1, 1);
-      } else if (g.kind === 'press') {
-        drawButton(x, y + 40, clamp(1 - (k - 0.3) / 0.5, 0, 1), 1 - k);
-      } else if (g.kind === 'whack') {            // squashed, then sinks
-        ctx.fillStyle = `rgba(0,0,0,${0.55 * (1 - k)})`; ctx.beginPath(); ctx.ellipse(x, y + 52, 70, 20, 0, 0, 7); ctx.fill();
-        if (k < 0.6) emoji(g.skin, x, y + 52 - 80 * (1 - k / 0.6) * 0.5, 160, 0, 1.3, 0.45);
-      } else if (g.kind === 'stomp') {
-        ctx.fillStyle = `rgba(120,255,120,${0.6 * (1 - k)})`;
-        ctx.beginPath(); ctx.ellipse(x, y + 18, 70 + 60 * k, 16 + 8 * k, 0, 0, 7); ctx.fill();
-        if (k < 0.5) emoji(g.skin, x, y + 10, 130, 0, 1.6, 0.3);
-      } else if (g.kind === 'kick') {             // ball flies off toward the far side and up
-        const dirx = h.limb === 'fL' ? -1 : 1;
-        emoji(g.skin, x + dirx * 900 * k, y - 520 * k + 380 * k * k, 140 * (1 - 0.5 * k), k * 12 * dirx);
-      } else if (g.kind === 'grab' || g.kind === 'coin') {   // flies to the score counter
-        emoji(g.skin, lerp(x, 150, ease(k)), lerp(y, 330, ease(k)), 140 * (1 - 0.5 * k), 0);
+        else if (K.fx === 'burst') emoji(g.skin, x, y - 20 * (1 - pin) + 10 * Math.sin(b * Math.PI + h.i), 170 * pin, wob);
+        else emoji(g.skin, x, y, 140 * pin, K.flip ? 0 : wob, K.flip ? Math.cos(b * 5 + h.i) : 1, 1);
+      } else {                                    // reaction after the hit
+        switch (K.fx) {
+          case 'squash':
+            ctx.fillStyle = `rgba(0,0,0,${0.55 * (1 - k)})`; ctx.beginPath(); ctx.ellipse(x, y + 52, 90, 26, 0, 0, 7); ctx.fill();
+            if (k < 0.6) emoji(g.skin, x, y + 52 - 80 * (1 - k / 0.6) * 0.5, 160, 0, 1.3, 0.45);
+            break;
+          case 'splat':
+            ctx.fillStyle = `rgba(120,255,120,${0.6 * (1 - k)})`;
+            ctx.beginPath(); ctx.ellipse(x, y + 18, 70 + 60 * k, 16 + 8 * k, 0, 0, 7); ctx.fill();
+            if (k < 0.5) emoji(g.skin, x, y + 10, 130, 0, 1.6, 0.3);
+            break;
+          case 'fly': {
+            const dirx = h.limb === 'fL' || h.limb === 'hL' ? -1 : 1;
+            emoji(g.skin, x + dirx * 900 * k, y - 520 * k + 380 * k * k, 140 * (1 - 0.5 * k), k * 12 * dirx);
+            break;
+          }
+          case 'collect': emoji(g.skin, lerp(x, 150, ease(k)), lerp(y, 330, ease(k)), 140 * (1 - 0.5 * k), 0); break;
+          case 'bounce': {
+            const s2 = 1 + 0.45 * Math.sin(Math.min(1, k * 2.5) * Math.PI);
+            const sideL = h.limb.endsWith('L');
+            ctx.globalAlpha = 1 - clamp((k - 0.6) / 0.4, 0, 1);
+            emoji(g.skin, x + (sideL ? -40 : 40) * k, y, 150 * s2, (sideL ? -0.4 : 0.4) * k);
+            ctx.globalAlpha = 1; break;
+          }
+          case 'shatter': shards(x, y, k, h.i * 13 + 7); break;
+          case 'swing': emoji(g.skin, x, y, 150, Math.sin(k * Math.PI * 5) * 0.6 * (1 - k)); break;
+        }
       }
-    } else if (front && lead < 0) {               // impact effects, in front
-      if (g.kind === 'pop') { burst(x, y, k, '#FFE14D', 14, 220); }
-      else burst(x, y, k, g.kind === 'stomp' ? '#7CFF6B' : '#FFE14D', 8, 110);
-      const words = GAME_WORD[g.kind];
-      popWord(words[Math.floor(hash(h.i + seg.start) * words.length)], x, y - 90, k, h.i % 2 ? '#FFE14D' : '#FFFFFF');
     }
+    if (front && lead < 0) {                      // impact sparks + word, in front
+      if (K.draw === 'button') drawButton(x, y + 40, clamp(1 - (k - 0.3) / 0.5, 0, 1), 1 - k);
+      burst(x, y, k, K.fx === 'splat' ? '#7CFF6B' : '#FFE14D', K.fx === 'burst' ? 14 : 8, K.fx === 'burst' ? 220 : 110);
+      const words = K.words;
+      popWord(words[Math.floor(hash(h.i + seg.start) * words.length)], x, y - 90, k, h.i % 2 ? '#FFE14D' : '#FFFFFF');
+    } else if (!front && K.draw === 'button' && lead >= 0) drawButton(x, y + 40, 0, 0);
   }
   if (!front) return;
-  // score counter (top left) + praise every 10 hits
-  const done = hits.filter(h => h.b <= b && h.limb !== 'land');
-  const total = done.length;
-  if (b >= 3 && hits.length) {
-    const last = done.length ? b - done[done.length - 1].b : 9;
-    const bump = 1 + 0.35 * Math.max(0, 1 - last / 0.5);
-    ctx.save(); ctx.translate(150, 330); ctx.scale(bump, bump);
-    ctx.fillStyle = 'rgba(15,15,40,0.75)'; roundRect(-95, -62, 250, 124, 62); ctx.fill();
-    ctx.strokeStyle = col; ctx.lineWidth = 8; roundRect(-95, -62, 250, 124, 62); ctx.stroke();
-    if (g.kind === 'press') drawButton(-32, -18, 0, 0); else emoji(g.skin, -30, 0, 84);
-    textOut(String(total), 80, 26, 76, '#FFFFFF', '#1B1B3A', 10);
+  // ----- mission goal: counter with progress bar, goal banner at the start, trophy when complete
+  const N = real.length, n = done.length;
+  if (b >= 1 && N) {
+    const last = n ? b - done[n - 1].b : 9;
+    const bump = 1 + 0.3 * Math.max(0, 1 - last / 0.5);
+    ctx.save(); ctx.translate(170, 330); ctx.scale(bump, bump);
+    ctx.fillStyle = 'rgba(15,15,40,0.78)'; roundRect(-110, -66, 300, 150, 40); ctx.fill();
+    ctx.strokeStyle = col; ctx.lineWidth = 8; roundRect(-110, -66, 300, 150, 40); ctx.stroke();
+    if (K.draw === 'button') drawButton(-50, -26, 0, 0);
+    else if (K.draw === 'switch') { ctx.save(); ctx.scale(0.5, 0.5); drawSwitch(-100, -10, true, 0); ctx.restore(); }
+    else if (K.draw === 'spinner') { ctx.save(); ctx.scale(0.55, 0.55); drawSpinner(-90, -40, b); ctx.restore(); }
+    else emoji(g.skin, -45, -5, 84);
+    textOut(`${n}/${N}`, 80, 22, 64, '#FFFFFF', '#1B1B3A', 10);
+    ctx.fillStyle = 'rgba(255,255,255,0.25)'; roundRect(-90, 50, 260, 18, 9); ctx.fill();
+    ctx.fillStyle = '#FFE14D'; roundRect(-90, 50, Math.max(18, 260 * n / N), 18, 9); ctx.fill();
     ctx.restore();
   }
-  for (const h of done) {
-    if (h.limb === 'land') continue;
-    const n = done.indexOf(h) + 1, age = b - h.b;
-    if (n % 10 === 0 && age < 2) {
+  if (b >= 0.5 && b < 4.2 && N) {                // "GOAL: 32 🐭" before the game starts
+    const k = b < 1 ? ease((b - 0.5) / 0.5) : b > 3.7 ? 1 - (b - 3.7) / 0.5 : 1;
+    ctx.save(); ctx.globalAlpha = clamp(k, 0, 1); ctx.translate(W / 2, 410); ctx.scale(0.8 + 0.2 * k, 0.8 + 0.2 * k);
+    textOut(`GOAL: ${N}`, -40, 0, 96, '#FFE14D', '#1B1B3A', 18);
+    if (K.draw) textOut('!', 200, 0, 96, '#FFE14D', '#1B1B3A', 18); else emoji(g.skin, 230, -8, 110);
+    ctx.restore();
+  }
+  for (const h of done) {                         // praise every 10 hits
+    const m = done.indexOf(h) + 1, age = b - h.b;
+    if (m % 10 === 0 && m !== N && age < 2) {
       const k = age / 2;
       ctx.save(); ctx.globalAlpha = k > 0.75 ? (1 - k) / 0.25 : 1; ctx.translate(W / 2, 380);
-      const s = k < 0.15 ? lerp(0.3, 1.2, k / 0.15) : lerp(1.2, 1, clamp((k - 0.15) / 0.2, 0, 1)); ctx.scale(s, s);
-      textOut(GAME_PRAISE[(n / 10 - 1) % GAME_PRAISE.length], 0, 0, 130, '#FFE14D', col, 22);
-      textOut(`${n} HITS!`, 0, 95, 64, '#FFFFFF', '#1B1B3A', 12);
+      const s2 = k < 0.15 ? lerp(0.3, 1.2, k / 0.15) : lerp(1.2, 1, clamp((k - 0.15) / 0.2, 0, 1)); ctx.scale(s2, s2);
+      textOut(GAME_PRAISE[(m / 10 - 1) % GAME_PRAISE.length], 0, 0, 130, '#FFE14D', col, 22);
+      textOut(`${m} HITS!`, 0, 95, 64, '#FFFFFF', '#1B1B3A', 12);
       ctx.restore();
     }
   }
+  if (n === N && N) {                             // mission complete
+    const age = b - done[n - 1].b;
+    if (age < 3) {
+      const k = age / 3;
+      ctx.save(); ctx.globalAlpha = k > 0.8 ? (1 - k) / 0.2 : 1; ctx.translate(W / 2, 360);
+      const s2 = k < 0.1 ? lerp(0.3, 1.15, k / 0.1) : lerp(1.15, 1, clamp((k - 0.1) / 0.15, 0, 1)); ctx.scale(s2, s2);
+      emoji('🏆', 0, -40, 170, Math.sin(age * 6) * 0.1);
+      textOut('MISSION COMPLETE!', 0, 110, 92, '#FFE14D', col, 18);
+      ctx.restore();
+      confetti(age * 0.5, age);
+    }
+  }
 }
+
 function shakeAt(seg, b) {
   for (const h of gameHits(seg)) {
     if (h.limb !== 'land') continue;

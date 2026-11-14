@@ -250,6 +250,21 @@ Each prompt = **STYLE prefix + scene + COMMON suffix**.
 
 ---
 
+---
+
+## Interactive game layer (added 14 Nov 2026, owner feedback: "boring, needs action -> reaction")
+
+Every active part is a mini-game: the kids do the move and something on screen reacts on the impact frame.
+- `engine/index.html` → `GAME_HITS` (impact beats + limb per move) and `KINDS` (what reacts). `engine/synth.py` has the
+  same `GAME_HITS` table for the sound effects (measured 1-2 ms from the visual impact). **Change both together.**
+- Kinds: whack 🐭, pop 🎈 (+ landing BOOM/shake), stomp 🐞, kick ⚽, grab ⭐, coin 🪙, press (red button), switch (light
+  switch + flash), spin (pinwheel), slap ✋ (high five), smash 📦 (shatters), bell 🔔, drum 🥁.
+- Per part: `"game": "<kind>", "skin": "<emoji>"` in the timeline (defaults by move). `"game": "none"` turns it off;
+  `"games": false` at the top of a timeline turns all off. Calm parts and cards have no game.
+- Each part shows "GOAL: N" at the start, a counter with a progress bar, "AWESOME!" every 10 hits, and
+  "MISSION COMPLETE!" + trophy at the end.
+- New themes: `tools/new_timelines.py` (jungle, space, ocean) incl. a GAMES table per part.
+
 ## Status table
 
 | Item | Status |
@@ -261,6 +276,8 @@ Each prompt = **STYLE prefix + scene + COMMON suffix**.
 | Flow prompt pack + `--import-flow` | ✅ done: `flow_prompts/*.md`, `tools/make_flow_prompts.py`, `--import-flow` (tested). ⏳ waiting for the owner's Flow clips |
 | Natural voice (Kokoro) | ✅ done: `.tts-venv` (Python 3.12, `tools/setup_voice.bat`), voices **af_heart** (EN) + **jf_alpha** (JA), both soundtracks rebuilt, old Mac `say` voices deleted. `voice_cache/` is no longer committed (rebuilds in ~3 min) |
 | Real music beat-aligned | ✅ done: 12 YouTube Audio Library tracks picked + downloaded (list: `music/<version>/TRACKS.txt`), stretched with rubberband, tempo drift-corrected (< 10 ms over a whole song), beat 1 found from kick + chord changes. **Songs and `audio/*.m4a` are NOT in git** (Audio Library licence: use in videos, don't redistribute the audio). New PC: copy `music/` from the old PC (or re-download the tracks in TRACKS.txt from YouTube Studio → Audio library), then `python make_video.py <version> --audio-only` |
+| Interactive game layer | ✅ 13 reaction kinds, goal/progress/trophy, synced sounds; school + japan re-rendered with it |
+| New themes jungle/space/ocean | ✅ timelines + Flow prompts + music + soundtracks. ⏳ Flow clips (owner, by hand) → then render |
 | Chapter / Shorts export | ✅ `--chapters` done (intro card + chapter + outro card, ~9 MB/min, tested on school ch1). Titles/descriptions/tags in `youtube_uploads.md`. ⏳ Shorts (9:16) not done |
 | Flow automation + realistic clips | ⛔ stopped after Google's "unusual activity" flag. School: 42/48 Flow clips used (jump + cheer rejected, side/flamingo/breathe2/outro never made → stock/cartoon). Japan: 0 → stock footage. Credits left: 650 |
 | GPU | ✅ NVIDIA NVENC encoding + GPU drawing in the hidden Chrome (auto, ~20% faster: 1 min of video in 12 s on RTX 5070). Max 8 workers with NVENC (16 fails). `WARMUP_GPU=0` turns it off |

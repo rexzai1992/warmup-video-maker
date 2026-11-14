@@ -89,7 +89,9 @@ window.TIMELINE = {
      15,
      "Almost there!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🪙"
   },
   {
    "id": "vines",
@@ -137,7 +139,9 @@ window.TIMELINE = {
      15,
      "Big jumps!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "🎈"
   },
   {
    "id": "mud",
@@ -160,7 +164,9 @@ window.TIMELINE = {
      15,
      "Stomp, stomp, stomp!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🐛"
   },
   {
    "id": "parrot",
@@ -183,7 +189,9 @@ window.TIMELINE = {
      15,
      "Flap those wings!"
     ]
-   ]
+   ],
+   "game": "slap",
+   "skin": "✋"
   },
   {
    "id": "tiger",
@@ -259,7 +267,9 @@ window.TIMELINE = {
      15,
      "Light feet!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🥕"
   },
   {
    "id": "monkey",
@@ -282,7 +292,9 @@ window.TIMELINE = {
      15,
      "Ooh ooh, aah aah!"
     ]
-   ]
+   ],
+   "game": "grab",
+   "skin": "🍌"
   },
   {
    "id": "flamingo",
@@ -328,7 +340,9 @@ window.TIMELINE = {
      15,
      "Super strong!"
     ]
-   ]
+   ],
+   "game": "drum",
+   "skin": "🥁"
   },
   {
    "id": "kangaroo",
@@ -351,7 +365,9 @@ window.TIMELINE = {
      15,
      "Great kicks!"
     ]
-   ]
+   ],
+   "game": "smash",
+   "skin": "📦"
   },
   {
    "id": "croc",
@@ -374,7 +390,9 @@ window.TIMELINE = {
      15,
      "Don't get snapped!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "💎"
   },
   {
    "id": "coconuts",
@@ -472,7 +490,9 @@ window.TIMELINE = {
      15,
      "Don't fall in the river!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "🫧"
   },
   {
    "id": "riverrun",
@@ -495,7 +515,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🐜"
   },
   {
    "id": "rocks",
@@ -541,7 +563,8 @@ window.TIMELINE = {
      15,
      "Splash!"
     ]
-   ]
+   ],
+   "game": "press"
   },
   {
    "id": "hippo",
@@ -564,7 +587,9 @@ window.TIMELINE = {
      15,
      "Big strong hippo!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🍉"
   },
   {
    "id": "toucan",
@@ -625,7 +650,9 @@ window.TIMELINE = {
      15,
      "Woo hoo!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "💦"
   },
   {
    "id": "c4",
@@ -663,7 +690,9 @@ window.TIMELINE = {
      15,
      "Almost at the top!"
     ]
-   ]
+   ],
+   "game": "bell",
+   "skin": "🔔"
   },
   {
    "id": "bananas",
@@ -702,7 +731,9 @@ window.TIMELINE = {
      15,
      "Higher!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "🎈"
   },
   {
    "id": "jkick",
@@ -725,7 +756,9 @@ window.TIMELINE = {
      15,
      "Strong kicks!"
     ]
-   ]
+   ],
+   "game": "kick",
+   "skin": "🥥"
   },
   {
    "id": "treefrog",
@@ -748,7 +781,9 @@ window.TIMELINE = {
      15,
      "Keep hopping!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🫧"
   },
   {
    "id": "bees",
@@ -771,7 +806,9 @@ window.TIMELINE = {
      15,
      "Keep dodging!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🍯"
   },
   {
    "id": "statue",
@@ -809,7 +846,8 @@ window.TIMELINE = {
      15,
      "Woo hoo!"
     ]
-   ]
+   ],
+   "game": "spin"
   },
   {
    "id": "water2",

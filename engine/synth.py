@@ -19,12 +19,14 @@ GAME_HITS = {
     "hop": (1, [(0.0, "fB")], "stomp"),
     "jump": (2, [(1.0, "hB"), (1.6, "land")], "pop"),
     "tuckjump": (2, [(1.0, "hB"), (1.6, "land")], "pop"),
-    "starjump": (1, [(0.5, "hB")], "pop"),
+    "starjump": (1, [(0.5, "hL"), (0.5, "hR")], "pop"),
     "frog": (4, [(2.5, "hB"), (3.2, "land")], "pop"),
     "climb": (1, [(0.25, "hL"), (0.75, "hR")], "grab"),
     "squat": (2, [(1.0, "hL"), (1.0, "hR")], "press"),
     "skater": (2, [(0.0, "fB"), (1.0, "fB")], "coin"),
 }
+
+KINDS = {"whack", "pop", "stomp", "kick", "grab", "coin", "press", "switch", "spin", "slap", "smash", "bell", "drum"}
 
 
 def game_hits(tl, s):
@@ -42,7 +44,7 @@ def game_hits(tl, s):
         for o, limb in at:
             hb = c * cyc + o
             if 4 <= hb <= nb:
-                out.append((hb, limb, s.get("game", kind)))
+                out.append((hb, limb, s.get("game") if s.get("game") in KINDS else kind))
         c += 1
     return sorted(out)
 
@@ -233,7 +235,17 @@ class Synth:
                 "stomp": (m((self.splash(), 0.9), (self.thud(), 0.5)), 0.75),
                 "kick": (m((self.thud(), 1.0), (self.whoosh(0.3), 0.6)), 0.8),
                 "grab": (self.coin(), 0.8), "coin": (self.coin(), 0.8),
-                "press": (m((self.beep(76, 0.1), 1.0), (self.click(), 1.0)), 0.8)}.get(kind, (self.pop(), 0.6))
+                "press": (m((self.beep(76, 0.1), 1.0), (self.click(), 1.0)), 0.8),
+                "switch": (m((self.click(), 1.4), (self.zap(), 0.8)), 0.8),
+                "spin": (m((self.whoosh(0.35), 1.0), (self.zap(), 0.4)), 0.8),
+                "slap": (m((self.clap(), 1.6), (self.thud(), 0.3)), 0.9),
+                "smash": (m((self.snare(), 1.0), (self.thud(), 0.8), (self.hp(self.noise(0.25)) * np.exp(-self.tt(0.25) * 14), 0.6)), 0.85),
+                "bell": (self.chime(86), 1.0),
+                "drum": (self.taiko(True), 0.9)}.get(kind, (self.pop(), 0.6))
+
+    def zap(self):                          # rising "power on" sweep
+        t = self.tt(0.25)
+        return np.sin(2 * np.pi * np.cumsum(300 + 1700 * (t / 0.25) ** 2) / SR) * np.exp(-t * 6) * 0.35
 
     def beep(self, n=81, d=0.12):
         return self.tone(n, d, (1, .2), dec=d * 2) * 0.35
@@ -352,7 +364,7 @@ class Synth:
         hits = game_hits(self.tl, s)
         done_pairs = set()
         for hb, limb, kind in hits:
-            if (hb, kind) in done_pairs:          # two buttons pressed together = one sound
+            if (hb, kind) in done_pairs:          # two hands hitting together = one sound
                 continue
             done_pairs.add((hb, kind))
             y, g = self.game_sfx(kind, limb)

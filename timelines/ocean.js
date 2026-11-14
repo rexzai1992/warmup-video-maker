@@ -89,7 +89,9 @@ window.TIMELINE = {
      15,
      "Almost there!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🐚"
   },
   {
    "id": "waves",
@@ -113,7 +115,9 @@ window.TIMELINE = {
      15,
      "Big jumps!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "🫧"
   },
   {
    "id": "dive",
@@ -136,7 +140,8 @@ window.TIMELINE = {
      15,
      "Keep your back straight!"
     ]
-   ]
+   ],
+   "game": "press"
   },
   {
    "id": "splashy",
@@ -159,7 +164,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🫧"
   },
   {
    "id": "stars",
@@ -182,7 +189,9 @@ window.TIMELINE = {
      15,
      "Super starfish!"
     ]
-   ]
+   ],
+   "game": "slap",
+   "skin": "✋"
   },
   {
    "id": "shark",
@@ -258,7 +267,9 @@ window.TIMELINE = {
      15,
      "Pinch, pinch!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🐚"
   },
   {
    "id": "seahorse",
@@ -281,7 +292,9 @@ window.TIMELINE = {
      15,
      "Light feet!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🫧"
   },
   {
    "id": "bubbles",
@@ -343,7 +356,9 @@ window.TIMELINE = {
      15,
      "So many arms!"
     ]
-   ]
+   ],
+   "game": "whack",
+   "skin": "🐙"
   },
   {
    "id": "dolphin",
@@ -366,7 +381,9 @@ window.TIMELINE = {
      15,
      "Great kicks!"
     ]
-   ]
+   ],
+   "game": "kick",
+   "skin": "🏐"
   },
   {
    "id": "coral",
@@ -389,7 +406,9 @@ window.TIMELINE = {
      15,
      "Almost at the top!"
     ]
-   ]
+   ],
+   "game": "grab",
+   "skin": "🐚"
   },
   {
    "id": "fishparty",
@@ -412,7 +431,8 @@ window.TIMELINE = {
      15,
      "Woo hoo!"
     ]
-   ]
+   ],
+   "game": "spin"
   },
   {
    "id": "water1",
@@ -471,7 +491,8 @@ window.TIMELINE = {
      15,
      "Stay low!"
     ]
-   ]
+   ],
+   "game": "switch"
   },
   {
    "id": "manta",
@@ -517,7 +538,9 @@ window.TIMELINE = {
      15,
      "Keep dodging!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "💎"
   },
   {
    "id": "race",
@@ -540,7 +563,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🪙"
   },
   {
    "id": "leap",
@@ -563,7 +588,9 @@ window.TIMELINE = {
      15,
      "Higher!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "🫧"
   },
   {
    "id": "seabed",
@@ -624,7 +651,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🫧"
   },
   {
    "id": "c4",
@@ -662,7 +691,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🪙"
   },
   {
    "id": "wreck",
@@ -685,7 +716,9 @@ window.TIMELINE = {
      15,
      "Almost at the top!"
     ]
-   ]
+   ],
+   "game": "bell",
+   "skin": "🔔"
   },
   {
    "id": "coins",
@@ -725,7 +758,9 @@ window.TIMELINE = {
      15,
      "Higher!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "🎈"
   },
   {
    "id": "pirate",
@@ -748,7 +783,9 @@ window.TIMELINE = {
      15,
      "Strong kicks!"
     ]
-   ]
+   ],
+   "game": "smash",
+   "skin": "📦"
   },
   {
    "id": "anchor",
@@ -771,7 +808,8 @@ window.TIMELINE = {
      15,
      "Heave ho!"
     ]
-   ]
+   ],
+   "game": "press"
   },
   {
    "id": "pfreeze",
@@ -809,7 +847,9 @@ window.TIMELINE = {
      15,
      "Woo hoo!"
     ]
-   ]
+   ],
+   "game": "slap",
+   "skin": "✋"
   },
   {
    "id": "water2",

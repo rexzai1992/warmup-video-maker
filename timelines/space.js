@@ -89,7 +89,9 @@ window.TIMELINE = {
      15,
      "Almost there!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "⭐"
   },
   {
    "id": "countdown",
@@ -112,7 +114,8 @@ window.TIMELINE = {
      15,
      "Keep your back straight!"
     ]
-   ]
+   ],
+   "game": "press"
   },
   {
    "id": "launch",
@@ -158,7 +161,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "💎"
   },
   {
    "id": "stars",
@@ -181,7 +186,9 @@ window.TIMELINE = {
      15,
      "You're a superstar!"
     ]
-   ]
+   ],
+   "game": "slap",
+   "skin": "✋"
   },
   {
    "id": "control",
@@ -257,7 +264,9 @@ window.TIMELINE = {
      15,
      "Light feet!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "⭐"
   },
   {
    "id": "craters",
@@ -304,7 +313,9 @@ window.TIMELINE = {
      15,
      "Stay low!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🪙"
   },
   {
    "id": "lowgrav",
@@ -366,7 +377,9 @@ window.TIMELINE = {
      15,
      "Great kicks!"
     ]
-   ]
+   ],
+   "game": "smash",
+   "skin": "📦"
   },
   {
    "id": "ladder",
@@ -389,7 +402,9 @@ window.TIMELINE = {
      15,
      "Almost at the top!"
     ]
-   ]
+   ],
+   "game": "grab",
+   "skin": "⭐"
   },
   {
    "id": "flag",
@@ -412,7 +427,8 @@ window.TIMELINE = {
      15,
      "Woo hoo!"
     ]
-   ]
+   ],
+   "game": "spin"
   },
   {
    "id": "water1",
@@ -471,7 +487,9 @@ window.TIMELINE = {
      15,
      "Keep dodging!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "🪨"
   },
   {
    "id": "smash",
@@ -494,7 +512,9 @@ window.TIMELINE = {
      15,
      "Super strong!"
     ]
-   ]
+   ],
+   "game": "smash",
+   "skin": "🪨"
   },
   {
    "id": "duck",
@@ -517,7 +537,8 @@ window.TIMELINE = {
      15,
      "Watch out!"
     ]
-   ]
+   ],
+   "game": "switch"
   },
   {
    "id": "comet",
@@ -540,7 +561,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "⭐"
   },
   {
    "id": "ship",
@@ -625,7 +648,9 @@ window.TIMELINE = {
      15,
      "Big jumps!"
     ]
-   ]
+   ],
+   "game": "pop",
+   "skin": "☄️"
   },
   {
    "id": "c4",
@@ -663,7 +688,9 @@ window.TIMELINE = {
      15,
      "Keep going!"
     ]
-   ]
+   ],
+   "game": "slap",
+   "skin": "✋"
   },
   {
    "id": "bouncy",
@@ -686,7 +713,9 @@ window.TIMELINE = {
      15,
      "Keep hopping!"
     ]
-   ]
+   ],
+   "game": "stomp",
+   "skin": "🫧"
   },
   {
    "id": "robot",
@@ -709,7 +738,9 @@ window.TIMELINE = {
      15,
      "Strong kicks!"
     ]
-   ]
+   ],
+   "game": "kick",
+   "skin": "🪐"
   },
   {
    "id": "crystal",
@@ -732,7 +763,9 @@ window.TIMELINE = {
      15,
      "Almost at the top!"
     ]
-   ]
+   ],
+   "game": "grab",
+   "skin": "💎"
   },
   {
    "id": "catchstars",
@@ -771,7 +804,9 @@ window.TIMELINE = {
      15,
      "Faster!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "⚙️"
   },
   {
    "id": "maze",
@@ -795,7 +830,9 @@ window.TIMELINE = {
      15,
      "Keep going!"
     ]
-   ]
+   ],
+   "game": "coin",
+   "skin": "💎"
   },
   {
    "id": "statue",

@@ -16,6 +16,27 @@ import json, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 W = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five"}
 
+# Interactive reactions per part (see KINDS in engine/index.html): id -> (kind, emoji skin or "" for drawn objects).
+# Parts not listed use the move's default (punch=whack, run=stomp, jump=pop+boom, kick=kick, climb=grab, squat=press...).
+GAMES = {
+    "jungle": {"jeep": ("coin", "🪙"), "logs": ("pop", "🎈"), "mud": ("stomp", "🐛"), "parrot": ("slap", "✋"),
+               "bunny": ("coin", "🥕"), "monkey": ("grab", "🍌"), "gorilla": ("drum", "🥁"), "kangaroo": ("smash", "📦"),
+               "croc": ("coin", "💎"), "stones": ("pop", "🫧"), "riverrun": ("stomp", "🐜"), "waterfall": ("press", ""),
+               "hippo": ("stomp", "🍉"), "splash": ("pop", "💦"), "tree": ("bell", "🔔"), "vineswing": ("pop", "🎈"),
+               "jkick": ("kick", "🥥"), "treefrog": ("stomp", "🫧"), "bees": ("coin", "🍯"), "party": ("spin", "")},
+    "space": {"rocket": ("coin", "⭐"), "countdown": ("press", ""), "zerog": ("coin", "💎"), "stars": ("slap", "✋"),
+              "moonhop": ("coin", "⭐"), "buggy": ("coin", "🪙"), "alien": ("smash", "📦"), "ladder": ("grab", "⭐"),
+              "flag": ("spin", ""), "asteroids": ("coin", "🪨"), "smash": ("smash", "🪨"), "duck": ("switch", ""),
+              "comet": ("coin", "⭐"), "meteor": ("pop", "☄️"), "aliendance": ("slap", "✋"), "bouncy": ("stomp", "🫧"),
+              "robot": ("kick", "🪐"), "crystal": ("grab", "💎"), "march": ("coin", "⚙️"), "maze": ("coin", "💎")},
+    "ocean": {"beach": ("coin", "🐚"), "waves": ("pop", "🫧"), "dive": ("press", ""), "splashy": ("stomp", "🫧"),
+              "stars": ("slap", "✋"), "crab": ("coin", "🐚"), "seahorse": ("stomp", "🫧"), "octopus": ("whack", "🐙"),
+              "dolphin": ("kick", "🏐"), "coral": ("grab", "🐚"), "fishparty": ("spin", ""), "seaweed": ("switch", ""),
+              "jelly": ("coin", "💎"), "race": ("coin", "🪙"), "leap": ("pop", "🫧"), "turtle": ("stomp", "🫧"),
+              "map": ("coin", "🪙"), "wreck": ("bell", "🔔"), "pirate": ("smash", "📦"), "anchor": ("press", ""),
+              "treasure": ("slap", "✋"), "chests": ("pop", "🎈")},
+}
+
 
 def part(pid, move, cue, story, lines, prop=None, ch=1, dur=None, calm=False):
     d = {"id": pid, "scene": "footage", "move": move, "dur": dur or (24 if move == "freeze" else 20), "ch": ch}
@@ -62,6 +83,12 @@ def build(meta, intro, chapters, outro):
                      say=[[0.5, outro[2]], [5, "High five! See you next time!"]]))
     ids = [s["id"] for s in segs]
     assert len(ids) == len(set(ids)), f"duplicate part ids in {name}"
+    for s in segs:                                   # what reacts to the kids' action in each part
+        if s["id"] in GAMES.get(name, {}):
+            game, skin = GAMES[name][s["id"]]
+            s["game"] = game
+            if skin:
+                s["skin"] = skin
     tl = dict(title=title, output=output, character="line", bpm=120, fps=30, segments=segs)
     js = (f"// {title} - 15-minute warm-up. 120 BPM (1 beat = 0.5 s). Written by tools/new_timelines.py.\n"
           f"// Scenes: Google Flow clips in footage/flow/{name}/<id>.mp4 (prompts: flow_prompts/{name}.md)\n"
