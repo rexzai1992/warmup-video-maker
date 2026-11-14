@@ -14,3 +14,4 @@ music/**/*.wav
 .music_cache/
 .flow-chrome/
 music/inbox/
+audio/*.m4a

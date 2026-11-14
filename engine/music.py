@@ -39,6 +39,18 @@ def _atempo(ratio):
     return ",".join(f"atempo={r:.6f}" for r in parts)
 
 
+_rubberband = None
+
+
+def stretch_filter(ffmpeg, ratio):
+    """rubberband (best quality for music, keeps drum hits sharp) when this ffmpeg has it, else atempo."""
+    global _rubberband
+    if _rubberband is None:
+        out = subprocess.run([ffmpeg, "-hide_banner", "-filters"], capture_output=True, text=True).stdout
+        _rubberband = " rubberband " in out
+    return f"rubberband=tempo={ratio:.6f}:transients=crisp" if _rubberband else _atempo(ratio)
+
+
 def decode(path, ffmpeg, af=None, sr=SR, ch=2):
     cmd = [ffmpeg, "-v", "error", "-i", str(path)]
     if af:
@@ -51,6 +63,62 @@ def decode(path, ffmpeg, af=None, sr=SR, ch=2):
 def grid_bpm(bpm):
     """Count the song in half or double time if that is closer to 120 (smallest tempo change)."""
     return min((bpm / 2, bpm, bpm * 2), key=lambda x: abs(np.log(120.0 / x)))
+
+
+def beat_phase(x, sr=SR):
+    """Where the beats sit inside the 0.5 s grid (0..0.5 s), for audio already at 120 BPM.
+
+    Low band (< 200 Hz: kick, bass, snare body) -> envelope rise (attacks) at 1 ms resolution -> phase of the 2 Hz
+    component over the whole song. Off-beat hi-hats are filtered out; attacks have almost no detection lag."""
+    from scipy.signal import butter, sosfiltfilt
+    lo = sosfiltfilt(butter(4, 200, "low", fs=sr, output="sos"), x)
+    env = np.abs(lo)
+    k = sr // 1000                                            # 1 ms blocks
+    env = env[: len(env) // k * k].reshape(-1, k).max(1)
+    env = np.convolve(env, np.ones(25) / 25, mode="same")     # 25 ms centred smoothing: removes bass-note ripple
+    rise = np.maximum(0, np.diff(env, prepend=env[0]))
+    on = rise > 0.25 * rise.max()                              # clear attacks only, not slow swells
+    starts = np.nonzero(on & ~np.roll(on, 1))[0]              # first ms of each attack (a kick keeps "rising"
+    starts = starts[(starts > 0) & (starts < len(env) - 40)]   # ~100 ms as its pitch falls - only its start counts)
+    keep, last = [], -10 ** 9
+    for s_ in starts:                                          # one start per hit: ignore re-triggers for 150 ms
+        if s_ - last > 150:
+            keep.append(s_)
+        last = s_ if s_ - last > 150 else last
+    starts = np.array(keep, dtype=int)
+    w = env[starts + 40] - env[starts]                         # weight = how big the hit is
+    t = (starts + 3) * k / sr                                  # block -> seconds (a block is 44 samples, not exactly 1 ms)
+    c = np.dot(np.maximum(w, 0), np.exp(-2j * np.pi * t / BEAT))
+    return float((-np.angle(c) / (2 * np.pi) % 1) * BEAT)
+
+
+def drift(x, sr=SR):
+    """Beat position change (s) between the first and second half of audio that should be at 120 BPM."""
+    h = len(x) // 2
+    return ((beat_phase(x[h:], sr) + h / sr) - beat_phase(x[:h], sr) + BEAT / 2) % BEAT - BEAT / 2
+
+
+def downbeat_phase(y, grid, sr=22050):
+    """Which of the 4 beat positions (0-3) in `grid` is beat 1."""
+    import librosa
+    hop = 512
+    S = np.abs(librosa.stft(y, n_fft=2048, hop_length=hop))
+    freqs = librosa.fft_frequencies(sr=sr, n_fft=2048)
+    low = S[freqs < 150].sum(0)
+    kick = np.maximum(0, np.diff(low, prepend=low[0]))
+    chroma = librosa.feature.chroma_stft(S=S ** 2, sr=sr)
+    chroma = librosa.util.normalize(chroma, axis=0)
+    # harmony change at each beat: chroma of the beat that starts here vs the beat before
+    fr = librosa.time_to_frames(grid, sr=sr, hop_length=hop)
+    w = max(1, int(BEAT * sr / hop))
+    nov = np.array([np.linalg.norm(chroma[:, f:f + w].mean(1) - chroma[:, max(0, f - w):f].mean(1))
+                    if w <= f < chroma.shape[1] - w else 0 for f in fr])
+    kk = np.array([kick[max(0, f - 1): f + 2].max() if f + 2 <= len(kick) else 0 for f in fr])
+    # compare the 4 positions: per-position means, scaled to their spread; bass drum counts double
+    km = np.array([kk[i::4].mean() for i in range(4)])
+    nm = np.array([nov[i::4].mean() for i in range(4)])
+    rel = lambda a: (a - a.mean()) / (a.mean() + 1e-9)    # relative contrast, so a flat feature adds ~nothing
+    return int(np.argmax(2 * rel(km) + rel(nm)))
 
 
 def analyse(path, ffmpeg):
@@ -69,23 +137,27 @@ def analyse(path, ffmpeg):
     score = [abs(np.dot(env, np.exp(-2j * np.pi * (c / 60) * tt))) for c in cand]
     bpm = float(cand[int(np.argmax(score))])
     ratio = 120.0 / grid_bpm(bpm)
-    st = decode(path, ffmpeg, af=_atempo(ratio))           # stereo, 120 BPM now
+    st = decode(path, ffmpeg, af=stretch_filter(ffmpeg, ratio))   # stereo, 120 BPM now
+    # fine-tune: beats must sit at the same grid position at the start and the end of the song
+    for _ in range(2):
+        d = drift(st.mean(1))
+        if abs(d) < 0.008 or abs(d) > 0.15:          # good enough / not a steady beat (fix would make it worse)
+            break
+        ratio *= 1 + d / (len(st) / SR / 2)          # later in the 2nd half = too slow -> speed up a bit
+        st = decode(path, ffmpeg, af=stretch_filter(ffmpeg, ratio))
+    bpm = 120.0 / ratio if abs(np.log(120 / bpm)) < 0.36 else bpm
     mono = st.mean(1)
 
-    # beats of the stretched track, then the grid phase (where the beats fall inside 0.5 s)
+    # Beat position inside the 0.5 s grid. The phase of the onset envelope's 2 Hz component (= 120 BPM) over the whole
+    # song: even 8th-note hi-hats cancel out at 2 Hz, so this locks onto the kick/snare beats, not the off-beats.
+    # Low band only (< 400 Hz: kick, snare body, bass) - off-beat hi-hats would otherwise pull it half a beat.
     y2 = librosa.resample(mono, orig_sr=SR, target_sr=22050)
-    env = librosa.onset.onset_strength(y=y2, sr=22050)
-    _, bt = librosa.beat.beat_track(onset_envelope=env, sr=22050, start_bpm=120, tightness=400)
-    times = librosa.frames_to_time(bt, sr=22050)
-    if len(times) < 16:
-        raise ValueError("couldn't find a steady beat")
-    ang = np.angle(np.mean(np.exp(2j * np.pi * times / BEAT)))
-    phase = (ang / (2 * np.pi) % 1) * BEAT                # first beat position in [0, 0.5)
+    phase = beat_phase(mono)
 
-    # downbeat: of the 4 beat positions in a bar, the one with the strongest onsets on average
+    # downbeat (beat 1 of the bar). Full-band onsets favour the snare on 2 and 4, so use what marks beat 1 instead:
+    # the bass drum (low band onsets) and chord changes (chroma novelty), each normalised, summed per beat position.
     grid = np.arange(phase, len(mono) / SR - BEAT, BEAT)
-    strength = np.interp(librosa.time_to_frames(grid, sr=22050), np.arange(len(env)), env)
-    k = int(np.argmax([strength[i::4].mean() for i in range(4)]))
+    k = downbeat_phase(y2, grid)
     bars = grid[k::4]
 
     # loud part only: bars whose RMS is at least 60% of the typical bar
@@ -103,7 +175,7 @@ def analyse(path, ffmpeg):
 
 
 def load_loop(path, ffmpeg):
-    h = hashlib.md5(f"{path.resolve()}|{path.stat().st_mtime}|{path.stat().st_size}|v2".encode()).hexdigest()[:16]
+    h = hashlib.md5(f"{path.resolve()}|{path.stat().st_mtime}|{path.stat().st_size}|v13".encode()).hexdigest()[:16]
     CACHE.mkdir(exist_ok=True)
     f = CACHE / f"{h}.npz"
     if f.exists():
