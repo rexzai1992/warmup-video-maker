@@ -291,8 +291,8 @@ def preview(name, times):
 
 
 ENC_CPU = ["-c:v", "libx264", "-preset", "medium", "-crf", "28", "-pix_fmt", "yuv420p", "-g", "50"]
-# NVIDIA hardware encoder: similar size/quality at CQ 31, frees the CPU for drawing frames
-ENC_NVENC = ["-c:v", "h264_nvenc", "-preset", "p6", "-tune", "hq", "-rc", "vbr", "-cq", "31", "-b:v", "0",
+# NVIDIA hardware encoder: about 12 MB per minute at CQ 33 (owner target), frees the CPU for drawing frames
+ENC_NVENC = ["-c:v", "h264_nvenc", "-preset", "p6", "-tune", "hq", "-rc", "vbr", "-cq", "33", "-b:v", "0",
              "-spatial-aq", "1", "-pix_fmt", "yuv420p", "-g", "50"]
 # GPU use can be switched off with WARMUP_GPU=0 (or only one part: WARMUP_GPU_ENC=0 / WARMUP_GPU_DRAW=0)
 GPU_ENC = os.environ.get("WARMUP_GPU", "1") != "0" and os.environ.get("WARMUP_GPU_ENC", "1") != "0"
