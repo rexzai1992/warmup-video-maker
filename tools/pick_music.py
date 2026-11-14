@@ -1,12 +1,14 @@
 """Check candidate songs and pick the best ones for each chapter.
 
-  1. Download candidates (YouTube Audio Library) into music/inbox/school/ and music/inbox/japan/
+  1. Download candidates (YouTube Audio Library) anywhere, e.g. Downloads
+     python tools/pick_music.py --scan [folder ...]   -> copies new songs (last 3 days) into music/inbox/<version>/
+     (or put them in music/inbox/school/ and music/inbox/japan/ yourself)
   2. python tools/pick_music.py            -> table + suggestion
   3. python tools/pick_music.py --apply    -> copies the picks to music/<version>/ch1..ch5 + calm
 
 Good fit = tempo needs little stretching to reach 120 BPM (beats stay natural), long enough, steady beat.
 """
-import pathlib, shutil, sys
+import pathlib, re, shutil, sys, time
 
 import numpy as np
 
@@ -71,9 +73,39 @@ def pick(version, ffmpeg):
     return picks
 
 
+JAPAN_WORDS = ("japan", "tokyo", "kyoto", "taiko", "koto", "shamisen", "sakura", "matsuri", "festival", "asia",
+               "zen", "ninja", "samurai", "bamboo", "fuji", "geisha", "oriental", "shakuhachi", "kimono", "edo")
+RIPPED = re.compile(r"\[[A-Za-z0-9_-]{11}\]")       # "... [dQw4w9WgXcQ].mp3" = ripped from a YouTube video
+
+
+def scan(folders, days=3):
+    """Collect songs downloaded in the last `days` days from the given folders (default: Downloads)
+    into music/inbox/<school|japan>/. Japan-sounding names go to japan, the rest to school."""
+    since = time.time() - days * 86400
+    n = 0
+    for folder in folders:
+        for f in sorted(pathlib.Path(folder).expanduser().glob("*")):
+            if f.suffix.lower() not in EXTS or f.stat().st_mtime < since:
+                continue
+            if RIPPED.search(f.name):
+                print(f"  SKIPPED (ripped from a YouTube video, not safe for a monetized channel): {f.name}")
+                continue
+            v = "japan" if any(w in f.name.lower() for w in JAPAN_WORDS) else "school"
+            dest = ROOT / "music" / "inbox" / v
+            dest.mkdir(parents=True, exist_ok=True)
+            if not (dest / f.name).exists():
+                shutil.copy2(f, dest / f.name)
+                n += 1
+            print(f"  {v:6s} <- {f.name}")
+    print(f"  {n} new song(s) copied into music/inbox/")
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     ff = shutil.which("ffmpeg") or sys.exit("ffmpeg not found")
+    if "--scan" in sys.argv:
+        extra = [a for a in sys.argv[sys.argv.index("--scan") + 1:] if not a.startswith("--")]
+        scan(extra or [pathlib.Path.home() / "Downloads"])
     for v in ("school", "japan"):
         picks = pick(v, ff)
         if picks and "--apply" in sys.argv:
