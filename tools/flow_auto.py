@@ -38,7 +38,7 @@ def open_chrome():
 def connect(p):
     browser = p.chromium.connect_over_cdp(f"http://127.0.0.1:{PORT}")
     ctx = browser.contexts[0]
-    pages = [pg for pg in ctx.pages if "labs.google" in pg.url] or ctx.pages
+    pages = [pg for pg in ctx.pages if "flow.google.com" in pg.url or "labs.google" in pg.url] or ctx.pages
     return browser, ctx, pages[0]
 
 
