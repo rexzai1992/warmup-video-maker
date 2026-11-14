@@ -105,7 +105,7 @@ LOW_CREDITS = 30
 STOP_WORDS = ["captcha", "unusual activity", "unusual traffic", "verify it's you", "too many requests", "rate limit",
               "not enough credits", "insufficient credits", "out of credits", "try again later", "something went wrong"]
 FAIL_WORDS = ["fail", "violat", "policy", "couldn't", "could not", "unable to", "error", "blocked", "not allowed",
-              "try a different prompt"]
+              "try a different prompt", "retry"]
 PEOPLE = ["children", "child", "kids", "students", "people", "teacher", "fans", "crowd", "crowds", "dancers", "teams"]
 
 
@@ -194,11 +194,25 @@ def setup_settings(page):
 
 
 def tiles(page):
-    return page.evaluate("""() => [...document.querySelectorAll('flow-video-tile')].map(t => ({
-        seen: t.hasAttribute('data-wu-seen'), text: t.innerText.replace(/\\s+/g, ' ').slice(0, 200),
-        video: !!(t.querySelector('video') && (t.querySelector('video').currentSrc || t.querySelector('video').src)),
-        img: !!t.querySelector('img[src]'),
-        more: !!t.querySelector('[aria-label="More options"]')}))""")
+    """Tiles currently in the page, newest first. Flow only keeps on-screen tiles in the page (virtual list),
+    so never count them - compare the TOP tile's identity (media src or prompt text) instead."""
+    return page.evaluate("""() => [...document.querySelectorAll('flow-video-tile')].map(t => {
+        const v = t.querySelector('video'), im = t.querySelector('img[src]');
+        const vs = v ? (v.currentSrc || v.src || '') : '', is = im ? im.src : '';
+        const text = t.innerText.replace(/\s+/g, ' ').slice(0, 200);
+        const title = (t.querySelector('[aria-label]:not([aria-label="Generated video"]):not([aria-label="Favorite"])' +
+                       ':not([aria-label="Reuse prompt"]):not([aria-label="More options"])') || {}).ariaLabel || '';
+        return {text, video: !!vs, img: !!is, key: vs || is || title || text,
+                more: !!t.querySelector('[aria-label="More options"]')};
+    })""")
+
+
+def top_key(page):
+    page.evaluate("() => { const m = document.querySelector('main') || document.scrollingElement; window.scrollTo(0, 0);"
+                  " document.querySelectorAll('*').forEach(e => { if (e.scrollTop > 0) e.scrollTop = 0; }); }")
+    page.wait_for_timeout(800)
+    ts = tiles(page)
+    return ts[0]["key"] if ts else None
 
 
 def type_prompt(page, prompt):
@@ -212,21 +226,23 @@ def type_prompt(page, prompt):
 
 
 def generate(page, prompt, timeout=900):
-    """Submit one prompt and wait for its tile. Returns ('done', tile_index) or ('failed', text)."""
-    page.evaluate("() => document.querySelectorAll('flow-video-tile').forEach(t => t.setAttribute('data-wu-seen', '1'))")
-    n0 = len(tiles(page))
+    """Submit one prompt and wait for its tile (the new top tile). Returns ('done', 0) or ('failed', text)."""
+    before = top_key(page)
     type_prompt(page, prompt)
     find(page, "Start generation").click()
-    t0, last = time.time(), None
+    t0, last, mine = time.time(), None, None
     while time.time() - t0 < timeout:
         page.wait_for_timeout(5000)
         check_page(page)
+        page.evaluate("() => { window.scrollTo(0, 0); document.querySelectorAll('*').forEach(e => { if (e.scrollTop > 0) e.scrollTop = 0; }); }")
         ts = tiles(page)
-        new = [i for i, t in enumerate(ts) if not t["seen"]]
-        if len(ts) <= n0 or not new:
+        if not ts:
             continue
-        i = new[0]
-        t = ts[i]
+        t = ts[0]
+        if mine is None:
+            if t["key"] == before:                 # our tile hasn't appeared yet
+                continue
+            mine = True
         if t["text"] != last:
             print(f"    {time.time() - t0:4.0f}s tile: {t['text'][:90]}", flush=True)
             last = t["text"]
@@ -234,7 +250,7 @@ def generate(page, prompt, timeout=900):
             return "failed", t["text"]
         if t["more"] and (t["video"] or t["img"]) and "%" not in t["text"]:
             page.wait_for_timeout(2000)
-            return "done", i
+            return "done", 0
     raise Stop(f"clip not finished after {timeout // 60} min")
 
 

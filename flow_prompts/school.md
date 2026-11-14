@@ -46,7 +46,7 @@ Realistic live-action video, real-world location, natural daylight, bright cheer
 **Save as:** `jump.mp4`
 
 ```
-Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp. Rainy street with shiny puddles on the road, light rain, umbrellas at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.
+Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp. Empty quiet town street in light rain, shiny puddles on the road, a few umbrellas far away at the edges, no people in the middle. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.
 ```
 
 ## 6. squat (DUCK THE BRANCHES)
@@ -62,7 +62,7 @@ Realistic live-action video, real-world location, natural daylight, bright cheer
 **Save as:** `knees.mp4`
 
 ```
-Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp. Long colorful school hallway with lockers on both sides, deep perspective. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.
+Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp. Long empty colorful school hallway with lockers on both sides, deep perspective, no people. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.
 ```
 
 ## 8. star (STAR JUMPS)
