@@ -1,0 +1,8 @@
+footage/
+.frames/
+.parts/
+output/
+__pycache__/
+*.pyc
+.DS_Store
+voice_cache/tmp_*

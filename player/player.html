@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warm-Up Player</title>
+<style>
+  :root { --bg: #000; --fg: #fff; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); overflow: hidden; cursor: none; }
+  video { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: contain; background: #000; }
+  #tap { position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+         font: 700 48px system-ui, sans-serif; background: rgba(0,0,0,.6); cursor: pointer; }
+</style>
+</head>
+<body>
+<!-- Plays a warm-up video full screen, on repeat. player.html?v=<path to mp4> -->
+<video id="v" autoplay loop playsinline preload="auto"></video>
+<div id="tap">▶ Tap to start with sound</div>
+<script>
+  const v = document.getElementById('v'), tap = document.getElementById('tap');
+  v.src = new URLSearchParams(location.search).get('v') || '../output/BackToSchool_WarmUp_15min.mp4';
+  const goFull = () => { const el = document.documentElement; if (!document.fullscreenElement && el.requestFullscreen) el.requestFullscreen().catch(() => {}); };
+  function start() {
+    v.muted = false;
+    v.play().then(goFull).catch(() => {
+      // Browser blocked sound autoplay: show a one-tap start (not needed when opened with the launcher).
+      tap.style.display = 'flex';
+    });
+  }
+  tap.onclick = () => { tap.style.display = 'none'; v.muted = false; v.play(); goFull(); };
+  document.addEventListener('click', goFull);
+  // If the video ever stalls or ends without looping, restart it.
+  v.addEventListener('ended', () => { v.currentTime = 0; v.play(); });
+  v.addEventListener('error', () => setTimeout(() => { v.load(); v.play(); }, 3000));
+  start();
+</script>
+</body>
+</html>
