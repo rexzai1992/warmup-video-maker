@@ -207,7 +207,13 @@ def build_audio(tl, name):
     if voice_engine() != "kokoro":
         print("  !! WARNING: Kokoro voice not installed (run tools/setup_voice.bat). Using the fallback voice -"
               " don't upload this soundtrack to a monetized channel.")
-    syn = Synth(tl, voice_clip)
+    import music
+    ext, covered = music.build(tl, ROOT / "music" / name, ffmpeg(), Synth.frozen_at)
+    if ext is None:
+        print(f"  no tracks in music/{name}/ - using the generated music")
+    else:
+        print(f"  real music on {len(covered)}/{len(tl['segments'])} parts (generated music on the rest)")
+    syn = Synth(tl, voice_clip, ext, covered)
     out = AUDIO / f"{name}.m4a"
     AUDIO.mkdir(exist_ok=True)
     syn.render(out, ffmpeg())

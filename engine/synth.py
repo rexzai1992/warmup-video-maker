@@ -11,8 +11,9 @@ BEAT = 0.5   # 120 BPM
 
 
 class Synth:
-    def __init__(self, tl, voice_fn):
+    def __init__(self, tl, voice_fn, ext_music=None, covered=()):
         self.tl, self.voice_fn = tl, voice_fn
+        self.ext_music, self.covered = ext_music, set(covered)   # real music (N, 2) from music.py + parts it covers
         self.style = tl.get("music", "pop")
         self.segs, self.total = tl["segments"], tl["total"]
         self.N = int((self.total + 2) * SR)
@@ -320,7 +321,8 @@ class Synth:
 
     def render(self, out, ffmpeg):
         for i, s in enumerate(self.segs):
-            self.music_for(s)
+            if i not in self.covered:
+                self.music_for(s)
             self.sfx_for(s, i)
             lines = [(float(a), b, "en") for a, b in s.get("say", [])] + [(a, b, "en") for a, b in self.auto_voice(s)]
             lines += [(float(a), b, "ja") for a, b in s.get("jsay", [])]
@@ -329,16 +331,20 @@ class Synth:
                 self.add(self.voice, s["start"] + at, self.voice_fn(text, lang), 1.0)
         envv = np.convolve(np.abs(self.voice), np.ones(int(0.15 * SR)) / int(0.15 * SR), mode="same")
         duck = 1 - 0.5 * np.clip(envv * 12, 0, 1)
-        mix = self.music * 0.75 * duck + self.sfx * 0.8 + self.voice * 1.25
+        mono = self.music * 0.75 * duck + self.sfx * 0.8 + self.voice * 1.25
+        mix = np.repeat(mono[:, None], 2, axis=1)
+        if self.ext_music is not None:                       # real songs: stereo, ducked a bit more under the voice
+            duck2 = 1 - 0.6 * np.clip(envv * 12, 0, 1)
+            mix += self.ext_music[: len(mix)] * duck2[:, None]
         end = int(self.total * SR)
         fi, fo = int(0.6 * SR), int(1.5 * SR)
-        mix[:fi] *= np.linspace(0, 1, fi)
-        mix[end - fo:end] *= np.linspace(1, 0, fo)
+        mix[:fi] *= np.linspace(0, 1, fi)[:, None]
+        mix[end - fo:end] *= np.linspace(1, 0, fo)[:, None]
         mix = mix[:end]
         mix = np.tanh(mix / (np.max(np.abs(mix)) * 0.55)) * 0.89
         wav = pathlib.Path(out).with_suffix(".wav")
         with wave.open(str(wav), "w") as w:
-            w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
+            w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
             w.writeframes((mix * 32767).astype(np.int16).tobytes())
         subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", str(wav), "-ac", "2", "-c:a", "aac", "-b:a", "128k", str(out)], check=True)
         wav.unlink()

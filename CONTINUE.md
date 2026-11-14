@@ -234,7 +234,7 @@ Each prompt = **STYLE prefix + scene + COMMON suffix**.
 | Google Flow clip replacement in the engine | ✅ done |
 | Flow prompt pack + `--import-flow` | ✅ done: `flow_prompts/*.md`, `tools/make_flow_prompts.py`, `--import-flow` (tested). ⏳ waiting for the owner's Flow clips |
 | Natural voice (Kokoro) | ✅ done: `.tts-venv` (Python 3.12, `tools/setup_voice.bat`), voices **af_heart** (EN) + **jf_alpha** (JA), both soundtracks rebuilt, old Mac `say` voices deleted. `voice_cache/` is no longer committed (rebuilds in ~3 min) |
-| Real music beat-aligned | ⏳ Task 3 |
+| Real music beat-aligned | ✅ code done + tested with a test song (`engine/music.py`: exact tempo scan, stretch to 120, downbeat on bar grid, 4-bar loops, freeze dips, stereo). ⏳ waiting for the owner's YouTube Audio Library tracks in `music/<version>/` |
 | Chapter / Shorts export | ⏳ Task 4 |
 | Windows test | ✅ setup + `--sample 36 96` work on Windows (1 min rendered in 17 s on 16 threads, 13 MB). ⏳ full render + player test |
 
