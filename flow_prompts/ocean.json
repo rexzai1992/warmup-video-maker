@@ -1,0 +1,331 @@
+[
+ {
+  "n": 1,
+  "id": "intro",
+  "cue": "UNDER THE SEA",
+  "save_as": "intro.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sunny tropical beach with turquoise water and palm trees at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 2,
+  "id": "c1",
+  "cue": "CHAPTER 1",
+  "save_as": "c1.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Turquoise ocean waves rolling onto a white sand beach. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 3,
+  "id": "starfish",
+  "cue": "STRETCH LIKE A STARFISH",
+  "save_as": "starfish.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Wet sand beach at low tide with starfish at the edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 4,
+  "id": "beach",
+  "cue": "RUN TO THE BEACH",
+  "save_as": "beach.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Path through beach grass leading to the sea. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 5,
+  "id": "waves",
+  "cue": "JUMP THE WAVES",
+  "save_as": "waves.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Gentle waves washing onto the beach, foam on the sand. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 6,
+  "id": "dive",
+  "cue": "DIVE DOWN",
+  "save_as": "dive.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Boat deck view of clear blue water, sun rays. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 7,
+  "id": "splashy",
+  "cue": "SPLASHY KNEES",
+  "save_as": "splashy.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Shallow clear water over white sand. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 8,
+  "id": "stars",
+  "cue": "STARFISH JUMPS",
+  "save_as": "stars.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sandy sea floor with orange starfish at the edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 9,
+  "id": "shark",
+  "cue": "SHARK ATTACK FREEZE",
+  "save_as": "shark.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Underwater blue ocean with a shark swimming far away at the left edge. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 10,
+  "id": "frogfish",
+  "cue": "FROG FISH JUMPS",
+  "save_as": "frogfish.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Colorful coral with small fish at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 11,
+  "id": "c2",
+  "cue": "CHAPTER 2",
+  "save_as": "c2.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Colorful coral reef seen from above in clear water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 12,
+  "id": "crab",
+  "cue": "CRAB SIDE SLIDES",
+  "save_as": "crab.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Beach rocks with small red crabs at the edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 13,
+  "id": "seahorse",
+  "cue": "SEAHORSE HOPS",
+  "save_as": "seahorse.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Seagrass meadow underwater with seahorses at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 14,
+  "id": "bubbles",
+  "cue": "CATCH THE BUBBLES",
+  "save_as": "bubbles.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Underwater scene with bubbles rising at both sides, sun rays. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 15,
+  "id": "rock",
+  "cue": "BALANCE ON THE ROCK",
+  "save_as": "rock.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Big smooth rock in a calm shallow lagoon. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 16,
+  "id": "octopus",
+  "cue": "OCTOPUS PUNCHES",
+  "save_as": "octopus.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Underwater rocky reef with an octopus at the far right edge. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 17,
+  "id": "dolphin",
+  "cue": "DOLPHIN KICKS",
+  "save_as": "dolphin.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Dolphins swimming far away in clear blue water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 18,
+  "id": "coral",
+  "cue": "CLIMB THE CORAL",
+  "save_as": "coral.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Tall coral reef wall with colorful fish at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 19,
+  "id": "fishparty",
+  "cue": "FISH PARTY",
+  "save_as": "fishparty.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Schools of colorful tropical fish swimming at the edges of a reef. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 20,
+  "id": "water1",
+  "cue": "WATER BREAK",
+  "save_as": "water1.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Calm beach under palm trees, shade, gentle waves. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 21,
+  "id": "c3",
+  "cue": "CHAPTER 3",
+  "save_as": "c3.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Deep blue ocean with light rays from the surface. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 22,
+  "id": "seaweed",
+  "cue": "DUCK THE SEAWEED",
+  "save_as": "seaweed.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Underwater kelp forest with tall seaweed at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 23,
+  "id": "manta",
+  "cue": "SWIM LIKE A MANTA RAY",
+  "save_as": "manta.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Manta ray gliding far away in deep blue water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 24,
+  "id": "jelly",
+  "cue": "DODGE THE JELLYFISH",
+  "save_as": "jelly.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Glowing jellyfish floating at the left and right edges in dark blue water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 25,
+  "id": "race",
+  "cue": "RACE THE DOLPHINS",
+  "save_as": "race.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Open blue ocean surface with dolphins jumping far away. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 26,
+  "id": "leap",
+  "cue": "JUMPING DOLPHINS",
+  "save_as": "leap.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Dolphins leaping out of the water far away at sunset. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 27,
+  "id": "seabed",
+  "cue": "BOUNCE ON THE SEABED",
+  "save_as": "seabed.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sandy sea floor with shells and small rocks, light rays. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 28,
+  "id": "statue",
+  "cue": "SUNKEN STATUE",
+  "save_as": "statue.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sunken ancient stone statues on the sea floor at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 29,
+  "id": "turtle",
+  "cue": "TURTLE PADDLE",
+  "save_as": "turtle.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sea turtle swimming far away over a coral reef. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 30,
+  "id": "c4",
+  "cue": "CHAPTER 4",
+  "save_as": "c4.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Old sunken pirate ship on the sea floor. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 31,
+  "id": "map",
+  "cue": "FOLLOW THE MAP",
+  "save_as": "map.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sandy beach with a palm tree and a wooden treasure chest at the side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 32,
+  "id": "wreck",
+  "cue": "CLIMB THE SHIPWRECK",
+  "save_as": "wreck.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Wooden shipwreck covered in coral at the side, fish around. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 33,
+  "id": "coins",
+  "cue": "CATCH THE GOLD COINS",
+  "save_as": "coins.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sea floor with scattered gold coins sparkling in light rays. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 34,
+  "id": "chests",
+  "cue": "JUMP THE TREASURE CHESTS",
+  "save_as": "chests.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Sea floor with wooden treasure chests at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 35,
+  "id": "pirate",
+  "cue": "PIRATE KICKS",
+  "save_as": "pirate.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Deck of an old wooden pirate ship, ropes and barrels at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 36,
+  "id": "anchor",
+  "cue": "PULL UP THE ANCHOR",
+  "save_as": "anchor.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Big rusty anchor on the sea floor at the side, seaweed. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 37,
+  "id": "pfreeze",
+  "cue": "PIRATE FREEZE",
+  "save_as": "pfreeze.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Pirate ship deck with a ship wheel at the far right side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 38,
+  "id": "treasure",
+  "cue": "TREASURE PARTY",
+  "save_as": "treasure.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Open treasure chest full of gold at the side, sparkling light. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 39,
+  "id": "water2",
+  "cue": "WATER BREAK",
+  "save_as": "water2.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Calm lagoon at sunset, palm trees. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 40,
+  "id": "c5",
+  "cue": "CHAPTER 5",
+  "save_as": "c5.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Ocean sunset with calm water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 41,
+  "id": "breathe1",
+  "cue": "BREATHE",
+  "save_as": "breathe1.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Slow bubbles rising in calm blue water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 42,
+  "id": "circles",
+  "cue": "JELLYFISH ARMS",
+  "save_as": "circles.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Jellyfish drifting slowly in soft blue light at the edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 43,
+  "id": "toes",
+  "cue": "TOUCH THE SAND",
+  "save_as": "toes.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Smooth white sand with gentle ripples underwater. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 44,
+  "id": "side",
+  "cue": "SEAWEED SWAY",
+  "save_as": "side.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Seaweed swaying gently in calm water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 45,
+  "id": "still",
+  "cue": "STILL AS A STARFISH",
+  "save_as": "still.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Starfish on a rock in a calm tide pool. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 46,
+  "id": "breathe2",
+  "cue": "BREATHE",
+  "save_as": "breathe2.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Calm ocean at night under the moon. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 47,
+  "id": "outro",
+  "cue": "OCEAN HERO!",
+  "save_as": "outro.mp4",
+  "prompt": "Realistic underwater and beach nature video, clear turquoise water, sun rays, bright natural colors, cinematic and sharp. Dolphins jumping at sunset over the ocean. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ }
+]

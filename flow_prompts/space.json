@@ -1,0 +1,331 @@
+[
+ {
+  "n": 1,
+  "id": "intro",
+  "cue": "SPACE MISSION",
+  "save_as": "intro.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Rocket on a launch pad at dawn, launch tower at the side, wide open concrete ground. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 2,
+  "id": "c1",
+  "cue": "CHAPTER 1",
+  "save_as": "c1.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Astronaut training center hangar with a big rocket far away. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 3,
+  "id": "suit",
+  "cue": "SPACE SUIT STRETCH",
+  "save_as": "suit.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Bright astronaut training room with space suits hanging on the walls at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 4,
+  "id": "rocket",
+  "cue": "RUN TO THE ROCKET",
+  "save_as": "rocket.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Wide concrete path leading to a tall rocket on the launch pad. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 5,
+  "id": "countdown",
+  "cue": "COUNTDOWN SQUATS",
+  "save_as": "countdown.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Mission control room with screens at both sides, open floor in the middle. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 6,
+  "id": "launch",
+  "cue": "ROCKET LAUNCH JUMPS",
+  "save_as": "launch.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Rocket lifting off far away with bright flames and smoke clouds. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 7,
+  "id": "zerog",
+  "cue": "ZERO-G KNEES",
+  "save_as": "zerog.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Inside a space station module, floating objects at the edges, Earth through a window. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 8,
+  "id": "stars",
+  "cue": "STAR JUMPS",
+  "save_as": "stars.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Starry night sky over a desert, milky way. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 9,
+  "id": "control",
+  "cue": "MISSION CONTROL FREEZE",
+  "save_as": "control.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Mission control room with big screens and consoles at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 10,
+  "id": "moonfrog",
+  "cue": "MOON FROG JUMPS",
+  "save_as": "moonfrog.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Grey moon surface with small rocks, Earth rising on the horizon. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 11,
+  "id": "c2",
+  "cue": "CHAPTER 2",
+  "save_as": "c2.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. The moon seen from space, craters, black sky. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 12,
+  "id": "moonhop",
+  "cue": "MOON HOPS",
+  "save_as": "moonhop.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Flat grey moon surface, black starry sky, Earth in the sky. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 13,
+  "id": "craters",
+  "cue": "JUMP THE CRATERS",
+  "save_as": "craters.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Moon surface with round craters into the distance. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 14,
+  "id": "buggy",
+  "cue": "MOON BUGGY SLIDES",
+  "save_as": "buggy.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Moon surface with a lunar rover parked at the right side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 15,
+  "id": "lowgrav",
+  "cue": "LOW GRAVITY BALANCE",
+  "save_as": "lowgrav.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Smooth moon plain with distant mountains, black sky. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 16,
+  "id": "moonrocks",
+  "cue": "CATCH THE MOON ROCKS",
+  "save_as": "moonrocks.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Moon surface with scattered rocks, black starry sky. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 17,
+  "id": "alien",
+  "cue": "ALIEN KICKS",
+  "save_as": "alien.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Moon base with glowing domes at the left and right sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 18,
+  "id": "ladder",
+  "cue": "CLIMB THE LADDER",
+  "save_as": "ladder.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Lunar lander with a ladder at the side, moon surface. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 19,
+  "id": "flag",
+  "cue": "PLANT THE FLAG",
+  "save_as": "flag.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Moon surface with a flag far away at the right side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 20,
+  "id": "water1",
+  "cue": "WATER BREAK",
+  "save_as": "water1.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Space station window with a calm view of Earth. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 21,
+  "id": "c3",
+  "cue": "CHAPTER 3",
+  "save_as": "c3.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Asteroid field in space, rocks floating, distant sun. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 22,
+  "id": "asteroids",
+  "cue": "DODGE THE ASTEROIDS",
+  "save_as": "asteroids.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Spaceship window view of floating asteroids at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 23,
+  "id": "smash",
+  "cue": "SMASH THE SPACE ROCKS",
+  "save_as": "smash.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Big rocky asteroids floating in space at the left and right edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 24,
+  "id": "duck",
+  "cue": "DUCK THE SPACE JUNK",
+  "save_as": "duck.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Space debris floating at the edges, blue planet below. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 25,
+  "id": "comet",
+  "cue": "ESCAPE THE COMET",
+  "save_as": "comet.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Bright comet with a long glowing tail across a starry sky. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 26,
+  "id": "ship",
+  "cue": "FLY THE SPACESHIP",
+  "save_as": "ship.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. View from a spaceship cockpit flying through stars. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 27,
+  "id": "redalert",
+  "cue": "RED ALERT FREEZE",
+  "save_as": "redalert.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Spaceship corridor with red alert lights at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 28,
+  "id": "hyper",
+  "cue": "HYPERSPACE JUMPS",
+  "save_as": "hyper.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Stars stretching into light streaks, hyperspace tunnel. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 29,
+  "id": "meteor",
+  "cue": "METEOR JUMPS",
+  "save_as": "meteor.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Meteor shower over a rocky planet surface. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 30,
+  "id": "c4",
+  "cue": "CHAPTER 4",
+  "save_as": "c4.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Colorful alien planet with two moons in the sky. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 31,
+  "id": "aliendance",
+  "cue": "ALIEN DANCE",
+  "save_as": "aliendance.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Alien planet landscape with glowing plants at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 32,
+  "id": "bouncy",
+  "cue": "BOUNCY PLANET HOPS",
+  "save_as": "bouncy.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Soft purple alien planet ground with round glowing rocks at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 33,
+  "id": "robot",
+  "cue": "ROBOT KICKS",
+  "save_as": "robot.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Futuristic robot factory hall, robot arms at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 34,
+  "id": "crystal",
+  "cue": "CLIMB THE CRYSTAL MOUNTAIN",
+  "save_as": "crystal.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Giant glowing crystal mountains on an alien planet. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 35,
+  "id": "catchstars",
+  "cue": "CATCH THE STARS",
+  "save_as": "catchstars.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Shooting stars across a purple sky over an alien desert. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 36,
+  "id": "march",
+  "cue": "ROBOT MARCH",
+  "save_as": "march.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Futuristic city street with tall towers at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 37,
+  "id": "maze",
+  "cue": "LASER MAZE",
+  "save_as": "maze.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Futuristic training hall with glowing blue lines on the walls. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 38,
+  "id": "statue",
+  "cue": "ROBOT STATUE",
+  "save_as": "statue.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Alien plaza with tall stone statues at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 39,
+  "id": "water2",
+  "cue": "WATER BREAK",
+  "save_as": "water2.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Spaceship lounge with a big window showing a colorful nebula. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 40,
+  "id": "c5",
+  "cue": "CHAPTER 5",
+  "save_as": "c5.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Earth seen from space at sunrise, glowing atmosphere. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 41,
+  "id": "breathe1",
+  "cue": "BREATHE",
+  "save_as": "breathe1.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Calm view of Earth turning slowly from space. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 42,
+  "id": "circles",
+  "cue": "PLANET ORBITS",
+  "save_as": "circles.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Planets orbiting a bright sun, wide view of the solar system. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 43,
+  "id": "toes",
+  "cue": "MOON DUST",
+  "save_as": "toes.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Sparkling moon dust on the moon surface, soft light. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 44,
+  "id": "side",
+  "cue": "SATELLITE STRETCH",
+  "save_as": "side.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Satellite with solar panels floating above Earth at the side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 45,
+  "id": "still",
+  "cue": "STILL AS A STAR",
+  "save_as": "still.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Single bright star in a calm night sky over mountains. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 46,
+  "id": "breathe2",
+  "cue": "BREATHE",
+  "save_as": "breathe2.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Peaceful starry sky over a calm lake at night. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 47,
+  "id": "outro",
+  "cue": "MISSION COMPLETE!",
+  "save_as": "outro.mp4",
+  "prompt": "Realistic cinematic sci-fi film shot, photoreal space and planet scenery, soft glowing light, cinematic and sharp. Space shuttle landing on a runway at sunset. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ }
+]

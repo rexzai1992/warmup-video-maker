@@ -1114,6 +1114,217 @@ function hud(t, seg, idx, st, b) {
   for (const s of TL.segments) if (s.scene === 'card') { const x = 60 + (W - 120) * s.start / TOTAL; ctx.fillStyle = '#1B1B3A'; ctx.fillRect(x - 3, H - 50, 6, 30); }
 }
 
+/* ---------------- INTERACTIVE GAME LAYER: every action makes something react ----------------
+   Each move has fixed impact moments (beats inside its cycle) and the limb that hits. A target appears where that
+   hand/foot will be at the impact, and reacts exactly then (BONK / POP / SPLAT / GOAL / BEEP / +1 / BOOM).
+   The same table lives in engine/synth.py (GAME_HITS) so the sound effects land on the same frames. */
+const GAME_HITS = {
+  punch:     { cyc: 1, at: [[0.25, 'hL'], [0.75, 'hR']], kind: 'whack' },
+  kick:      { cyc: 2, at: [[0.5, 'fL'], [1.5, 'fR']], kind: 'kick' },
+  run:       { cyc: 1, at: [[0.0, 'fR'], [0.5, 'fL']], kind: 'stomp' },
+  highknees: { cyc: 1, at: [[0.0, 'fR'], [0.5, 'fL']], kind: 'stomp' },
+  hop:       { cyc: 1, at: [[0.0, 'fB']], kind: 'stomp' },
+  jump:      { cyc: 2, at: [[1.0, 'hB'], [1.6, 'land']], kind: 'pop' },
+  tuckjump:  { cyc: 2, at: [[1.0, 'hB'], [1.6, 'land']], kind: 'pop' },
+  starjump:  { cyc: 1, at: [[0.5, 'hB']], kind: 'pop' },
+  frog:      { cyc: 4, at: [[2.5, 'hB'], [3.2, 'land']], kind: 'pop' },
+  climb:     { cyc: 1, at: [[0.25, 'hL'], [0.75, 'hR']], kind: 'grab' },
+  squat:     { cyc: 2, at: [[1.0, 'hL'], [1.0, 'hR']], kind: 'press' },
+  skater:    { cyc: 2, at: [[0.0, 'fB'], [1.0, 'fB']], kind: 'coin' },
+};
+const GAME_SKIN = { whack: '🐭', pop: '🎈', stomp: '🐞', kick: '⚽', grab: '⭐', coin: '🪙', press: '' };
+const GAME_WORD = { whack: ['BONK!', 'WHACK!', 'BOP!'], pop: ['POP!', 'POP!', 'BANG!'], stomp: ['SPLAT!', 'SQUISH!', 'STOMP!'],
+                    kick: ['KICK!', 'WHOOSH!', 'GOAL!'], grab: ['GOT IT!', '+1', 'YES!'], coin: ['+1', '+1', 'CHING!'],
+                    press: ['BEEP!', 'BOOP!', 'CLICK!'] };
+const GAME_PRAISE = ['AWESOME!', 'SUPER!', 'WOW!', 'AMAZING!', 'ON FIRE!', 'UNSTOPPABLE!'];
+const EMOJI_FONT = '"Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
+const hash = n => frac(Math.sin(n * 127.1 + 311.7) * 43758.5453);
+
+function gameOf(seg) {
+  if (TL.games === false || seg.game === 'none' || seg.scene === 'card' || seg.calm) return null;
+  const g = GAME_HITS[seg.move];
+  if (!g) return null;
+  // how long a target shows before its hit / how long the hit effect lasts: shorter for fast moves so they never pile up
+  const per = {}; for (const [, limb] of g.at) per[limb] = (per[limb] || 0) + 1;
+  const every = Math.min(...Object.values(per).map(n => g.cyc / n));
+  return { ...g, kind: seg.game || g.kind, skin: seg.skin || (TL.skins || {})[seg.game || g.kind] || GAME_SKIN[seg.game || g.kind],
+           lead: clamp(0.85 * every, 0.6, 1.6), fx: clamp(0.8 * every, 0.6, 1.2) };
+}
+// impact list for a segment: [{b, limb, i}] - active from beat 4 until 1 s before the end
+function gameHits(seg) {
+  const g = gameOf(seg);
+  if (!g) return [];
+  if (seg._hits) return seg._hits;
+  const out = [], nb = seg.dur / BEAT - 2;
+  for (let c = 0; c * g.cyc < nb + g.cyc; c++)
+    for (const [o, limb] of g.at) { const hb = c * g.cyc + o; if (hb >= 4 && hb <= nb) out.push({ b: hb, limb }); }
+  out.sort((a, b) => a.b - b.b).forEach((h, i) => h.i = i);
+  seg._hits = out;
+  return out;
+}
+// world position of hands/feet for a pose - same maths as drawLine
+function joints(cx, p, scale) {
+  const leg = (side, lift) => {
+    const sq = p.squat, kick = side < 0 ? p.kickL : p.kickR;
+    const ta = p.wide + 48 * sq + kick, sa = p.wide * 0.6 - 6 * sq + kick * 1.1;
+    const tLen = LN.thigh * (1 - 0.38 * sq) * (1 - 0.62 * lift), sLen = LN.shin * (1 - 0.1 * sq) * (1 - 0.15 * lift);
+    const d1 = dir(ta, side), d2 = dir(sa, side);
+    const knee = [side * LN.hipW + d1[0] * tLen, d1[1] * tLen];
+    return [knee[0] + d2[0] * sLen + side * 12, knee[1] + d2[1] * sLen + 6];
+  };
+  const fl = leg(-1, p.liftL), fr = leg(1, p.liftR);
+  const lowest = Math.max(fl[1], fr[1]) - 6;
+  const sy = 1 + clamp(p.air / 900, 0, 0.06) - p.squat * 0.03;
+  const hipY = GROUND - 20 * scale - lowest * scale - p.air * scale - p.bounce * scale;
+  const W2 = ([x, y]) => [cx + scale * x / Math.sqrt(sy), hipY + scale * y * sy];
+  const neckY = -LN.torso, c = Math.cos(p.lean * D), s = Math.sin(p.lean * D);
+  const hand = side => {
+    const a = side < 0 ? p.armL : p.armR, s0 = [side * LN.sh * 0.86, neckY + 22];
+    const d1 = dir(a[0], side), d2 = dir(a[1], side);
+    const x = s0[0] + d1[0] * LN.ua + d2[0] * LN.fa, y = s0[1] + d1[1] * LN.ua + d2[1] * LN.fa;
+    return W2([x * c - y * s, x * s + y * c]);
+  };
+  return { hL: hand(-1), hR: hand(1), fL: W2(fl), fR: W2(fr) };
+}
+function hitPos(seg, h) {
+  const st = h.b * BEAT, p = pose(seg.move, st, h.b), j = joints(KX + p.dx, p, 0.98);
+  const mid = (a, b2) => [(a[0] + b2[0]) / 2, (a[1] + b2[1]) / 2];
+  switch (h.limb) {
+    case 'hL': return seg.move === 'squat' ? [j.hL[0], j.hL[1] + 30] : [j.hL[0] - 60, Math.max(340, j.hL[1])];
+    case 'hR': return seg.move === 'squat' ? [j.hR[0], j.hR[1] + 30] : [j.hR[0] + 60, Math.max(340, j.hR[1])];
+    case 'hB': { const m = mid(j.hL, j.hR); return [m[0], Math.max(340, Math.min(j.hL[1], j.hR[1]) - 10)]; }
+    case 'fL': return seg.move === 'kick' ? [j.fL[0] - 40, j.fL[1]] : [j.fL[0] - 45, GROUND - 26];
+    case 'fR': return seg.move === 'kick' ? [j.fR[0] + 40, j.fR[1]] : [j.fR[0] + 45, GROUND - 26];
+    case 'fB': return [mid(j.fL, j.fR)[0] + (seg.move === 'hop' ? (h.i % 2 ? 95 : -95) : 0), GROUND - 26];
+  }
+  return [KX, GROUND];
+}
+function emoji(ch, x, y, size, rot = 0, sx = 1, sy = 1) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(sx, sy);
+  ctx.shadowColor = 'rgba(0,0,0,0.75)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 6;
+  ctx.font = `${size}px ${EMOJI_FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(ch, 0, size * 0.06); ctx.restore();
+}
+function burst(x, y, k, col, n = 10, R = 150) {
+  for (let i = 0; i < n; i++) {
+    const a = i / n * Math.PI * 2 + hash(i + x) * 0.5, r = 30 + R * ease(k);
+    ctx.globalAlpha = 1 - k;
+    drawStar(x + Math.cos(a) * r, y + Math.sin(a) * r, 18 * (1 - k * 0.6), 8 * (1 - k * 0.6), col, '#1B1B3A');
+  }
+  ctx.globalAlpha = 1;
+}
+function popWord(txt, x, y, k, col) {
+  const s = k < 0.2 ? lerp(0.4, 1.25, k / 0.2) : lerp(1.25, 1, clamp((k - 0.2) / 0.2, 0, 1));
+  ctx.save(); ctx.globalAlpha = k > 0.7 ? 1 - (k - 0.7) / 0.3 : 1;
+  ctx.translate(x, y - 60 * k); ctx.rotate((hash(x) - 0.5) * 0.4); ctx.scale(s, s);
+  textOut(txt, 0, 0, 72, col, '#1B1B3A', 14); ctx.restore();
+}
+function drawButton(x, y, press, glow) {
+  ctx.save(); ctx.translate(x, y);
+  ctx.fillStyle = '#2B2B3A'; roundRect(-78, 18, 156, 44, 16); ctx.fill();                 // base
+  const top = lerp(-22, 8, press);
+  if (glow > 0) { ctx.shadowColor = '#FF5A5A'; ctx.shadowBlur = 60 * glow; }
+  ctx.fillStyle = '#C81E2E'; ctx.beginPath(); ctx.ellipse(0, 22, 64, 22, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#C81E2E'; ctx.fillRect(-64, top, 128, 22 - top);
+  ctx.fillStyle = glow > 0 ? '#FF8A8A' : '#FF3B4E'; ctx.beginPath(); ctx.ellipse(0, top, 64, 22, 0, 0, 7); ctx.fill();
+  ctx.restore();
+}
+
+function games(seg, st, b, front) {
+  const g = gameOf(seg);
+  if (!g) return;
+  const hits = gameHits(seg);
+  const col = CH_COL[seg.ch][0];
+  for (const h of hits) {
+    const lead = h.b - b;                         // >0: still coming
+    if (lead > g.lead || lead < -g.fx) continue;
+    if (!h.pos) h.pos = hitPos(seg, h);
+    const [x, y] = h.pos;
+    if (h.limb === 'land') continue;              // landings only shake the screen
+    const k = clamp(-lead / g.fx, 0, 1);          // effect progress after the impact
+    if (front !== (g.kind === 'pop' && lead >= 0)) {   // targets behind the character (balloons in front)
+      if (lead >= 0) {
+        const pin = ease(clamp((g.lead - lead) / 0.3, 0, 1));
+        const wob = Math.sin(b * Math.PI * 4 + h.i) * 0.12;
+        if (g.kind === 'press') drawButton(x, y + 40, 0, 0);
+        else if (g.kind === 'whack') {             // pops out of a hole
+          ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.beginPath(); ctx.ellipse(x, y + 52, 90 * pin, 26 * pin, 0, 0, 7); ctx.fill();
+          emoji(g.skin, x, y + 52 - 80 * pin, 160, wob, 1, pin);
+        } else if (g.kind === 'stomp') emoji(g.skin, x + 30 * Math.sin(b * 3 + h.i) * clamp(lead - 0.3, 0, 1), y - 10, 130 * pin, 0);
+        else if (g.kind === 'pop') emoji(g.skin, x, y - 20 * (1 - pin) + 10 * Math.sin(b * Math.PI + h.i), 170 * pin, wob);
+        else emoji(g.skin, x, y, 140 * pin, g.kind === 'coin' ? 0 : wob, g.kind === 'coin' ? Math.cos(b * 5 + h.i) : 1, 1);
+      } else if (g.kind === 'press') {
+        drawButton(x, y + 40, clamp(1 - (k - 0.3) / 0.5, 0, 1), 1 - k);
+      } else if (g.kind === 'whack') {            // squashed, then sinks
+        ctx.fillStyle = `rgba(0,0,0,${0.55 * (1 - k)})`; ctx.beginPath(); ctx.ellipse(x, y + 52, 70, 20, 0, 0, 7); ctx.fill();
+        if (k < 0.6) emoji(g.skin, x, y + 52 - 80 * (1 - k / 0.6) * 0.5, 160, 0, 1.3, 0.45);
+      } else if (g.kind === 'stomp') {
+        ctx.fillStyle = `rgba(120,255,120,${0.6 * (1 - k)})`;
+        ctx.beginPath(); ctx.ellipse(x, y + 18, 70 + 60 * k, 16 + 8 * k, 0, 0, 7); ctx.fill();
+        if (k < 0.5) emoji(g.skin, x, y + 10, 130, 0, 1.6, 0.3);
+      } else if (g.kind === 'kick') {             // ball flies off toward the far side and up
+        const dirx = h.limb === 'fL' ? -1 : 1;
+        emoji(g.skin, x + dirx * 900 * k, y - 520 * k + 380 * k * k, 140 * (1 - 0.5 * k), k * 12 * dirx);
+      } else if (g.kind === 'grab' || g.kind === 'coin') {   // flies to the score counter
+        emoji(g.skin, lerp(x, 150, ease(k)), lerp(y, 330, ease(k)), 140 * (1 - 0.5 * k), 0);
+      }
+    } else if (front && lead < 0) {               // impact effects, in front
+      if (g.kind === 'pop') { burst(x, y, k, '#FFE14D', 14, 220); }
+      else burst(x, y, k, g.kind === 'stomp' ? '#7CFF6B' : '#FFE14D', 8, 110);
+      const words = GAME_WORD[g.kind];
+      popWord(words[Math.floor(hash(h.i + seg.start) * words.length)], x, y - 90, k, h.i % 2 ? '#FFE14D' : '#FFFFFF');
+    }
+  }
+  if (!front) return;
+  // score counter (top left) + praise every 10 hits
+  const done = hits.filter(h => h.b <= b && h.limb !== 'land');
+  const total = done.length;
+  if (b >= 3 && hits.length) {
+    const last = done.length ? b - done[done.length - 1].b : 9;
+    const bump = 1 + 0.35 * Math.max(0, 1 - last / 0.5);
+    ctx.save(); ctx.translate(150, 330); ctx.scale(bump, bump);
+    ctx.fillStyle = 'rgba(15,15,40,0.75)'; roundRect(-95, -62, 250, 124, 62); ctx.fill();
+    ctx.strokeStyle = col; ctx.lineWidth = 8; roundRect(-95, -62, 250, 124, 62); ctx.stroke();
+    if (g.kind === 'press') drawButton(-32, -18, 0, 0); else emoji(g.skin, -30, 0, 84);
+    textOut(String(total), 80, 26, 76, '#FFFFFF', '#1B1B3A', 10);
+    ctx.restore();
+  }
+  for (const h of done) {
+    if (h.limb === 'land') continue;
+    const n = done.indexOf(h) + 1, age = b - h.b;
+    if (n % 10 === 0 && age < 2) {
+      const k = age / 2;
+      ctx.save(); ctx.globalAlpha = k > 0.75 ? (1 - k) / 0.25 : 1; ctx.translate(W / 2, 380);
+      const s = k < 0.15 ? lerp(0.3, 1.2, k / 0.15) : lerp(1.2, 1, clamp((k - 0.15) / 0.2, 0, 1)); ctx.scale(s, s);
+      textOut(GAME_PRAISE[(n / 10 - 1) % GAME_PRAISE.length], 0, 0, 130, '#FFE14D', col, 22);
+      textOut(`${n} HITS!`, 0, 95, 64, '#FFFFFF', '#1B1B3A', 12);
+      ctx.restore();
+    }
+  }
+}
+function shakeAt(seg, b) {
+  for (const h of gameHits(seg)) {
+    if (h.limb !== 'land') continue;
+    const a = b - h.b;
+    if (a >= 0 && a < 0.5) { const k = 1 - a / 0.5; return [Math.sin(a * 90) * 22 * k, Math.cos(a * 70) * 16 * k, k]; }
+  }
+  return [0, 0, 0];
+}
+function dust(seg, b) {
+  for (const h of gameHits(seg)) {
+    if (h.limb !== 'land') continue;
+    const a = b - h.b;
+    if (a < 0 || a > 1) continue;
+    const k = a;
+    for (let i = 0; i < 9; i++) {
+      const side = i % 2 ? 1 : -1, r = 80 + 260 * ease(k) * (0.6 + hash(i) * 0.6);
+      ctx.fillStyle = `rgba(255,255,255,${0.45 * (1 - k)})`;
+      ctx.beginPath(); ctx.arc(KX + side * r, GROUND - 10 - 60 * k * hash(i + 3), 26 + 30 * k, 0, 7); ctx.fill();
+    }
+    if (k < 0.8) popWord('BOOM!', KX + 330, GROUND - 260, k / 0.8, '#FF7A1A');
+  }
+}
+
 /* ---------------- FRAME ---------------- */
 function renderAt(t) {
   t = clamp(t, 0, TOTAL - 1e-3);
@@ -1122,6 +1333,8 @@ function renderAt(t) {
   const S = cv.width / W;
   ctx.setTransform(S, 0, 0, S, 0, 0);
   ctx.clearRect(0, 0, W, H);
+  const shk = seg.scene !== 'card' ? shakeAt(seg, b) : [0, 0, 0];
+  if (shk[2] > 0) { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); ctx.translate(shk[0], shk[1]); ctx.translate(W / 2, H / 2); ctx.scale(1 + 0.03 * shk[2], 1 + 0.03 * shk[2]); ctx.translate(-W / 2, -H / 2); }
   const prev = idx > 0 ? TL.segments[idx - 1] : null;
   const XF = 0.6;                                   // crossfade length (s)
   if (prev && st < XF) {
@@ -1134,11 +1347,14 @@ function renderAt(t) {
   } else scene(seg.scene, t, st, b, seg);
   if (seg.scene !== 'card') {
     props(seg, t, st, b);
+    games(seg, st, b, false);
     let p = pose(seg.move, st, b);
     if (prev && prev.scene !== 'card' && st < 0.7) p = blendPose(pose(prev.move, prev.dur + st, (prev.dur + st) / BEAT), p, ease(st / 0.7));
     const ch = TL.character || 'line';
     if (ch === 'line') drawLine(KX + p.dx, p, 0.98, t);
     else (ch === 'hana' ? drawHana : drawKid)(KX + p.dx, p, 1.15, t);
+    dust(seg, b);
+    games(seg, st, b, true);
   }
   if (TL.petals && seg.scene !== 'card') petals(t);
   hud(t, seg, idx, st, b);

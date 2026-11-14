@@ -1,0 +1,331 @@
+[
+ {
+  "n": 1,
+  "id": "intro",
+  "cue": "JUNGLE SAFARI",
+  "save_as": "intro.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Wide jungle clearing at sunrise with a dirt path into the rainforest, safari jeep far away at the side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 2,
+  "id": "c1",
+  "cue": "CHAPTER 1",
+  "save_as": "c1.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Dense rainforest canopy seen from above at sunrise, mist between the trees. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 3,
+  "id": "stretch",
+  "cue": "WAKE UP THE JUNGLE",
+  "save_as": "stretch.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Jungle clearing at sunrise, tall trees at both sides, soft light rays. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 4,
+  "id": "jeep",
+  "cue": "RUN TO THE JEEP",
+  "save_as": "jeep.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Dirt safari road through the jungle, an open safari jeep parked at the right side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 5,
+  "id": "vines",
+  "cue": "DUCK THE VINES",
+  "save_as": "vines.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Jungle path with hanging vines overhead, green leaves at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 6,
+  "id": "logs",
+  "cue": "JUMP THE LOGS",
+  "save_as": "logs.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Jungle trail with fallen mossy logs lying across the path into the distance. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 7,
+  "id": "mud",
+  "cue": "STOMP THROUGH THE MUD",
+  "save_as": "mud.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Muddy jungle trail with puddles, big leaves at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 8,
+  "id": "parrot",
+  "cue": "PARROT STAR JUMPS",
+  "save_as": "parrot.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Colorful macaw parrots perched on branches at the left and right edges, rainforest background. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 9,
+  "id": "tiger",
+  "cue": "TIGER IS WATCHING!",
+  "save_as": "tiger.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Jungle clearing with a tiger resting far away at the right edge among tall grass. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 10,
+  "id": "frog1",
+  "cue": "FROG JUMPS",
+  "save_as": "frog1.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Rainforest floor with big green leaves, a small tree frog on a leaf at the side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 11,
+  "id": "c2",
+  "cue": "CHAPTER 2",
+  "save_as": "c2.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Lush green rainforest valley with a waterfall far away. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 12,
+  "id": "bunny",
+  "cue": "BUNNY HOPS",
+  "save_as": "bunny.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Grassy jungle meadow with small rabbits at the far edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 13,
+  "id": "monkey",
+  "cue": "CLIMB LIKE A MONKEY",
+  "save_as": "monkey.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Rainforest trees with monkeys sitting on branches at the left and right edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 14,
+  "id": "flamingo",
+  "cue": "FLAMINGO BALANCE",
+  "save_as": "flamingo.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Shallow lagoon with pink flamingos standing at the left and right sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 15,
+  "id": "gorilla",
+  "cue": "GORILLA POWER",
+  "save_as": "gorilla.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Jungle clearing with a gorilla sitting far away at the left edge in the shade. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 16,
+  "id": "kangaroo",
+  "cue": "KANGAROO KICKS",
+  "save_as": "kangaroo.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Open grassland at the edge of the forest, kangaroos far away at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 17,
+  "id": "croc",
+  "cue": "CROCODILE DODGE",
+  "save_as": "croc.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Muddy riverbank, a crocodile lying far away at the right edge. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 18,
+  "id": "coconuts",
+  "cue": "CATCH THE COCONUTS",
+  "save_as": "coconuts.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Tropical palm grove with coconuts hanging from the palm trees at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 19,
+  "id": "leopard",
+  "cue": "LEAPING LEOPARD",
+  "save_as": "leopard.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Tall savanna grass and acacia trees, a leopard resting on a branch at the far right. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 20,
+  "id": "water1",
+  "cue": "WATER BREAK",
+  "save_as": "water1.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Clear jungle stream with smooth rocks, calm and shady. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 21,
+  "id": "c3",
+  "cue": "CHAPTER 3",
+  "save_as": "c3.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Wide jungle river winding through the rainforest, seen from above. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 22,
+  "id": "stones",
+  "cue": "JUMP THE STONES",
+  "save_as": "stones.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Jungle river with flat stepping stones across the water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 23,
+  "id": "riverrun",
+  "cue": "RACE THE RIVER",
+  "save_as": "riverrun.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Sandy river bank along a wide jungle river, trees at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 24,
+  "id": "rocks",
+  "cue": "SLIPPERY ROCKS",
+  "save_as": "rocks.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Wet mossy rocks along a jungle stream. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 25,
+  "id": "waterfall",
+  "cue": "UNDER THE WATERFALL",
+  "save_as": "waterfall.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Tropical waterfall falling into a pool, rocks at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 26,
+  "id": "hippo",
+  "cue": "HIPPO STOMPS",
+  "save_as": "hippo.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Muddy river with hippos far away at the left and right edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 27,
+  "id": "toucan",
+  "cue": "FLY LIKE A TOUCAN",
+  "save_as": "toucan.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Toucan birds perched on branches at the edges, rainforest canopy behind. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 28,
+  "id": "crocfreeze",
+  "cue": "CROCODILE FREEZE",
+  "save_as": "crocfreeze.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Calm river bank with a sleeping crocodile far away at the left edge. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 29,
+  "id": "splash",
+  "cue": "SPLASH STAR JUMPS",
+  "save_as": "splash.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Shallow jungle pool with gentle splashing water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 30,
+  "id": "c4",
+  "cue": "CHAPTER 4",
+  "save_as": "c4.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Giant rainforest trees seen from below, sunlight through the canopy. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 31,
+  "id": "tree",
+  "cue": "CLIMB THE TREE",
+  "save_as": "tree.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Huge rainforest tree trunk with thick roots, ferns at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 32,
+  "id": "bananas",
+  "cue": "CATCH THE BANANAS",
+  "save_as": "bananas.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Banana trees with yellow banana bunches hanging at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 33,
+  "id": "vineswing",
+  "cue": "VINE SWING JUMPS",
+  "save_as": "vineswing.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Long hanging vines between tall trees, open space in the middle. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 34,
+  "id": "jkick",
+  "cue": "JUNGLE KICKS",
+  "save_as": "jkick.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Huge tropical leaves at both sides of a jungle path. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 35,
+  "id": "treefrog",
+  "cue": "TREE FROG HOPS",
+  "save_as": "treefrog.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Close view of a wide mossy branch with small tree frogs at the ends. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 36,
+  "id": "bees",
+  "cue": "DODGE THE BEES",
+  "save_as": "bees.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Flowering jungle bushes with bees buzzing at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 37,
+  "id": "statue",
+  "cue": "JUNGLE STATUE",
+  "save_as": "statue.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Ancient stone ruins covered in vines in the jungle, statues at both sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 38,
+  "id": "party",
+  "cue": "JUNGLE PARTY",
+  "save_as": "party.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Jungle clearing with colorful birds and butterflies flying at the edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 39,
+  "id": "water2",
+  "cue": "WATER BREAK",
+  "save_as": "water2.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Calm jungle stream with a small waterfall, evening light. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 40,
+  "id": "c5",
+  "cue": "CHAPTER 5",
+  "save_as": "c5.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Rainforest at sunset, warm golden light over the trees. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 41,
+  "id": "breathe1",
+  "cue": "BREATHE",
+  "save_as": "breathe1.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Calm misty jungle lake at sunset. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 42,
+  "id": "circles",
+  "cue": "BUTTERFLY WINGS",
+  "save_as": "circles.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Butterflies fluttering over jungle flowers at the edges. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 43,
+  "id": "toes",
+  "cue": "SLEEPY SLOTH",
+  "save_as": "toes.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Sloth hanging from a branch at the far right edge, soft evening light. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 44,
+  "id": "side",
+  "cue": "PALM TREE SWAY",
+  "save_as": "side.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Palm trees gently swaying on a tropical beach at sunset. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 45,
+  "id": "still",
+  "cue": "STILL AS A HERON",
+  "save_as": "still.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Heron standing in a calm lagoon at the edge, golden evening light. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 46,
+  "id": "breathe2",
+  "cue": "BREATHE",
+  "save_as": "breathe2.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Fireflies glowing in the jungle at dusk. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 47,
+  "id": "outro",
+  "cue": "SAFARI COMPLETE!",
+  "save_as": "outro.mp4",
+  "prompt": "Realistic live-action nature video, tropical rainforest, natural sunlight through the leaves, lush green colors, cinematic and sharp. Sunset over the rainforest canopy, birds flying. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ }
+]

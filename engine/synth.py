@@ -10,6 +10,43 @@ SR = 44100
 BEAT = 0.5   # 120 BPM
 
 
+# Interactive game layer: impact beats per move (same table as GAME_HITS in engine/index.html)
+GAME_HITS = {
+    "punch": (1, [(0.25, "hL"), (0.75, "hR")], "whack"),
+    "kick": (2, [(0.5, "fL"), (1.5, "fR")], "kick"),
+    "run": (1, [(0.0, "fR"), (0.5, "fL")], "stomp"),
+    "highknees": (1, [(0.0, "fR"), (0.5, "fL")], "stomp"),
+    "hop": (1, [(0.0, "fB")], "stomp"),
+    "jump": (2, [(1.0, "hB"), (1.6, "land")], "pop"),
+    "tuckjump": (2, [(1.0, "hB"), (1.6, "land")], "pop"),
+    "starjump": (1, [(0.5, "hB")], "pop"),
+    "frog": (4, [(2.5, "hB"), (3.2, "land")], "pop"),
+    "climb": (1, [(0.25, "hL"), (0.75, "hR")], "grab"),
+    "squat": (2, [(1.0, "hL"), (1.0, "hR")], "press"),
+    "skater": (2, [(0.0, "fB"), (1.0, "fB")], "coin"),
+}
+
+
+def game_hits(tl, s):
+    """[(beat, limb, kind)] impacts in a segment, or [] when it has no game."""
+    if tl.get("games", True) is False or s.get("game") == "none" or s["scene"] == "card" or s.get("calm"):
+        return []
+    g = GAME_HITS.get(s["move"])
+    if not g:
+        return []
+    cyc, at, kind = g
+    nb = s["dur"] / BEAT - 2
+    out = []
+    c = 0
+    while c * cyc < nb + cyc:
+        for o, limb in at:
+            hb = c * cyc + o
+            if 4 <= hb <= nb:
+                out.append((hb, limb, s.get("game", kind)))
+        c += 1
+    return sorted(out)
+
+
 class Synth:
     def __init__(self, tl, voice_fn, ext_music=None, covered=()):
         self.tl, self.voice_fn = tl, voice_fn
@@ -155,6 +192,49 @@ class Synth:
         am = (np.sin(2 * np.pi * 28 * t) > 0).astype(float)
         return np.sin(2 * np.pi * (180 + 60 * t) * t) * am * np.exp(-t * 6) * 0.45
 
+    def bonk(self):                         # cartoon bonk + little squeak (whack the mouse)
+        t = self.tt(0.18)
+        body = np.sin(2 * np.pi * np.cumsum(700 * np.exp(-t * 9) + 180) / SR) * np.exp(-t * 22)
+        t2 = self.tt(0.09)
+        squeak = np.sin(2 * np.pi * np.cumsum(1600 + 900 * t2 / 0.09) / SR) * np.exp(-t2 * 25) * 0.35
+        out = body * 0.8 + 0.25 * self.noise(0.18) * np.exp(-t * 80)
+        out[: len(squeak)] += squeak
+        return out
+
+    def coin(self):                         # two-note coin ding
+        a = self.tone(83, 0.07, (1, .3), dec=0.1) * 0.35
+        b2 = self.tone(88, 0.35, (1, .3), dec=0.3) * 0.35
+        return np.concatenate([a, b2])
+
+    def click(self):
+        t = self.tt(0.05)
+        return self.hp(self.noise(0.05)) * np.exp(-t * 120) * 0.5 + np.sin(2 * np.pi * 2400 * t) * np.exp(-t * 90) * 0.2
+
+    def boom(self):                         # landing impact (screen shake)
+        t = self.tt(0.6)
+        low = np.sin(2 * np.pi * np.cumsum(38 + 70 * np.exp(-t * 14)) / SR) * np.exp(-t * 5.5)
+        return low * 1.1 + self.lp(self.noise(0.6), 6) * np.exp(-t * 12) * 0.5
+
+    @staticmethod
+    def mix(*parts):
+        """Sum sounds of different lengths: mix((x, gain), (y, gain), ...)."""
+        n = max(len(x) for x, _ in parts)
+        out = np.zeros(n)
+        for x, g in parts:
+            out[: len(x)] += x * g
+        return out
+
+    def game_sfx(self, kind, limb):
+        if limb == "land":
+            return self.boom(), 0.9
+        m = self.mix
+        return {"whack": (self.bonk(), 0.9),
+                "pop": (m((self.pop(), 1.6), (self.clap(), 0.4)), 0.9),
+                "stomp": (m((self.splash(), 0.9), (self.thud(), 0.5)), 0.75),
+                "kick": (m((self.thud(), 1.0), (self.whoosh(0.3), 0.6)), 0.8),
+                "grab": (self.coin(), 0.8), "coin": (self.coin(), 0.8),
+                "press": (m((self.beep(76, 0.1), 1.0), (self.click(), 1.0)), 0.8)}.get(kind, (self.pop(), 0.6))
+
     def beep(self, n=81, d=0.12):
         return self.tone(n, d, (1, .2), dec=d * 2) * 0.35
 
@@ -269,7 +349,21 @@ class Synth:
             add(X, T(nb - 8), self.beep(88, 0.08), 0.6)
             for b in (nb - 6, nb - 4, nb - 2):
                 add(X, T(b), self.beep(81, 0.12), 0.7)
+        hits = game_hits(self.tl, s)
+        done_pairs = set()
+        for hb, limb, kind in hits:
+            if (hb, kind) in done_pairs:          # two buttons pressed together = one sound
+                continue
+            done_pairs.add((hb, kind))
+            y, g = self.game_sfx(kind, limb)
+            add(X, T(hb), y, g)
         for b in range(nb):
+            if hits and mv != "frog":
+                continue
+            if hits and mv == "frog":              # keep the ribbit, the landing boom replaces the thud
+                if b % 4 == 0:
+                    add(X, T(b + 1.8), self.ribbit(), 0.8)
+                continue
             if mv in ("jump", "tuckjump") and b % 2 == 0:
                 add(X, T(b + 0.4), self.boing(220, 700), 0.8)
                 add(X, T(b + 1.6), self.splash() if s.get("prop") == "puddles" else self.thud(), 0.8)
