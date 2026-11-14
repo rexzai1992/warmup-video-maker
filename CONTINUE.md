@@ -264,7 +264,7 @@ Each prompt = **STYLE prefix + scene + COMMON suffix**.
 | Chapter / Shorts export | ✅ `--chapters` done (intro card + chapter + outro card, ~9 MB/min, tested on school ch1). Titles/descriptions/tags in `youtube_uploads.md`. ⏳ Shorts (9:16) not done |
 | Flow automation + realistic clips | ⛔ stopped after Google's "unusual activity" flag. School: 42/48 Flow clips used (jump + cheer rejected, side/flamingo/breathe2/outro never made → stock/cartoon). Japan: 0 → stock footage. Credits left: 650 |
 | GPU | ✅ NVIDIA NVENC encoding + GPU drawing in the hidden Chrome (auto, ~20% faster: 1 min of video in 12 s on RTX 5070). Max 8 workers with NVENC (16 fails). `WARMUP_GPU=0` turns it off |
-| Windows test | ✅ setup + `--sample 36 96` work on Windows (1 min rendered in 17 s on 16 threads, 13 MB). ⏳ full render + player test |
+| Windows test + final render | ✅ 14 Nov 2026: both 15-min videos + 10 chapter videos + thumbnails rendered and checked (length, ~11 MB/min, stereo sound, no black frames). Player tested: plays unmuted, loops, kiosk full screen. `player/Autostart_ON.bat` [japan] / `Autostart_OFF.bat` for start-up |
 
 ### Files to know
 - `engine/index.html`: drawing code. Moves are in `pose()`; characters are `drawLine` (default), `drawKid` and `drawHana`; then `props()`, `hud()`, and `renderAt()` with the crossfades.
