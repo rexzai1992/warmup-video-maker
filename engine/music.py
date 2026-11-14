@@ -48,6 +48,11 @@ def decode(path, ffmpeg, af=None, sr=SR, ch=2):
     return np.frombuffer(raw, np.float32).reshape(-1, ch).copy()
 
 
+def grid_bpm(bpm):
+    """Count the song in half or double time if that is closer to 120 (smallest tempo change)."""
+    return min((bpm / 2, bpm, bpm * 2), key=lambda x: abs(np.log(120.0 / x)))
+
+
 def analyse(path, ffmpeg):
     """(bpm, ratio, loop[n,2]) - the track stretched to 120 BPM, cut to whole phrases starting on a downbeat."""
     import librosa
@@ -63,11 +68,7 @@ def analyse(path, ffmpeg):
     cand = np.arange(bpm * 0.97, bpm * 1.03, 0.005)
     score = [abs(np.dot(env, np.exp(-2j * np.pi * (c / 60) * tt))) for c in cand]
     bpm = float(cand[int(np.argmax(score))])
-    while bpm < 90:                                        # half-time feel -> count it double
-        bpm *= 2
-    while bpm > 150:
-        bpm /= 2
-    ratio = 120.0 / bpm
+    ratio = 120.0 / grid_bpm(bpm)
     st = decode(path, ffmpeg, af=_atempo(ratio))           # stereo, 120 BPM now
     mono = st.mean(1)
 
@@ -102,7 +103,7 @@ def analyse(path, ffmpeg):
 
 
 def load_loop(path, ffmpeg):
-    h = hashlib.md5(f"{path.resolve()}|{path.stat().st_mtime}|{path.stat().st_size}|v1".encode()).hexdigest()[:16]
+    h = hashlib.md5(f"{path.resolve()}|{path.stat().st_mtime}|{path.stat().st_size}|v2".encode()).hexdigest()[:16]
     CACHE.mkdir(exist_ok=True)
     f = CACHE / f"{h}.npz"
     if f.exists():
