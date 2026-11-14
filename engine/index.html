@@ -25,6 +25,8 @@ const W = 1920, H = 1080, GROUND = 990;
 const cv = document.getElementById('c'), ctx = cv.getContext('2d');
 const TL = window.TIMELINE, BEAT = 60 / TL.bpm;
 const FONT = '"Fredoka", "Arial Rounded MT Bold", "Arial Black", sans-serif';
+{ const fl = (new URLSearchParams(location.search).get('flow') || '').split(',').filter(Boolean);
+  TL.segments.forEach(s => { if (fl.includes(s.id) && s.scene !== 'card') s.scene = 'footage'; }); }
 let acc = 0;
 TL.segments.forEach(s => { s.start = acc; acc += s.dur; });
 const TOTAL = acc;
@@ -564,6 +566,103 @@ function petals(t) {
   }
 }
 
+/* ---------------- LINE CHARACTER (simple faceless figure: dark body, glowing white outline) ---------------- */
+const LN = { torso: 196, ua: 106, fa: 98, thigh: 150, shin: 144, sh: 56, hipW: 28, neck: 22, hrx: 45, hry: 55, OL: 9,
+             fill: '#07070F', line: '#FFFFFF', glow: 'rgba(255,255,255,0.85)' };
+function drawLine(cx, p, scale, t) {
+  function leg(side, lift) {
+    const sq = p.squat, kick = side < 0 ? p.kickL : p.kickR;
+    const ta = p.wide + 48 * sq + kick, sa = p.wide * 0.6 - 6 * sq + kick * 1.1;
+    const tLen = LN.thigh * (1 - 0.38 * sq) * (1 - 0.62 * lift);
+    const sLen = LN.shin * (1 - 0.1 * sq) * (1 - 0.15 * lift);
+    const hip = [side * LN.hipW, 0], d1 = dir(ta, side), d2 = dir(sa, side);
+    const knee = [hip[0] + d1[0] * tLen, hip[1] + d1[1] * tLen];
+    const foot = [knee[0] + d2[0] * sLen, knee[1] + d2[1] * sLen];
+    return { hip, knee, foot, side };
+  }
+  const lg = [leg(-1, p.liftL), leg(1, p.liftR)];
+  const lowest = Math.max(lg[0].foot[1], lg[1].foot[1]);
+  // squash on landing / stretch in the air for a softer, bouncier feel
+  const sy = 1 + clamp(p.air / 900, 0, 0.06) - p.squat * 0.03;
+  const hipY = GROUND - 20 * scale - lowest * scale - p.air * scale - p.bounce * scale;
+  ctx.save(); ctx.translate(cx, hipY); ctx.scale(scale, scale);
+  // ground shadow
+  ctx.save(); ctx.translate(0, (GROUND - hipY) / scale);
+  const shd = clamp(1 - p.air / 260, 0.35, 1);
+  ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.beginPath(); ctx.ellipse(0, 0, 120 * shd, 18 * shd, 0, 0, 7); ctx.fill(); ctx.restore();
+  ctx.scale(1 / Math.sqrt(sy), sy);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  const neckY = -LN.torso, headY = neckY - LN.neck - LN.hry + 8;
+  const headTilt = p.lean * 0.4 * D + Math.sin(t * 2.1) * 0.02;
+  // arm joints (computed in the leaned frame)
+  const arms = [-1, 1].map(side => {
+    const a = side < 0 ? p.armL : p.armR;
+    const s0 = [side * LN.sh * 0.86, neckY + 22];
+    const d1 = dir(a[0], side), d2 = dir(a[1], side);
+    const el = [s0[0] + d1[0] * LN.ua, s0[1] + d1[1] * LN.ua];
+    const hd = [el[0] + d2[0] * LN.fa, el[1] + d2[1] * LN.fa];
+    return { s0, el, hd };
+  });
+  const seg = (a, b, w) => { ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(...a); ctx.lineTo(...b); ctx.stroke(); };
+  function body(extra, col) {
+    ctx.strokeStyle = col; ctx.fillStyle = col;
+    for (const g of lg) {
+      seg(g.hip, g.knee, 46 + extra); seg(g.knee, g.foot, 36 + extra);
+      ctx.beginPath(); ctx.ellipse(g.foot[0] + g.side * 12, g.foot[1] + 6, 34 + extra / 2, 16 + extra / 2, 0, 0, 7); ctx.fill();
+    }
+    // hips / shorts block
+    ctx.beginPath(); ctx.ellipse(0, -6, 62 + extra / 2, 34 + extra / 2, 0, 0, 7); ctx.fill();
+    ctx.save(); ctx.rotate(p.lean * D);
+    // hoodie torso
+    const e = extra / 2;
+    ctx.beginPath();
+    ctx.moveTo(-LN.sh - e, neckY + 18);
+    ctx.quadraticCurveTo(-LN.sh - 6 - e, neckY + 100, -52 - e, -14 + e);
+    ctx.lineTo(52 + e, -14 + e);
+    ctx.quadraticCurveTo(LN.sh + 6 + e, neckY + 100, LN.sh + e, neckY + 18);
+    ctx.quadraticCurveTo(0, neckY - 14 - e, -LN.sh - e, neckY + 18);
+    ctx.closePath(); ctx.fill();
+    // hood behind the neck + neck
+    ctx.beginPath(); ctx.ellipse(0, neckY + 4, 52 + e, 22 + e, 0, 0, 7); ctx.fill();
+    seg([0, neckY + 8], [0, neckY - LN.neck], 30 + extra);
+    // head
+    ctx.save(); ctx.translate(0, headY); ctx.rotate(headTilt);
+    ctx.beginPath(); ctx.ellipse(0, 0, LN.hrx + e, LN.hry + e, 0, 0, 7); ctx.fill();
+    ctx.restore();
+    ctx.restore();
+  }
+  function armsDraw(extra, col) {
+    ctx.save(); ctx.rotate(p.lean * D);
+    ctx.strokeStyle = col; ctx.fillStyle = col;
+    for (const a of arms) {
+      seg(a.s0, a.el, 36 + extra); seg(a.el, a.hd, 30 + extra);
+      ctx.beginPath(); ctx.arc(a.hd[0], a.hd[1], 18 + extra / 2, 0, 7); ctx.fill();
+    }
+    ctx.restore();
+  }
+  // 1) glowing outline of the whole body, 2) dark fill, 3) arms on top with their own outline
+  ctx.save(); ctx.shadowColor = LN.glow; ctx.shadowBlur = 30; body(LN.OL * 2, LN.line); armsDraw(LN.OL * 2, LN.line); ctx.restore();
+  body(0, LN.fill);
+  armsDraw(LN.OL * 1.2, LN.line);
+  armsDraw(0, LN.fill);
+  // subtle hoodie details
+  ctx.save(); ctx.rotate(p.lean * D); ctx.strokeStyle = 'rgba(255,255,255,0.55)'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(-34, -70); ctx.quadraticCurveTo(0, -60, 34, -70); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-10, neckY + 20); ctx.lineTo(-12, neckY + 60); ctx.moveTo(10, neckY + 20); ctx.lineTo(12, neckY + 60); ctx.stroke();
+  ctx.restore();
+  ctx.restore();
+}
+function blendPose(a, b, k) {
+  const o = {};
+  for (const key in b) {
+    const x = a[key], y = b[key];
+    if (Array.isArray(y)) o[key] = y.map((v, i) => lerp(x[i], v, k));
+    else if (typeof y === 'number') o[key] = lerp(x, y, k);
+    else o[key] = k < 0.5 ? x : y;
+  }
+  return o;
+}
+
 function roundRect(x, y, w, h, r) {
   ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
   ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
@@ -585,14 +684,17 @@ const KX = W / 2;  // kid x
 /* ---------------- SCENES ---------------- */
 const CH_COL_JP = { 1: ['#FF6FA3', '#E0508A'], 2: ['#2E9E6B', '#227A52'], 3: ['#FF8FB8', '#E5709A'], 4: ['#E63946', '#B82C37'], 5: ['#6C63FF', '#5048D6'] };
 const CH_COL = { 1: ['#FF7A1A', '#E0600A'], 2: ['#2EC4B6', '#1F9E93'], 3: ['#3D7BFF', '#2C5ED6'], 4: ['#E63946', '#B82C37'], 5: ['#8E5BBF', '#6E4499'] };
-let BG = null;
+let BG = null, BG2 = null;
+const loadImg = src => new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
 if (window.TIMELINE && window.TIMELINE.music === 'japan') Object.assign(CH_COL, CH_COL_JP);   // current footage frame (Image), set by the renderer
 window.setBG = src => new Promise(res => { const im = new Image(); im.onload = () => { BG = im; res(); }; im.onerror = () => { BG = null; res(); }; im.src = src; });
 
 function footageBG(seg, t, dim) {
   if (BG) {
-    const s = Math.max(W / BG.width, H / BG.height), w = BG.width * s, h = BG.height * s;
-    ctx.drawImage(BG, (W - w) / 2, (H - h) / 2, w, h);
+    // slow camera drift (Ken Burns) so the footage never feels static
+    const k = clamp((t - seg.start) / seg.dur, 0, 1.2), z = 1.03 + 0.07 * k, pan = Math.sin(seg.start * 1.7) * 30 * k;
+    const s = Math.max(W / BG.width, H / BG.height) * z, w = BG.width * s, h = BG.height * s;
+    ctx.drawImage(BG, (W - w) / 2 + pan, (H - h) / 2, w, h);
   } else {
     const g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, CH_COL[seg.ch][0]); g.addColorStop(1, '#1B1B3A');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
@@ -1020,25 +1122,32 @@ function renderAt(t) {
   const S = cv.width / W;
   ctx.setTransform(S, 0, 0, S, 0, 0);
   ctx.clearRect(0, 0, W, H);
-  scene(seg.scene, t, st, b, seg);
+  const prev = idx > 0 ? TL.segments[idx - 1] : null;
+  const XF = 0.6;                                   // crossfade length (s)
+  if (prev && st < XF) {
+    const keep = BG; BG = BG2;
+    scene(prev.scene, t, prev.dur + st, (prev.dur + st) / BEAT, prev);
+    BG = keep;
+    ctx.globalAlpha = ease(st / XF);
+    scene(seg.scene, t, st, b, seg);
+    ctx.globalAlpha = 1;
+  } else scene(seg.scene, t, st, b, seg);
   if (seg.scene !== 'card') {
     props(seg, t, st, b);
-    const p = pose(seg.move, st, b);
-    (TL.character === 'hana' ? drawHana : drawKid)(KX + p.dx, p, 1.15, t);
+    let p = pose(seg.move, st, b);
+    if (prev && prev.scene !== 'card' && st < 0.7) p = blendPose(pose(prev.move, prev.dur + st, (prev.dur + st) / BEAT), p, ease(st / 0.7));
+    const ch = TL.character || 'line';
+    if (ch === 'line') drawLine(KX + p.dx, p, 0.98, t);
+    else (ch === 'hana' ? drawHana : drawKid)(KX + p.dx, p, 1.15, t);
   }
   if (TL.petals && seg.scene !== 'card') petals(t);
   hud(t, seg, idx, st, b);
   beatDots(b, seg);
-  // fade between segments
-  const edge = Math.min(st, seg.dur - st);
-  if (edge < 0.25 && !(idx === 0 && st < 0.25 && false)) {
-    ctx.fillStyle = `rgba(255,255,255,${(1 - edge / 0.25) * 0.55})`; ctx.fillRect(0, 0, W, H);
-  }
   if (t < 0.6) { ctx.fillStyle = `rgba(0,0,0,${1 - t / 0.6})`; ctx.fillRect(0, 0, W, H); }
   if (t > TOTAL - 1) { ctx.fillStyle = `rgba(0,0,0,${t - (TOTAL - 1)})`; ctx.fillRect(0, 0, W, H); }
 }
 window.renderAt = renderAt;
-window.frameJPEG = async (t, q, bg) => { if (bg !== undefined) { if (bg) await setBG(bg); else BG = null; } renderAt(t); return cv.toDataURL('image/jpeg', q || 0.92); };
+window.frameJPEG = async (t, q, bg, bg2) => { if (bg !== undefined) { if (bg) await setBG(bg); else BG = null; } BG2 = bg2 ? await loadImg(bg2) : null; renderAt(t); return cv.toDataURL('image/jpeg', q || 0.92); };
 window.SEGS = TL.segments.map(s => ({ id: s.id, start: s.start, dur: s.dur, clip: s.clip || null, clipStart: s.clipStart || 0 }));
 
 /* ---------------- LIVE PLAYBACK ---------------- */

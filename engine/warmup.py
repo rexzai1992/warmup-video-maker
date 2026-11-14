@@ -16,7 +16,7 @@ PARTS = ROOT / ".parts"
 VOICES = ROOT / "voice_cache"
 AUDIO = ROOT / "audio"
 OUT = ROOT / "output"
-FPS = 25
+FPS = 30
 OUT_W, OUT_H = 1280, 720
 SR = 44100
 
@@ -32,6 +32,15 @@ def load_timeline(name):
         s["start"] = t
         t += s["dur"]
     tl["total"] = t
+    # AI scenes from Google Flow override the stock clip when present: footage/flow/<name>/<id>.mp4
+    flow_dir = FOOTAGE / "flow" / name
+    for s in tl["segments"]:
+        f = flow_dir / f"{s['id']}.mp4"
+        if f.exists():
+            s["clip"] = f"flow/{name}/{s['id']}"
+            s["clipStart"] = 0
+            if s["scene"] not in ("card",):
+                s["scene"] = "footage"
     return tl
 
 
@@ -46,7 +55,7 @@ def ffmpeg():
 def download_footage(tl):
     """Free Mixkit stock clips (Mixkit License: free for commercial use, no attribution needed)."""
     FOOTAGE.mkdir(exist_ok=True)
-    clips = sorted({s["clip"] for s in tl["segments"] if s.get("clip")})
+    clips = sorted({s["clip"] for s in tl["segments"] if isinstance(s.get("clip"), int)})
     for c in clips:
         f = FOOTAGE / f"{c}.mp4"
         if f.exists() and f.stat().st_size > 10000:
@@ -77,7 +86,7 @@ def extract_frames(tl):
             continue
         d.mkdir(parents=True, exist_ok=True)
         # soft blur + denoise: makes the cartoon pop and keeps the MP4 small
-        vf = ("fps=25,scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
+        vf = ("fps=30,scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
               "gblur=sigma=1.4,hqdn3d=3:3:4:4,eq=saturation=1.15:contrast=1.05")
         subprocess.run([ffmpeg(), "-loglevel", "error", "-i", str(src), "-t", str(dur), "-vf", vf,
                         "-q:v", "5", str(d / "%05d.jpg")], check=True)
@@ -123,15 +132,12 @@ def build_audio(tl, name):
 
 # ------------------------------------------------------------------ video frames
 def page_url(name):
-    return (ENGINE / "index.html").as_uri() + f"?render=1&w={OUT_W}&tl=../timelines/{name}.js"
+    tl = load_timeline(name)
+    flow = ",".join(s["id"] for s in tl["segments"] if str(s.get("clip", "")).startswith("flow/"))
+    return (ENGINE / "index.html").as_uri() + f"?render=1&w={OUT_W}&tl=../timelines/{name}.js&flow={flow}"
 
 
-def bg_data(tl, t):
-    seg = tl["segments"][-1]
-    for s in tl["segments"]:
-        if t < s["start"] + s["dur"]:
-            seg = s
-            break
+def _clip_frame(seg, local_t):
     clip = seg.get("clip")
     d = FRAMES / str(clip) if clip else None
     if not d or not d.exists():
@@ -139,12 +145,26 @@ def bg_data(tl, t):
     n = len(os.listdir(d))
     if n == 0:
         return ""
-    i = int((t - seg["start"] + seg.get("clipStart", 0)) * FPS)
+    i = int((local_t + seg.get("clipStart", 0)) * FPS)
     period = max(1, 2 * n - 2)                     # ping-pong loop for short clips
     i %= period
     if i >= n:
         i = period - i
     return "data:image/jpeg;base64," + base64.b64encode((d / f"{i + 1:05d}.jpg").read_bytes()).decode()
+
+
+def bg_data(tl, t):
+    segs = tl["segments"]
+    k = len(segs) - 1
+    for j, s in enumerate(segs):
+        if t < s["start"] + s["dur"]:
+            k = j
+            break
+    seg = segs[k]
+    st = t - seg["start"]
+    bg = _clip_frame(seg, st)
+    bg2 = _clip_frame(segs[k - 1], segs[k - 1]["dur"] + st) if k > 0 and st < 0.6 else ""
+    return bg, bg2
 
 
 def _open(p, name):
@@ -157,7 +177,8 @@ def _open(p, name):
 
 
 def _grab(page, tl, t):
-    data = page.evaluate("([t, bg]) => frameJPEG(t, 0.9, bg)", [t, bg_data(tl, t)])
+    bg, bg2 = bg_data(tl, t)
+    data = page.evaluate("([t, bg, bg2]) => frameJPEG(t, 0.9, bg, bg2)", [t, bg, bg2])
     return base64.b64decode(data.split(",", 1)[1])
 
 

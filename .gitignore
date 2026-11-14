@@ -6,3 +6,5 @@ __pycache__/
 *.pyc
 .DS_Store
 voice_cache/tmp_*
+.tts-venv/
+footage/flow_inbox/

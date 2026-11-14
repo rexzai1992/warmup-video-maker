@@ -5,7 +5,7 @@ window.TIMELINE = {
   "output": "Hana_Japan_WarmUp_15min",
   "bpm": 120,
   "fps": 25,
-  "character": "hana",
+  "character": "line",
   "music": "japan",
   "petals": true,
   "segments": [
