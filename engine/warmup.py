@@ -229,6 +229,75 @@ def page_url(name):
     return (ENGINE / "index.html").as_uri() + f"?render=1&w={OUT_W}&tl=../timelines/{name}.js&flow={flow}"
 
 
+# ------------------------------------------------------------------ reaction clips
+# Real people/animals "reacting to the kids" (footage/flow/reactions/<name>.mp4, prompts: flow_prompts/reactions.md).
+# Shown as a pop-up reaction cam: every 20 hits (praise), at mission complete, at the intro and the outro.
+REACT_DIR = FOOTAGE / "flow" / "reactions"
+REACT_POOL = {"praise": ["r_cheer", "r_clap", "r_thumbs", "r_wow", "r_laugh", "r_dance", "r_highfive", "r_coach", "r_cat", "r_dog"],
+              "done": ["r_trophy", "r_cheer", "r_highfive", "r_coach"], "hello": ["r_wave"], "bye": ["r_bye", "r_wave"]}
+REACT_LABEL = {"praise": ["VERY GOOD!", "AWESOME!", "GREAT JOB!", "SO COOL!", "KEEP GOING!", "YOU'RE FAST!"],
+               "done": ["YOU DID IT!", "CHAMPION!", "WELL DONE!"], "hello": ["HI!"], "bye": ["BYE BYE!"]}
+
+
+def reaction_events(tl):
+    """[(start s, duration s, clip name, label)] - only clips that exist are used."""
+    if "_react" in tl:
+        return tl["_react"]
+    import synth
+    have = {f.stem for f in REACT_DIR.glob("*.mp4")} if REACT_DIR.exists() else set()
+    ev, count = [], {}
+
+    def add(t0, dur, kind):
+        pool = [c for c in REACT_POOL[kind] if c in have]
+        if not pool:
+            return
+        n = count.get(kind, 0); count[kind] = n + 1
+        ev.append((t0, dur, pool[n % len(pool)], REACT_LABEL[kind][n % len(REACT_LABEL[kind])]))
+    for s in tl["segments"]:
+        if s["id"] == "intro":
+            add(s["start"] + min(6.5, s["dur"] - 2.5), 2.4, "hello")
+        if s["id"] == "outro":
+            add(s["start"] + min(5.0, s["dur"] - 3.0), 3.0, "bye")
+        real = [h for h in synth.game_hits(tl, s) if h[1] != "land"]
+        beat = synth.BEAT
+        for m, (hb, _, _) in enumerate(real, 1):
+            if m % 20 == 0 and m != len(real):
+                add(s["start"] + hb * beat, 1.8, "praise")
+        if real:
+            add(s["start"] + real[-1][0] * beat, 2.2, "done")
+    tl["_react"] = ev
+    return ev
+
+
+def extract_reaction_frames():
+    if not REACT_DIR.exists():
+        return
+    for f in sorted(REACT_DIR.glob("*.mp4")):
+        d = FRAMES / "reactions" / f.stem
+        if d.exists() and any(d.iterdir()) and f.stat().st_mtime <= d.stat().st_mtime:
+            continue
+        shutil.rmtree(d, ignore_errors=True); d.mkdir(parents=True, exist_ok=True)
+        subprocess.run([ffmpeg(), "-loglevel", "error", "-i", str(f), "-t", "8", "-vf",
+                        "fps=30,scale=640:360:force_original_aspect_ratio=increase,crop=640:360,eq=saturation=1.1",
+                        "-q:v", "4", str(d / "%05d.jpg")], check=True)
+        print(f"  frames for reaction {f.stem}: {len(os.listdir(d))}")
+
+
+def reaction_at(tl, t):
+    for t0, dur, clip, label in reaction_events(tl):
+        if t0 <= t < t0 + dur:
+            d = FRAMES / "reactions" / clip
+            if not d.exists():
+                return None
+            n = len(os.listdir(d))
+            if not n:
+                return None
+            i = min(n - 1, int((t - t0 + 0.4) * FPS))       # start a little into the clip (the reaction is under way)
+            src = "data:image/jpeg;base64," + base64.b64encode((d / f"{i + 1:05d}.jpg").read_bytes()).decode()
+            return {"src": src, "age": t - t0, "dur": dur, "label": label}
+    return None
+
+
 def _clip_frame(seg, local_t):
     clip = seg.get("clip")
     d = FRAMES / str(clip) if clip else None
@@ -273,14 +342,14 @@ def _open(p, name):
 
 def _grab(page, tl, t):
     bg, bg2 = bg_data(tl, t)
-    data = page.evaluate("([t, bg, bg2]) => frameJPEG(t, 0.9, bg, bg2)", [t, bg, bg2])
+    data = page.evaluate("([t, bg, bg2, re]) => frameJPEG(t, 0.9, bg, bg2, re)", [t, bg, bg2, reaction_at(tl, t)])
     return base64.b64decode(data.split(",", 1)[1])
 
 
 def preview(name, times):
     from playwright.sync_api import sync_playwright
     tl = load_timeline(name)
-    download_footage(tl); extract_frames(tl)
+    download_footage(tl); extract_frames(tl); extract_reaction_frames()
     OUT.mkdir(exist_ok=True)
     with sync_playwright() as p:
         browser, page = _open(p, name)

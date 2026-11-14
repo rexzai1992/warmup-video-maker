@@ -276,6 +276,28 @@ SCENES["ocean"] = {
 }
 
 
+# ---------------- reaction clips: real people/animals "reacting to the kids" (used by every video)
+# Pop up as a framed reaction-cam: every 10 hits (praise), at mission complete, at the intro and the outro.
+STYLE["reactions"] = ("Realistic live-action video, bright natural light, cheerful, shallow depth of field, "
+                      "subject centered, looking straight into the camera as if reacting to the viewer.")
+REACTIONS = {
+    "r_wave": "a smiling little girl waving hello at the camera with both hands, colorful classroom behind her",
+    "r_bye": "two happy kids waving goodbye at the camera, sunny playground behind them",
+    "r_cheer": "a group of happy kids cheering and jumping with arms up, looking at the camera, school gym",
+    "r_clap": "a smiling boy clapping his hands excitedly toward the camera, bright living room",
+    "r_thumbs": "a cheerful girl giving two thumbs up to the camera and nodding, sunny park",
+    "r_wow": "a kid with a surprised amazed face, mouth open saying wow, hands on cheeks, looking at the camera",
+    "r_laugh": "a little boy laughing happily at the camera, bright kitchen behind him",
+    "r_dance": "a girl doing a happy little dance and smiling at the camera, colorful bedroom",
+    "r_highfive": "a smiling boy reaching his open hand toward the camera for a high five, playground",
+    "r_coach": "a friendly young sports coach in a tracksuit smiling and giving a thumbs up to the camera, school gym",
+    "r_cat": "a cute orange cat looking curiously at the camera and tilting its head",
+    "r_dog": "a fluffy puppy tilting its head and wagging its tail, looking at the camera",
+    "r_trophy": "a happy kid lifting a shiny golden trophy and celebrating, confetti falling, looking at the camera",
+}
+REACT_COMMON = "Medium close-up, static camera, no text, no logos, no captions. 16:9. Short clip."
+
+
 def load_segments(version):
     src = (ROOT / "timelines" / f"{version}.js").read_text(encoding="utf-8")
     body = src[src.index("{"): src.rindex("};") + 1]
@@ -291,6 +313,8 @@ def prompt_for(version, scene):
 
 def prompt_list(version):
     """[(id, cue, prompt)] in timeline order. Used by --import-flow too."""
+    if version == "reactions":
+        return [(k, "REACTION", f"{STYLE['reactions']} {v[0].upper() + v[1:]}. {REACT_COMMON}") for k, v in REACTIONS.items()]
     scenes = SCENES[version]
     segs = load_segments(version)
     missing = [s["id"] for s in segs if s["id"] not in scenes]
@@ -326,5 +350,5 @@ def write(version):
 
 
 if __name__ == "__main__":
-    for v in sys.argv[1:] or list(SCENES):
+    for v in sys.argv[1:] or list(SCENES) + ["reactions"]:
         write(v)

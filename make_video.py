@@ -51,6 +51,7 @@ def main():
     warmup.download_footage(tl)
     print("3) preparing footage frames...")
     warmup.extract_frames(tl)
+    warmup.extract_reaction_frames()
     print("4) rendering video...")
     if a.chapters is not None:
         warmup.export_chapters(a.name, a.workers, a.chapters or None)
