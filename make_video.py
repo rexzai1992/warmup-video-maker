@@ -7,6 +7,7 @@
   python make_video.py school --new-audio              # rebuild the soundtrack (after editing a timeline)
   python make_video.py school --sample 36 96           # 1-minute test clip (seconds 36 to 96)
   python make_video.py school --import-flow            # file Google Flow clips from footage/flow_inbox/school/
+  python make_video.py school --chapters               # YouTube: one ~3-min video per chapter (or --chapters 2 4)
 
 Output: output/<name>.mp4 (720p, about 100-200 MB for 15 minutes).
 """
@@ -24,6 +25,8 @@ def main():
     ap.add_argument("--new-audio", action="store_true", help="rebuild audio/<name>.m4a")
     ap.add_argument("--audio-only", action="store_true", help="only build the soundtrack")
     ap.add_argument("--sample", nargs=2, type=float, metavar=("FROM", "TO"), help="render only this part, in seconds")
+    ap.add_argument("--chapters", nargs="*", type=int, metavar="N",
+                    help="YouTube chapter videos -> output/youtube/<name>_ch<N>.mp4 (all, or only the listed ones)")
     ap.add_argument("--import-flow", action="store_true",
                     help="move clips from footage/flow_inbox/<name>/ to footage/flow/<name>/<id>.mp4")
     a = ap.parse_args()
@@ -49,7 +52,9 @@ def main():
     print("3) preparing footage frames...")
     warmup.extract_frames(tl)
     print("4) rendering video...")
-    if a.sample:
+    if a.chapters is not None:
+        warmup.export_chapters(a.name, a.workers, a.chapters or None)
+    elif a.sample:
         warmup.render_video(a.name, a.workers, a.sample[0], a.sample[1])
     else:
         warmup.render_video(a.name, a.workers)

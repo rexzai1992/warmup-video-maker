@@ -310,6 +310,97 @@ def _render_part(job):
     return str(out)
 
 
+CHAPTER_WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five"}
+
+
+def chapter_ranges(tl):
+    """[{ch, title, start, end, first}] - each chapter runs from its card to the next card (last one to the end)."""
+    segs = tl["segments"]
+    cards = [i for i, s in enumerate(segs) if s["scene"] == "card"]
+    out = []
+    for n, i in enumerate(cards):
+        j = cards[n + 1] if n + 1 < len(cards) else len(segs)
+        out.append({"ch": segs[i]["ch"], "title": segs[i]["story"], "start": segs[i]["start"],
+                    "end": segs[j]["start"] if j < len(segs) else tl["total"],
+                    "first": segs[i + 1] if i + 1 < len(segs) else segs[i]})
+    return out
+
+
+def _card_audio(kind, dur, tl):
+    from synth import Synth
+    syn = Synth(tl, voice_clip)
+    n = int(dur * SR)
+    x = np.zeros(n, np.float32)
+
+    def add(t, y, g):
+        i = int(t * SR); j = min(n, i + len(y)); x[i:j] += (y[: j - i] * g).astype(np.float32)
+    if kind == "intro":
+        add(0.0, syn.whoosh(0.5), 0.8)
+        add(0.25, voice_clip("Stand up! Let's move!"), 1.3)
+        add(dur - 2.0, syn.riser(2.0), 0.8)
+    else:
+        add(0.0, syn.crash(), 0.6)
+        add(0.0, syn.chime(84), 0.8); add(0.25, syn.chime(88), 0.6)
+        add(0.4, voice_clip("Great job! Subscribe for more!"), 1.3)
+        x[-int(0.6 * SR):] *= np.linspace(1, 0, int(0.6 * SR))
+    x = np.tanh(x / max(1e-6, np.abs(x).max()) * 1.2) * 0.85
+    return x
+
+
+def _render_card(name, kind, dur, ch, big, small, top, bg, out):
+    from playwright.sync_api import sync_playwright
+    tl = load_timeline(name)
+    wav = out.with_suffix(".wav")
+    a = _card_audio(kind, dur, tl)
+    with wave.open(str(wav), "w") as w:
+        w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
+        w.writeframes((np.repeat(a[:, None], 2, 1) * 32767).astype(np.int16).tobytes())
+    proc = subprocess.Popen([ffmpeg(), "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS),
+                             "-i", "-", "-i", str(wav), *ENC, "-c:a", "aac", "-b:a", "128k", "-ar", str(SR),
+                             "-shortest", str(out)], stdin=subprocess.PIPE)
+    with sync_playwright() as p:
+        browser, page = _open(p, name)
+        for i in range(int(dur * FPS)):
+            data = page.evaluate("([k, st, d, ch, big, small, top, bg]) => ytCardJPEG(k, st, d, ch, big, small, top, bg)",
+                                 [kind, i / FPS, dur, ch, big, small, top, bg])
+            proc.stdin.write(base64.b64decode(data.split(",", 1)[1]))
+        browser.close()
+    proc.stdin.close()
+    proc.wait()
+    wav.unlink()
+
+
+def export_chapters(name, workers=None, only=None):
+    """output/youtube/<name>_ch<N>.mp4: 3 s intro card + the chapter + 4 s outro card."""
+    tl = load_timeline(name)
+    ydir = OUT / "youtube"
+    ydir.mkdir(parents=True, exist_ok=True)
+    made = []
+    for c in chapter_ranges(tl):
+        if only and c["ch"] not in only:
+            continue
+        print(f"\n  chapter {c['ch']}: {c['title']} ({(c['end'] - c['start']) / 60:.1f} min)")
+        tmp = ydir / f".tmp_{name}_{c['ch']}"
+        tmp.mkdir(exist_ok=True)
+        bg = _clip_frame(c["first"], 2.0)
+        top = f"CHAPTER {c['ch']}"
+        _render_card(name, "intro", 3.0, c["ch"], c["title"], "Stand up! Let's move!", top, bg, tmp / "intro.mp4")
+        _render_card(name, "outro", 4.0, c["ch"], "GREAT JOB!", "Subscribe for more!", "", bg, tmp / "outro.mp4")
+        body = render_video(name, workers, c["start"], c["end"])
+        bd = c["end"] - c["start"]
+        out = ydir / f"{name}_ch{c['ch']}.mp4"
+        fc = (f"[1:a]afade=t=out:st={bd - 0.5:.2f}:d=0.5[ba];"
+              "[0:v][0:a][1:v][ba][2:v][2:a]concat=n=3:v=1:a=1[v][a]")
+        subprocess.run([ffmpeg(), "-y", "-loglevel", "error", "-i", str(tmp / "intro.mp4"), "-i", str(body),
+                        "-i", str(tmp / "outro.mp4"), "-filter_complex", fc, "-map", "[v]", "-map", "[a]", *ENC,
+                        "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(out)], check=True)
+        body.unlink()
+        shutil.rmtree(tmp, ignore_errors=True)
+        print(f"  -> {out} ({out.stat().st_size / 1e6:.0f} MB)")
+        made.append(out)
+    return made
+
+
 def render_video(name, workers=None, t0=0.0, t1=None):
     tl = load_timeline(name)
     total = tl["total"]

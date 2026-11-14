@@ -1147,6 +1147,38 @@ function renderAt(t) {
   if (t > TOTAL - 1) { ctx.fillStyle = `rgba(0,0,0,${t - (TOTAL - 1)})`; ctx.fillRect(0, 0, W, H); }
 }
 window.renderAt = renderAt;
+
+/* ---------------- YOUTUBE CHAPTER CARDS (intro / outro around each chapter video) ---------------- */
+function ytCard(kind, st, dur, ch, big, small, top) {
+  const S = cv.width / W;
+  ctx.setTransform(S, 0, 0, S, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+  const seg = { start: 0, dur: dur, ch: ch };
+  footageBG(seg, st, 0.5);
+  const b = st / BEAT, k = ease(clamp(st / 0.6, 0, 1)), pulse = Math.pow(1 - frac(b), 3);
+  if (kind === 'outro') confetti(st, st);
+  ctx.save(); ctx.translate(W / 2 - 180, H / 2 - 40);
+  const sc = lerp(1.5, 1, k) * (1 + 0.03 * pulse); ctx.scale(sc, sc); ctx.globalAlpha = k;
+  if (top) {
+    ctx.font = `700 64px ${FONT}`; const tw = Math.max(420, ctx.measureText(top).width + 110);
+    ctx.fillStyle = CH_COL[ch][0]; roundRect(-tw / 2, -250, tw, 100, 50); ctx.fill();
+    textOut(top, 0, -178, 64, '#fff', CH_COL[ch][0], 2);
+  }
+  ctx.font = `700 150px ${FONT}`; const bw = ctx.measureText(big).width, lim = 1250;
+  if (bw > lim) { ctx.save(); ctx.scale(lim / bw, lim / bw); }
+  textOut(big, 0, 40, 150, '#FFE14D', '#1B1B3A', 26);
+  if (bw > lim) ctx.restore();
+  textOut(small, 0, 170, 72, '#fff', '#1B1B3A', 14);
+  ctx.restore();
+  const p = pose('wave', st, b);
+  drawLine(W - 330 + p.dx, p, 0.9, st);
+  if (st < 0.3) { ctx.fillStyle = `rgba(0,0,0,${1 - st / 0.3})`; ctx.fillRect(0, 0, W, H); }
+  if (kind === 'outro' && st > dur - 0.6) { ctx.fillStyle = `rgba(0,0,0,${(st - dur + 0.6) / 0.6})`; ctx.fillRect(0, 0, W, H); }
+}
+window.ytCardJPEG = async (kind, st, dur, ch, big, small, top, bg) => {
+  if (bg !== undefined) { if (bg) await setBG(bg); else BG = null; }
+  ytCard(kind, st, dur, ch, big, small, top); return cv.toDataURL('image/jpeg', 0.9);
+};
 window.frameJPEG = async (t, q, bg, bg2) => { if (bg !== undefined) { if (bg) await setBG(bg); else BG = null; } BG2 = bg2 ? await loadImg(bg2) : null; renderAt(t); return cv.toDataURL('image/jpeg', q || 0.92); };
 window.SEGS = TL.segments.map(s => ({ id: s.id, start: s.start, dur: s.dur, clip: s.clip || null, clipStart: s.clipStart || 0 }));
 
