@@ -81,16 +81,67 @@ def extract_frames(tl):
             need[s["clip"]] = max(need.get(s["clip"], 0), s.get("clipStart", 0) + s["dur"] + 1)
     for clip, dur in need.items():
         src = FOOTAGE / f"{clip}.mp4"
-        d = FRAMES / str(clip)
-        if not src.exists() or (d.exists() and any(d.iterdir())):
+        if not src.exists():
             continue
+        srcs = [src]
+        if str(clip).startswith("flow/"):                    # optional 2nd Flow clip: <id>_2.mp4, chained after
+            second = src.with_name(f"{src.stem}_2.mp4")
+            if second.exists():
+                srcs.append(second)
+        d = FRAMES / str(clip)
+        if d.exists() and any(d.iterdir()):
+            newest = max(f.stat().st_mtime for f in srcs)
+            if newest <= d.stat().st_mtime:                  # frames are up to date
+                continue
+            shutil.rmtree(d)                                 # clip was replaced: extract again
         d.mkdir(parents=True, exist_ok=True)
         # soft blur + denoise: makes the cartoon pop and keeps the MP4 small
         vf = ("fps=30,scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
               "gblur=sigma=1.4,hqdn3d=3:3:4:4,eq=saturation=1.15:contrast=1.05")
-        subprocess.run([ffmpeg(), "-loglevel", "error", "-i", str(src), "-t", str(dur), "-vf", vf,
-                        "-q:v", "5", str(d / "%05d.jpg")], check=True)
+        for f in srcs:
+            subprocess.run([ffmpeg(), "-loglevel", "error", "-i", str(f), "-t", str(dur), "-vf", vf, "-q:v", "5",
+                            "-start_number", str(len(os.listdir(d)) + 1), str(d / "%05d.jpg")], check=True)
         print(f"  frames for clip {clip}: {len(os.listdir(d))}")
+
+
+def import_flow(name):
+    """Move downloaded Flow clips from footage/flow_inbox/<name>/ to footage/flow/<name>/<id>.mp4.
+
+    A file named after a part id (e.g. stretch.mp4 or stretch_2.mp4) goes to that part. Every other file is matched,
+    oldest download first, to the parts in prompt-list order that don't have a clip yet.
+    """
+    sys.path.insert(0, str(ROOT / "tools"))
+    from make_flow_prompts import prompt_list
+    ids = [pid for pid, _, _ in prompt_list(name)]
+    inbox = FOOTAGE / "flow_inbox" / name
+    dest = FOOTAGE / "flow" / name
+    inbox.mkdir(parents=True, exist_ok=True)
+    dest.mkdir(parents=True, exist_ok=True)
+    files = sorted(inbox.glob("*.mp4"), key=lambda f: f.stat().st_mtime)
+    if not files:
+        print(f"  no .mp4 files in {inbox.relative_to(ROOT)} - download clips from Flow there first")
+        return
+    moves, by_order = [], []
+    for f in files:
+        base = f.stem[:-2] if f.stem.endswith("_2") else f.stem
+        (moves.append((f, f.stem)) if base in ids else by_order.append(f))
+    taken = {stem for _, stem in moves}
+    free = [i for i in ids if i not in taken and not (dest / f"{i}.mp4").exists()]
+    for f in by_order:
+        if not free:
+            print(f"  !! {f.name}: every part already has a clip - left in the inbox")
+            continue
+        moves.append((f, free.pop(0)))
+    for f, stem in moves:
+        target = dest / f"{stem}.mp4"
+        if target.exists():
+            target.unlink()
+        shutil.move(str(f), str(target))
+        shutil.rmtree(FRAMES / "flow" / name / stem.removesuffix("_2"), ignore_errors=True)
+        print(f"  {f.name} -> flow/{name}/{target.name}")
+    have = sum((dest / f"{i}.mp4").exists() for i in ids)
+    left = [i for i in ids if not (dest / f"{i}.mp4").exists()]
+    print(f"  {have}/{len(ids)} parts have a Flow clip." + (f" Next to make: {', '.join(left[:5])}" if left else ""))
 
 
 # ------------------------------------------------------------------ voice

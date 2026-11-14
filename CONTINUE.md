@@ -232,11 +232,11 @@ Each prompt = **STYLE prefix + scene + COMMON suffix**.
 | Line character, smooth blending, crossfades, camera drift, 30 fps | ✅ done (pushed) |
 | Generated soundtrack + beat-synced sound effects | ✅ done; music needs upgrading (Task 3) |
 | Google Flow clip replacement in the engine | ✅ done |
-| Flow prompt pack + `--import-flow` | ⏳ Task 1 |
+| Flow prompt pack + `--import-flow` | ✅ done: `flow_prompts/*.md`, `tools/make_flow_prompts.py`, `--import-flow` (tested). ⏳ waiting for the owner's Flow clips |
 | Natural voice (Kokoro) | ⏳ Task 2 |
 | Real music beat-aligned | ⏳ Task 3 |
 | Chapter / Shorts export | ⏳ Task 4 |
-| Windows test | ⏳ Task 5 |
+| Windows test | ✅ setup + `--sample 36 96` work on Windows (1 min rendered in 17 s on 16 threads, 13 MB). ⏳ full render + player test |
 
 ### Files to know
 - `engine/index.html`: drawing code. Moves are in `pose()`; characters are `drawLine` (default), `drawKid` and `drawHana`; then `props()`, `hud()`, and `renderAt()` with the crossfades.

@@ -6,6 +6,7 @@
   python make_video.py school --workers 6              # use more CPU cores (default: half your cores)
   python make_video.py school --new-audio              # rebuild the soundtrack (after editing a timeline)
   python make_video.py school --sample 36 96           # 1-minute test clip (seconds 36 to 96)
+  python make_video.py school --import-flow            # file Google Flow clips from footage/flow_inbox/school/
 
 Output: output/<name>.mp4 (720p, about 100-200 MB for 15 minutes).
 """
@@ -23,8 +24,13 @@ def main():
     ap.add_argument("--new-audio", action="store_true", help="rebuild audio/<name>.m4a")
     ap.add_argument("--audio-only", action="store_true", help="only build the soundtrack")
     ap.add_argument("--sample", nargs=2, type=float, metavar=("FROM", "TO"), help="render only this part, in seconds")
+    ap.add_argument("--import-flow", action="store_true",
+                    help="move clips from footage/flow_inbox/<name>/ to footage/flow/<name>/<id>.mp4")
     a = ap.parse_args()
 
+    if a.import_flow:
+        warmup.import_flow(a.name)
+        return
     tl = warmup.load_timeline(a.name)
     print(f"[{a.name}] {tl['title']} - {tl['total'] / 60:.1f} min, {len(tl['segments'])} parts")
     if a.preview is not None:
