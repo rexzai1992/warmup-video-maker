@@ -1,0 +1,317 @@
+[
+ {
+  "n": 1,
+  "id": "intro",
+  "cue": "HANA'S JAPAN ADVENTURE",
+  "save_as": "intro.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Japanese town street, Mt Fuji in the distance, cherry blossoms. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 2,
+  "id": "c1",
+  "cue": "CHAPTER 1",
+  "save_as": "c1.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Tokyo street at sunrise. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 3,
+  "id": "stretch",
+  "cue": "SUNRISE STRETCH",
+  "save_as": "stretch.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Tatami room, sliding shoji doors open to a sunrise view of Mt Fuji. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 4,
+  "id": "train",
+  "cue": "RUN TO THE TRAIN",
+  "save_as": "train.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Tokyo train station platform, a train arriving at the side. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 5,
+  "id": "gap",
+  "cue": "MIND THE GAP",
+  "save_as": "gap.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Clean Tokyo subway platform, train doors open at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 6,
+  "id": "shibuya",
+  "cue": "SHIBUYA CROSSING",
+  "save_as": "shibuya.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Big scramble crossing in Tokyo, crowds far away. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 7,
+  "id": "neon",
+  "cue": "NEON STAR JUMPS",
+  "save_as": "neon.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Tokyo street at night with colorful neon signs. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 8,
+  "id": "crowd",
+  "cue": "DODGE THE CROWD",
+  "save_as": "crowd.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Busy shopping street with paper lanterns. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 9,
+  "id": "school",
+  "cue": "CROSSWALK FREEZE",
+  "save_as": "school.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Japanese school crosswalk, pedestrian traffic light on the right. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 10,
+  "id": "bow",
+  "cue": "OJIGI BOW",
+  "save_as": "bow.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Entrance gate of a Japanese school, cherry trees. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 11,
+  "id": "c2",
+  "cue": "CHAPTER 2",
+  "save_as": "c2.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Bamboo forest at dawn, mist. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 12,
+  "id": "sneak",
+  "cue": "NINJA HIDE",
+  "save_as": "sneak.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Dense bamboo forest with light rays. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 13,
+  "id": "nkick",
+  "cue": "NINJA KICKS",
+  "save_as": "nkick.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Wooden dojo, tatami floor, scrolls on the walls. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 14,
+  "id": "npunch",
+  "cue": "NINJA PUNCHES",
+  "save_as": "npunch.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Temple courtyard with stone lanterns. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 15,
+  "id": "nbalance",
+  "cue": "CRANE BALANCE",
+  "save_as": "nbalance.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Koi pond with stepping stones and a red bridge. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 16,
+  "id": "stars",
+  "cue": "CATCH THE TEMARI",
+  "save_as": "stars.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Temple garden, colorful temari balls at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 17,
+  "id": "nclimb",
+  "cue": "CLIMB THE TEMPLE",
+  "save_as": "nclimb.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Tall Japanese castle stone wall. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 18,
+  "id": "statue",
+  "cue": "NINJA STATUE",
+  "save_as": "statue.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Temple with stone guardian statues at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 19,
+  "id": "water1",
+  "cue": "WATER BREAK",
+  "save_as": "water1.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Bamboo water fountain in a zen garden. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 20,
+  "id": "c3",
+  "cue": "CHAPTER 3",
+  "save_as": "c3.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Cherry blossom park in full bloom. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 21,
+  "id": "sakurarun",
+  "cue": "SAKURA RUN",
+  "save_as": "sakurarun.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Path lined with cherry trees, petals falling. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 22,
+  "id": "petals",
+  "cue": "CATCH THE PETALS",
+  "save_as": "petals.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Cherry blossom branches, petals drifting down. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 23,
+  "id": "river",
+  "cue": "STEPPING STONES",
+  "save_as": "river.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Calm river with stepping stones and cherry trees. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 24,
+  "id": "relay",
+  "cue": "RELAY SPRINT",
+  "save_as": "relay.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. School sports field with colorful flags strung overhead. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 25,
+  "id": "hurdles",
+  "cue": "JUMP THE HURDLES",
+  "save_as": "hurdles.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. School track with hurdles and bunting. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 26,
+  "id": "fly",
+  "cue": "FLY ON THE WIND",
+  "save_as": "fly.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Cherry petals swirling in the wind over a hill. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 27,
+  "id": "cheer",
+  "cue": "BLOSSOM CHEER",
+  "save_as": "cheer.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. School sports day crowd with red and white headbands, cheering. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 28,
+  "id": "frog",
+  "cue": "KAERU FROG JUMPS",
+  "save_as": "frog.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Lily pond with frogs on lily pads. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 29,
+  "id": "c4",
+  "cue": "CHAPTER 4",
+  "save_as": "c4.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Summer festival street at dusk with red lanterns. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 30,
+  "id": "taiko",
+  "cue": "TAIKO DRUMMING",
+  "save_as": "taiko.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Festival stage with large taiko drums. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 31,
+  "id": "bon",
+  "cue": "BON DANCE FREEZE",
+  "save_as": "bon.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Festival square, lantern-decorated tower, dancers circling far away. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 32,
+  "id": "lantern",
+  "cue": "LIFT THE LANTERNS",
+  "save_as": "lantern.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Sky lanterns floating up at dusk over a river. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 33,
+  "id": "fireworks",
+  "cue": "FIREWORK JUMPS",
+  "save_as": "fireworks.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Night sky full of colorful fireworks over a river. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 34,
+  "id": "tower",
+  "cue": "CLIMB THE TOWER",
+  "save_as": "tower.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Tokyo tower glowing at night. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 35,
+  "id": "goldfish",
+  "cue": "FESTIVAL GAMES",
+  "save_as": "goldfish.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Festival game stalls with goldfish tubs and lights. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 36,
+  "id": "festjump",
+  "cue": "HANABI STAR JUMPS",
+  "save_as": "festjump.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Fireworks over a festival crowd. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 37,
+  "id": "water2",
+  "cue": "WATER BREAK",
+  "save_as": "water2.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Festival stall with cold drinks and lanterns. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 38,
+  "id": "c5",
+  "cue": "CHAPTER 5",
+  "save_as": "c5.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Mt Fuji at sunset over a lake. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 39,
+  "id": "breathe1",
+  "cue": "BREATHE",
+  "save_as": "breathe1.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Lake with Mt Fuji reflection, calm water. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 40,
+  "id": "circles",
+  "cue": "ARM CIRCLES",
+  "save_as": "circles.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Zen garden with raked sand at sunset. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 41,
+  "id": "toes",
+  "cue": "TOUCH YOUR TOES",
+  "save_as": "toes.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Green tea field on rolling hills. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 42,
+  "id": "side",
+  "cue": "SIDE STRETCH",
+  "save_as": "side.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Calm hot spring with steam, evening. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 43,
+  "id": "crane",
+  "cue": "CALM CRANE",
+  "save_as": "crane.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Red-crowned cranes standing in a snowy marsh at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 44,
+  "id": "breathe2",
+  "cue": "BREATHE",
+  "save_as": "breathe2.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Fireflies over a rice field at night. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ },
+ {
+  "n": 45,
+  "id": "outro",
+  "cue": "ARIGATO!",
+  "save_as": "outro.mp4",
+  "prompt": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp. Fireworks over Mt Fuji, cherry petals. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9."
+ }
+]

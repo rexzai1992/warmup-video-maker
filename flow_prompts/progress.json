@@ -1,0 +1,39 @@
+{
+ "_notes": [
+  "2026-11-14: 1 test clip (school intro, cartoon style, Veo Lite) = 10 credits, discarded after switch to realistic style"
+ ],
+ "school": {
+  "_project": "https://flow.google.com/project/756b2b11-250f-461d-bd0a-59c72430d259",
+  "intro": {
+   "n": 1,
+   "status": "done",
+   "prompt_used": "Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp. Sunny morning outside a friendly red-brick primary school, colorful bunting, children waving far away at the sides. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.",
+   "tries": 1,
+   "time": "2026-11-14 16:18:00",
+   "file": "footage\\flow\\school\\intro.mp4",
+   "seconds": 7.93,
+   "note": "recovered"
+  },
+  "c1": {
+   "n": 2,
+   "status": "done",
+   "prompt_used": "Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp. Cozy town street at sunrise, a yellow school bus far away. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.",
+   "tries": 1,
+   "time": "2026-11-14 16:19:55",
+   "file": "footage\\flow\\school\\c1.mp4",
+   "seconds": 7.93,
+   "note": "recovered"
+  },
+  "stretch": {
+   "n": 3,
+   "status": "done",
+   "prompt_used": "Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp. Cozy kid's bedroom at sunrise, alarm clock ringing on a nightstand at the side, sunlight through the window. Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.",
+   "tries": 1,
+   "time": "2026-11-14 16:33:10",
+   "file": "footage\\flow\\school\\stretch.mp4",
+   "seconds": 7.93,
+   "credits_used": 10,
+   "credits_left": 1010
+  }
+ }
+}

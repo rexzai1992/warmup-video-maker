@@ -11,56 +11,56 @@ import json, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 STYLE = {
-    "school": "Bright, colorful 3D animated kids' movie style, soft warm lighting, cheerful and friendly.",
-    "japan": "Soft painterly anime-style background art, Japanese setting, warm pastel colors, gentle light.",
+    "school": "Realistic live-action video, real-world location, natural daylight, bright cheerful colors, cinematic and sharp.",
+    "japan": "Realistic live-action video filmed in Japan, real-world location, natural light, soft warm colors, cinematic and sharp.",
 }
-COMMON = ("Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, background "
-          "characters far away at the sides). Keep the CENTER of the frame empty and uncluttered — open floor in the "
+COMMON = ("Wide shot, eye level, locked-off static camera, only gentle ambient motion (light, leaves, people far away "
+          "at the sides). Keep the CENTER of the frame empty and uncluttered, open floor in the "
           "middle for a dancer to be added later. No text, no logos, no captions, no one looking at the camera. 16:9.")
 ANIMAL_KIDS = ("Background characters: cute cartoon animal classmates (bunnies, bear cubs, puppies) "
                "at the far left and right edges.")
 
 SCENES = {
     "school": {
-        "intro": "sunny morning outside a friendly red-brick primary school, colorful bunting, animal kids waving at the sides",
+        "intro": "sunny morning outside a friendly red-brick primary school, colorful bunting, children waving far away at the sides",
         "c1": "cozy town street at sunrise, a yellow school bus far away",
         "stretch": "cozy kid's bedroom at sunrise, alarm clock ringing on a nightstand at the side, sunlight through the window",
-        "run": "town sidewalk, yellow school bus parked at the right with doors open, animal kids boarding",
+        "run": "town sidewalk, yellow school bus parked at the right with doors open, children boarding far away",
         "jump": "rainy street with shiny puddles on the road, light rain, umbrellas at the sides",
         "squat": "autumn park path with low tree branches arching overhead, falling leaves",
         "knees": "long colorful school hallway with lockers on both sides, deep perspective",
-        "star": "bright classroom, chalkboard and desks at the sides, animal students cheering",
-        "freeze1": "classroom with a friendly owl teacher at the chalkboard on the right, facing the board",
-        "books": "cozy school library, tall bookshelves on both sides, a few books floating down",
+        "star": "bright classroom, chalkboard and desks at the sides, students cheering at the edges",
+        "freeze1": "classroom with a teacher at the chalkboard on the right, facing the board",
+        "books": "cozy school library, tall bookshelves on both sides, a few books tumbling off a shelf at the side",
         "frog1": "indoor school gym, wooden floor, basketball hoop, green mats",
         "c2": "sunny school playground, wide establishing shot",
-        "tag": "playground, animal kids chasing each other at the edges",
+        "tag": "playground, children chasing each other far away at the edges",
         "hop": "playground with a chalk hopscotch drawn on the ground in the foreground center",
-        "hide": "playground with bushes and a slide, animal kids peeking from hiding spots",
+        "hide": "playground with bushes and a slide, children peeking from hiding spots at the edges",
         "carousel": "colorful playground carousel turning slowly in the background",
-        "redlight": "grassy field with a big cartoon traffic light on the right side",
+        "redlight": "grassy field with a traffic light on a pole on the right side",
         "bridge": "wooden rope bridge in an adventure playground",
         "ball": "grassy school field, a colorful ball flying in the air",
         "swing": "playground swings gently moving at the sides",
         "water1": "shady tree, water fountain and water bottles on a bench",
-        "c3": "sports day: colorful bunting over a running track, animal fans in the stands",
+        "c3": "sports day: colorful bunting over a running track, fans in the stands",
         "sprint": "red running track with white lanes leading into the distance, finish line",
         "hurdles": "running track with hurdles lined up into the distance",
         "defense": "outdoor basketball court at sunset",
         "shot": "basketball hoop and net against a blue sky",
         "goalie": "soccer goal net on green grass, ball flying toward the goal",
-        "cheer": "stadium stands full of cheering animal fans waving flags",
+        "cheer": "stadium stands full of cheering fans waving flags",
         "relay": "relay race track, a baton on the ground, teams at the sides",
         "start": "starting line on a track, starting blocks, morning light",
-        "c4": "superhero city skyline at sunset, glowing sky",
-        "herorun": "city rooftop at sunset, animal heroes with capes at the sides",
-        "punch": "superhero training gym, punching bags at the sides",
+        "c4": "big city skyline at sunset, glowing sky",
+        "herorun": "city rooftop at sunset, kids in superhero capes far away at the sides",
+        "punch": "boxing training gym, punching bags at the sides",
         "fly": "above the clouds at golden hour, birds flying",
         "climb": "giant rocky mountain wall with colorful handholds",
         "herokick": "wheat field at sunset with hay bales",
         "superjump": "trampoline park with glowing lights",
         "lasers": "futuristic training room, red laser beams at the sides",
-        "statue": "city plaza with hero statues on pedestals at the sides",
+        "statue": "city plaza with bronze statues on pedestals at the sides",
         "water2": "calm park bench with water bottles, sunset light",
         "c5": "peaceful meadow at sunset",
         "breathe1": "calm beach at sunset, gentle waves",
@@ -130,7 +130,7 @@ def load_segments(version):
 
 def prompt_for(version, scene):
     s = scene[0].upper() + scene[1:]
-    extra = f" {ANIMAL_KIDS}" if version == "school" and "animal kids" in scene else ""
+    extra = ""
     return f"{STYLE[version]} {s}.{extra} {COMMON}"
 
 
@@ -164,7 +164,10 @@ def write(version):
     for n, (pid, cue, p) in enumerate(items, 1):
         lines += [f"## {n}. {pid} ({cue})", "", f"**Save as:** `{pid}.mp4`", "", "```", p, "```", ""]
     out.write_text("\n".join(lines), encoding="utf-8")
-    print(f"  wrote {out.relative_to(ROOT)} ({len(items)} prompts)")
+    js = [{"n": n, "id": pid, "cue": cue, "save_as": f"{pid}.mp4", "prompt": p}
+          for n, (pid, cue, p) in enumerate(items, 1)]
+    out.with_suffix(".json").write_text(json.dumps(js, indent=1, ensure_ascii=False), encoding="utf-8")
+    print(f"  wrote {out.relative_to(ROOT)} + .json ({len(items)} prompts)")
 
 
 if __name__ == "__main__":
