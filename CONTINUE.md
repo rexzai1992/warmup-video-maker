@@ -257,6 +257,7 @@ Each prompt = **STYLE prefix + scene + COMMON suffix**.
 | Real music beat-aligned | ✅ code done + tested with a test song (`engine/music.py`: exact tempo scan, stretch to 120, downbeat on bar grid, 4-bar loops, freeze dips, stereo). ⏳ waiting for the owner's YouTube Audio Library tracks in `music/<version>/` |
 | Chapter / Shorts export | ✅ `--chapters` done (intro card + chapter + outro card, ~9 MB/min, tested on school ch1). Titles/descriptions/tags in `youtube_uploads.md`. ⏳ Shorts (9:16) not done |
 | Flow automation + realistic clips | ✅ `tools/flow_auto.py` tested (3 clips). ⏳ full batch: see `flow_prompts/progress.json` |
+| GPU | ✅ NVIDIA NVENC encoding + GPU drawing in the hidden Chrome (auto, ~20% faster: 1 min of video in 12 s on RTX 5070). Max 8 workers with NVENC (16 fails). `WARMUP_GPU=0` turns it off |
 | Windows test | ✅ setup + `--sample 36 96` work on Windows (1 min rendered in 17 s on 16 threads, 13 MB). ⏳ full render + player test |
 
 ### Files to know

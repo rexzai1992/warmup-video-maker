@@ -259,7 +259,10 @@ def bg_data(tl, t):
 
 
 def _open(p, name):
-    browser = p.chromium.launch()
+    # GPU drawing for the hidden Chrome (default headless Chrome draws in software)
+    args = ["--use-angle=d3d11", "--enable-gpu", "--ignore-gpu-blocklist", "--enable-gpu-rasterization",
+            "--enable-accelerated-2d-canvas"] if GPU_DRAW else []
+    browser = p.chromium.launch(args=args)
     page = browser.new_page(viewport={"width": OUT_W, "height": OUT_H})
     page.goto(page_url(name))
     page.evaluate("document.fonts.ready")
@@ -287,7 +290,27 @@ def preview(name, times):
         browser.close()
 
 
-ENC = ["-c:v", "libx264", "-preset", "medium", "-crf", "28", "-pix_fmt", "yuv420p", "-g", "50"]
+ENC_CPU = ["-c:v", "libx264", "-preset", "medium", "-crf", "28", "-pix_fmt", "yuv420p", "-g", "50"]
+# NVIDIA hardware encoder: similar size/quality at CQ 31, frees the CPU for drawing frames
+ENC_NVENC = ["-c:v", "h264_nvenc", "-preset", "p6", "-tune", "hq", "-rc", "vbr", "-cq", "31", "-b:v", "0",
+             "-spatial-aq", "1", "-pix_fmt", "yuv420p", "-g", "50"]
+# GPU use can be switched off with WARMUP_GPU=0 (or only one part: WARMUP_GPU_ENC=0 / WARMUP_GPU_DRAW=0)
+GPU_ENC = os.environ.get("WARMUP_GPU", "1") != "0" and os.environ.get("WARMUP_GPU_ENC", "1") != "0"
+GPU_DRAW = os.environ.get("WARMUP_GPU", "1") != "0" and os.environ.get("WARMUP_GPU_DRAW", "1") != "0"
+_nvenc_ok = None
+
+
+def enc():
+    """Video encoder args: NVENC when an NVIDIA GPU is there (checked once), else libx264."""
+    global _nvenc_ok
+    if GPU_ENC and _nvenc_ok is None:
+        r = subprocess.run([ffmpeg(), "-v", "error", "-f", "lavfi", "-i", "color=s=640x360", "-frames:v", "3",
+                            "-c:v", "h264_nvenc", "-f", "null", "-"], capture_output=True)
+        _nvenc_ok = r.returncode == 0
+    return ENC_NVENC if GPU_ENC and _nvenc_ok else ENC_CPU
+
+
+ENC = ENC_CPU
 
 
 def _render_part(job):
@@ -296,7 +319,7 @@ def _render_part(job):
     tl = load_timeline(name)
     out = PARTS / name / f"part{k:02d}.mp4"
     proc = subprocess.Popen([ffmpeg(), "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS),
-                             "-i", "-", *ENC, str(out)], stdin=subprocess.PIPE)
+                             "-i", "-", *enc(), str(out)], stdin=subprocess.PIPE)
     with sync_playwright() as p:
         browser, page = _open(p, name)
         for i in range(f0, f1):
@@ -356,7 +379,7 @@ def _render_card(name, kind, dur, ch, big, small, top, bg, out):
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes((np.repeat(a[:, None], 2, 1) * 32767).astype(np.int16).tobytes())
     proc = subprocess.Popen([ffmpeg(), "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS),
-                             "-i", "-", "-i", str(wav), *ENC, "-c:a", "aac", "-b:a", "128k", "-ar", str(SR),
+                             "-i", "-", "-i", str(wav), *enc(), "-c:a", "aac", "-b:a", "128k", "-ar", str(SR),
                              "-shortest", str(out)], stdin=subprocess.PIPE)
     with sync_playwright() as p:
         browser, page = _open(p, name)
@@ -392,7 +415,7 @@ def export_chapters(name, workers=None, only=None):
         fc = (f"[1:a]afade=t=out:st={bd - 0.5:.2f}:d=0.5[ba];"
               "[0:v][0:a][1:v][ba][2:v][2:a]concat=n=3:v=1:a=1[v][a]")
         subprocess.run([ffmpeg(), "-y", "-loglevel", "error", "-i", str(tmp / "intro.mp4"), "-i", str(body),
-                        "-i", str(tmp / "outro.mp4"), "-filter_complex", fc, "-map", "[v]", "-map", "[a]", *ENC,
+                        "-i", str(tmp / "outro.mp4"), "-filter_complex", fc, "-map", "[v]", "-map", "[a]", *enc(),
                         "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(out)], check=True)
         body.unlink()
         shutil.rmtree(tmp, ignore_errors=True)
@@ -408,10 +431,16 @@ def render_video(name, workers=None, t0=0.0, t1=None):
     sample = t0 > 0 or t1 < total
     F0, n = int(t0 * FPS), int((t1 - t0) * FPS)
     workers = workers or max(2, (os.cpu_count() or 4) // 2)
+    if enc() is ENC_NVENC and workers > 8:
+        # consumer NVIDIA cards only open a limited number of encoders at once (16 fails on an RTX 5070);
+        # 8 is as fast as 12 here anyway because drawing frames is the slow part
+        print(f"  (GPU encoder: using 8 workers instead of {workers})")
+        workers = 8
     (PARTS / name).mkdir(parents=True, exist_ok=True)
     chunk = (n + workers - 1) // workers
     jobs = [(name, k, F0 + k * chunk, F0 + min(n, (k + 1) * chunk)) for k in range(workers)]
-    print(f"  rendering {n} frames ({n / FPS / 60:.1f} min) with {workers} workers...")
+    print(f"  rendering {n} frames ({n / FPS / 60:.1f} min) with {workers} workers"
+          f" (encoder: {'NVIDIA GPU' if enc() is ENC_NVENC else 'CPU'}, drawing: {'GPU' if GPU_DRAW else 'CPU'})...")
     with ProcessPoolExecutor(workers) as ex:
         parts = list(ex.map(_render_part, jobs))
     lst = PARTS / name / "list.txt"
