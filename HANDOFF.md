@@ -1,5 +1,7 @@
 # Handoff: where we stopped (14 Nov 2026)
 
+> **Full step-by-step brief for continuing: see `CONTINUE.md`.**
+
 Read this first when continuing on another PC.
 
 ## Done
