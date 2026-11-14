@@ -12,9 +12,15 @@ import hashlib, pathlib, subprocess
 import numpy as np
 
 SR = 44100
-BEAT = 0.5
+TEMPO = 120.0                        # target BPM, set per video with set_bpm() (timeline "bpm")
+BEAT = 60 / TEMPO
 BAR = 4 * BEAT
-PHRASE = 4 * BAR                     # loops are whole 4-bar phrases (8 s)
+PHRASE = 4 * BAR                     # loops are whole 4-bar phrases
+
+
+def set_bpm(bpm):
+    global TEMPO, BEAT, BAR, PHRASE
+    TEMPO = float(bpm); BEAT = 60 / TEMPO; BAR = 4 * BEAT; PHRASE = 4 * BAR
 EXTS = (".mp3", ".m4a", ".wav", ".ogg", ".flac")
 TARGET_RMS = 0.12                    # about the synth music level (0.11) so voice + effects keep their balance
 CACHE = pathlib.Path(__file__).resolve().parent.parent / ".music_cache"
@@ -61,8 +67,11 @@ def decode(path, ffmpeg, af=None, sr=SR, ch=2):
 
 
 def grid_bpm(bpm):
-    """Count the song in half or double time if that is closer to 120 (smallest tempo change)."""
-    return min((bpm / 2, bpm, bpm * 2), key=lambda x: abs(np.log(120.0 / x)))
+    """Count the song in half, normal or double time. Prefer a version that needs speeding up by at most 1.5x or
+    slowing by at most 10% (owner wants fast, punchy music); otherwise the smallest change."""
+    cands = (bpm / 2, bpm, bpm * 2)
+    ok = [c for c in cands if 0.9 <= TEMPO / c <= 1.5]
+    return min(ok or cands, key=lambda x: abs(np.log(TEMPO / x)))
 
 
 def beat_phase(x, sr=SR):
@@ -136,7 +145,7 @@ def analyse(path, ffmpeg):
     cand = np.arange(bpm * 0.97, bpm * 1.03, 0.005)
     score = [abs(np.dot(env, np.exp(-2j * np.pi * (c / 60) * tt))) for c in cand]
     bpm = float(cand[int(np.argmax(score))])
-    ratio = 120.0 / grid_bpm(bpm)
+    ratio = TEMPO / grid_bpm(bpm)
     st = decode(path, ffmpeg, af=stretch_filter(ffmpeg, ratio))   # stereo, 120 BPM now
     # fine-tune: beats must sit at the same grid position at the start and the end of the song
     for _ in range(2):
@@ -145,7 +154,7 @@ def analyse(path, ffmpeg):
             break
         ratio *= 1 + d / (len(st) / SR / 2)          # later in the 2nd half = too slow -> speed up a bit
         st = decode(path, ffmpeg, af=stretch_filter(ffmpeg, ratio))
-    bpm = 120.0 / ratio if abs(np.log(120 / bpm)) < 0.36 else bpm
+    bpm = TEMPO / ratio if abs(np.log(TEMPO / bpm)) < 0.36 else bpm
     mono = st.mean(1)
 
     # Beat position inside the 0.5 s grid. The phase of the onset envelope's 2 Hz component (= 120 BPM) over the whole
@@ -175,7 +184,7 @@ def analyse(path, ffmpeg):
 
 
 def load_loop(path, ffmpeg):
-    h = hashlib.md5(f"{path.resolve()}|{path.stat().st_mtime}|{path.stat().st_size}|v13".encode()).hexdigest()[:16]
+    h = hashlib.md5(f"{path.resolve()}|{path.stat().st_mtime}|{path.stat().st_size}|v14|{TEMPO}".encode()).hexdigest()[:16]
     CACHE.mkdir(exist_ok=True)
     f = CACHE / f"{h}.npz"
     if f.exists():
@@ -230,7 +239,7 @@ def build(tl, folder, ffmpeg, frozen_at):
         if track not in loops:
             bpm, ratio, loop = load_loop(track, ffmpeg)
             loops[track] = loop
-            print(f"  music {folder.name}/{track.name}: {bpm:.1f} BPM -> 120 (x{ratio:.3f}), "
+            print(f"  music {folder.name}/{track.name}: {bpm:.1f} BPM -> {TEMPO:.0f} (x{ratio:.3f}), "
                   f"{len(loop) / SR:.0f} s loop")
         i0, n = int(t0 * SR), int((t1 - t0) * SR) + tail
         x = tile(loops[track], n)

@@ -57,7 +57,10 @@ function basePose() {
     legL: null, legR: null, mouth: 'smile', bounce: 0 };
 }
 
+const HALF_TIME = new Set(['punch', 'run', 'highknees', 'climb', 'starjump']);   // one action per beat at fast tempos
+const moveSpeed = move => (TL.bpm >= 140 && HALF_TIME.has(move)) ? 0.5 : 1;
 function pose(move, st, b) {           // st = seconds into segment, b = beats into segment
+  b *= moveSpeed(move);
   const p = basePose();
   const q2 = frac(b / 2), q1 = frac(b), q4 = frac(b / 4), q8 = frac(b / 8);
   switch (move) {
@@ -1158,7 +1161,7 @@ function gameOf(seg) {
   if (!g) return null;
   // how long a target shows before its hit / how long the hit effect lasts: shorter for fast moves so they never pile up
   const per = {}; for (const [, limb] of g.at) per[limb] = (per[limb] || 0) + 1;
-  const every = Math.min(...Object.values(per).map(n => g.cyc / n));
+  const every = Math.min(...Object.values(per).map(n => g.cyc / n)) / moveSpeed(seg.move);
   const kind = KINDS[seg.game] ? seg.game : g.kind, K = KINDS[kind];
   return { ...g, kind, K, skin: seg.skin || (TL.skins || {})[kind] || K.skin || '',
            lead: clamp(0.85 * every, 0.6, 1.6), fx: clamp(0.8 * every, 0.6, 1.2) };
@@ -1168,9 +1171,9 @@ function gameHits(seg) {
   const g = gameOf(seg);
   if (!g) return [];
   if (seg._hits) return seg._hits;
-  const out = [], nb = seg.dur / BEAT - 2;
-  for (let c = 0; c * g.cyc < nb + g.cyc; c++)
-    for (const [o, limb] of g.at) { const hb = c * g.cyc + o; if (hb >= 4 && hb <= nb) out.push({ b: hb, limb }); }
+  const out = [], nb = seg.dur / BEAT - 2, sp = moveSpeed(seg.move);
+  for (let c = 0; c * g.cyc / sp < nb + g.cyc / sp; c++)
+    for (const [o, limb] of g.at) { const hb = (c * g.cyc + o) / sp; if (hb >= 4 && hb <= nb) out.push({ b: hb, limb }); }
   out.sort((a, b) => a.b - b.b).forEach((h, i) => h.i = i);
   seg._hits = out;
   return out;
@@ -1447,6 +1450,11 @@ function renderAt(t) {
   ctx.setTransform(S, 0, 0, S, 0, 0);
   ctx.clearRect(0, 0, W, H);
   const shk = seg.scene !== 'card' ? shakeAt(seg, b) : [0, 0, 0];
+  if (seg.scene !== 'card' && !seg.calm) {           // TikTok-style punch-zoom on every beat, bigger on bar 1
+    const gb = t / BEAT, z = 1 + 0.014 * Math.exp(-frac(gb) * 7) + 0.022 * Math.exp(-frac(gb / 4) * 4 * 6);
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+    ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2);
+  }
   if (shk[2] > 0) { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); ctx.translate(shk[0], shk[1]); ctx.translate(W / 2, H / 2); ctx.scale(1 + 0.03 * shk[2], 1 + 0.03 * shk[2]); ctx.translate(-W / 2, -H / 2); }
   const prev = idx > 0 ? TL.segments[idx - 1] : null;
   const XF = 0.6;                                   // crossfade length (s)

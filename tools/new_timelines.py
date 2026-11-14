@@ -89,8 +89,8 @@ def build(meta, intro, chapters, outro):
             s["game"] = game
             if skin:
                 s["skin"] = skin
-    tl = dict(title=title, output=output, character="line", bpm=120, fps=30, segments=segs)
-    js = (f"// {title} - 15-minute warm-up. 120 BPM (1 beat = 0.5 s). Written by tools/new_timelines.py.\n"
+    tl = dict(title=title, output=output, character="line", bpm=150, fps=30, segments=segs)
+    js = (f"// {title} - 15-minute warm-up. 150 BPM. Written by tools/new_timelines.py.\n"
           f"// Scenes: Google Flow clips in footage/flow/{name}/<id>.mp4 (prompts: flow_prompts/{name}.md)\n"
           f"window.TIMELINE = {json.dumps(tl, indent=1, ensure_ascii=False)};\n"
           'if (typeof module !== "undefined") module.exports = window.TIMELINE;\n')

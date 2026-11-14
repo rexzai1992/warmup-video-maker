@@ -4,7 +4,7 @@ window.TIMELINE = {
   "title": "Back to School Warm-Up Adventure",
   "output": "BackToSchool_WarmUp_15min",
   "character": "line",
-  "bpm": 120,
+  "bpm": 150,
   "fps": 25,
   "segments": [
     {"id": "intro", "scene": "title", "move": "wave", "dur": 10, "ch": 1,

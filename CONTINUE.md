@@ -265,6 +265,14 @@ Every active part is a mini-game: the kids do the move and something on screen r
   "MISSION COMPLETE!" + trophy at the end.
 - New themes: `tools/new_timelines.py` (jungle, space, ocean) incl. a GAMES table per part.
 
+### Tempo: 150 BPM (changed 15 Nov 2026, owner: "beat needs to be fast")
+- Every timeline has `"bpm": 150` (1 beat = 0.4 s; all part lengths are whole beats). Engine, sound and music read it.
+- Fast moves (punch, run, high knees, climb, star jumps) run one action per beat at >= 140 BPM (`HALF_TIME` in
+  index.html and synth.py) so kids can keep up. Every beat gives a small TikTok-style punch-zoom, bigger on beat 1.
+- Songs are sped up to 150 (up to 1.5x, rubberband keeps the pitch); Japan ch3 is now "OK POP KO!" (149 BPM).
+- Owner's style reference: TikTok @aifusions7 "Immersive interactive Warm up HIIT" (black screen + white outline +
+  big command word, quick cuts to real reaction clips, "VERY GOOD!", fast meme beat).
+
 ## Status table
 
 | Item | Status |

@@ -7,7 +7,17 @@ import subprocess, wave, pathlib
 import numpy as np
 
 SR = 44100
-BEAT = 0.5   # 120 BPM
+BEAT = 0.5   # seconds per beat; set from the timeline's "bpm" by set_bpm()
+HALF_TIME = {"punch", "run", "highknees", "climb", "starjump"}   # one action per beat when bpm >= 140
+
+
+def set_bpm(bpm):
+    global BEAT
+    BEAT = 60.0 / bpm
+
+
+def move_speed(tl, move):
+    return 0.5 if tl.get("bpm", 120) >= 140 and move in HALF_TIME else 1.0
 
 
 # Interactive game layer: impact beats per move (same table as GAME_HITS in engine/index.html)
@@ -36,13 +46,15 @@ def game_hits(tl, s):
     g = GAME_HITS.get(s["move"])
     if not g:
         return []
+    set_bpm(tl.get("bpm", 120))
     cyc, at, kind = g
+    sp = move_speed(tl, s["move"])
     nb = s["dur"] / BEAT - 2
     out = []
     c = 0
-    while c * cyc < nb + cyc:
+    while c * cyc / sp < nb + cyc / sp:
         for o, limb in at:
-            hb = c * cyc + o
+            hb = (c * cyc + o) / sp
             if 4 <= hb <= nb:
                 out.append((hb, limb, s.get("game") if s.get("game") in KINDS else kind))
         c += 1
@@ -51,6 +63,7 @@ def game_hits(tl, s):
 
 class Synth:
     def __init__(self, tl, voice_fn, ext_music=None, covered=()):
+        set_bpm(tl.get("bpm", 120))
         self.tl, self.voice_fn = tl, voice_fn
         self.ext_music, self.covered = ext_music, set(covered)   # real music (N, 2) from music.py + parts it covers
         self.style = tl.get("music", "pop")

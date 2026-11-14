@@ -1,10 +1,10 @@
-// Jungle Safari Warm-Up - 15-minute warm-up. 120 BPM (1 beat = 0.5 s). Written by tools/new_timelines.py.
+// Jungle Safari Warm-Up - 15-minute warm-up. 150 BPM. Written by tools/new_timelines.py.
 // Scenes: Google Flow clips in footage/flow/jungle/<id>.mp4 (prompts: flow_prompts/jungle.md)
 window.TIMELINE = {
  "title": "Jungle Safari Warm-Up",
  "output": "JungleSafari_WarmUp_15min",
  "character": "line",
- "bpm": 120,
+ "bpm": 150,
  "fps": 30,
  "segments": [
   {

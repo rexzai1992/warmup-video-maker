@@ -3,7 +3,7 @@
 window.TIMELINE = {
   "title": "Hana's Japan Adventure",
   "output": "Hana_Japan_WarmUp_15min",
-  "bpm": 120,
+  "bpm": 150,
   "fps": 25,
   "character": "line",
   "music": "japan",

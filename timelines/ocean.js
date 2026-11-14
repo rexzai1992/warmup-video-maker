@@ -1,10 +1,10 @@
-// Under the Sea Warm-Up - 15-minute warm-up. 120 BPM (1 beat = 0.5 s). Written by tools/new_timelines.py.
+// Under the Sea Warm-Up - 15-minute warm-up. 150 BPM. Written by tools/new_timelines.py.
 // Scenes: Google Flow clips in footage/flow/ocean/<id>.mp4 (prompts: flow_prompts/ocean.md)
 window.TIMELINE = {
  "title": "Under the Sea Warm-Up",
  "output": "UnderTheSea_WarmUp_15min",
  "character": "line",
- "bpm": 120,
+ "bpm": 150,
  "fps": 30,
  "segments": [
   {

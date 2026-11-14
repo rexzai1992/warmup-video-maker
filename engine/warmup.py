@@ -208,6 +208,7 @@ def build_audio(tl, name):
         print("  !! WARNING: Kokoro voice not installed (run tools/setup_voice.bat). Using the fallback voice -"
               " don't upload this soundtrack to a monetized channel.")
     import music
+    music.set_bpm(tl.get("bpm", 120))
     ext, covered = music.build(tl, ROOT / "music" / name, ffmpeg(), Synth.frozen_at)
     if ext is None:
         print(f"  no tracks in music/{name}/ - using the generated music")

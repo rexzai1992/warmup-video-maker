@@ -1,10 +1,10 @@
-// Space Mission Warm-Up - 15-minute warm-up. 120 BPM (1 beat = 0.5 s). Written by tools/new_timelines.py.
+// Space Mission Warm-Up - 15-minute warm-up. 150 BPM. Written by tools/new_timelines.py.
 // Scenes: Google Flow clips in footage/flow/space/<id>.mp4 (prompts: flow_prompts/space.md)
 window.TIMELINE = {
  "title": "Space Mission Warm-Up",
  "output": "SpaceMission_WarmUp_15min",
  "character": "line",
- "bpm": 120,
+ "bpm": 150,
  "fps": 30,
  "segments": [
   {
