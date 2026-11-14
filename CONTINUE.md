@@ -18,8 +18,12 @@
 ### Decisions the owner already made (don't ask again)
 - **Character:** the **line character** (dark faceless figure with a glowing white outline). It's already the default (`"character": "line"`).
 - **Route:** **free/low-cost**, with no paid AI video subscription. **But** the owner has lots of **Google Flow** credits, so the AI scenes come from Flow:
-  - We write the prompts; the owner pastes them into Flow and downloads the clips.
-  - **No browser automation of Flow.** It's against Google's terms and could get the account flagged.
+  - **Changed 14 Nov 2026:** the owner asked for **browser automation of Flow** and accepted the account risk
+    (Google's terms). `tools/flow_auto.py` does it with human-like waits, and stops on captcha / errors / low credits.
+    Manual download + `--import-flow` still works as a fallback.
+  - **Style changed 14 Nov 2026:** **realistic live-action scenes** (not cartoon/anime). Model: **Veo 3.1 Lite**,
+    16:9, 720p, 8 s, x1 = **10 credits per clip** (owner had 1,050 credits; resets monthly, next 9 Dec).
+    Short clips are fine: the engine loops them.
 - **Video:** 720p, 30 fps, small files (about 12 MB per minute).
 
 ### Owner feedback still to fix
@@ -29,7 +33,23 @@
 
 ---
 
-## Task 1: Google Flow prompt pack + auto-import (do this first)
+## Task 1: Google Flow prompt pack + auto-import ✅ DONE
+
+> **Note:** the style prefixes and school scenes below are the ORIGINAL plan (cartoon/anime). The live versions are
+> **realistic** and live in `tools/make_flow_prompts.py` (no animal kids / owl teacher / cartoon traffic light).
+
+### How to re-run the Flow automation (any PC)
+1. `python tools/flow_auto.py open`: opens Chrome with its own profile (`.flow-chrome/`, not in git). Log in once.
+2. `python tools/flow_auto.py run school` (then `japan`): makes every clip that isn't done yet, in prompt order,
+   and saves `footage/flow/<version>/<id>.mp4`. Progress + resume point: `flow_prompts/progress.json`.
+   - Safe to stop/restart at any time. A clip that was submitted before a crash is fetched, never paid for twice.
+   - `--limit N` = only N new clips. `--only hop,tag --redo` = remake chosen clips (e.g. bad ones from the contact sheet).
+   - Stops (exit code 2) on captcha, "unusual activity", sign-out, errors, unexpected cost, or < 30 credits left.
+   - Blocked prompt: retried once with people removed from the scene ("rewritten" in progress.json).
+3. `python tools/contact_sheet.py` makes `output/contact_<version>.jpg` (one still per clip) to spot bad clips.
+4. Flow UI (Nov 2026): flow.google.com → New project → settings button → Video / Frames / 16:9 / model / x1 →
+   prompt box "What do you want to create?" → "Start generation". Result tile `flow-video-tile`; finished when it has
+   "More options" + a thumbnail/video. More options → Download → "720p Original size".
 
 ### 1a. Generate `flow_prompts/school.md` and `flow_prompts/japan.md`
 Write a small script, `tools/make_flow_prompts.py`, that reads a timeline plus the scene list below and writes a numbered markdown file. Each entry has:
@@ -235,7 +255,8 @@ Each prompt = **STYLE prefix + scene + COMMON suffix**.
 | Flow prompt pack + `--import-flow` | ✅ done: `flow_prompts/*.md`, `tools/make_flow_prompts.py`, `--import-flow` (tested). ⏳ waiting for the owner's Flow clips |
 | Natural voice (Kokoro) | ✅ done: `.tts-venv` (Python 3.12, `tools/setup_voice.bat`), voices **af_heart** (EN) + **jf_alpha** (JA), both soundtracks rebuilt, old Mac `say` voices deleted. `voice_cache/` is no longer committed (rebuilds in ~3 min) |
 | Real music beat-aligned | ✅ code done + tested with a test song (`engine/music.py`: exact tempo scan, stretch to 120, downbeat on bar grid, 4-bar loops, freeze dips, stereo). ⏳ waiting for the owner's YouTube Audio Library tracks in `music/<version>/` |
-| Chapter / Shorts export | ⏳ Task 4 |
+| Chapter / Shorts export | ✅ `--chapters` done (intro card + chapter + outro card, ~9 MB/min, tested on school ch1). Titles/descriptions/tags in `youtube_uploads.md`. ⏳ Shorts (9:16) not done |
+| Flow automation + realistic clips | ✅ `tools/flow_auto.py` tested (3 clips). ⏳ full batch: see `flow_prompts/progress.json` |
 | Windows test | ✅ setup + `--sample 36 96` work on Windows (1 min rendered in 17 s on 16 threads, 13 MB). ⏳ full render + player test |
 
 ### Files to know
